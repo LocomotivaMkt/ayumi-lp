@@ -1,0 +1,890 @@
+<title>Ayumi Rosa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..900&family=Instrument+Sans:wght@400;500;600&family=Caveat:wght@500;700&display=swap">
+
+<style>
+/* ============================================================
+   AYUMI ROSA — campanha Outubro Rosa
+   Paleta: magenta de campanha + neutros mornos enviesados ao rosa
+   + ameixa profunda no lugar do preto.
+   ============================================================ */
+
+:root{
+  color-scheme: light;
+
+  --papel:        #FFF8FA;
+  --superficie:   #FFFFFF;
+  --faixa:        #FCEDF2;
+  --faixa-quente: #FBEEE8;
+  --profundo:     #4A1030;
+  --profundo-2:   #611843;
+
+  --tinta:        #3A1B2A;
+  --tinta-suave:  #7A5866;
+  --tinta-clara:  #FFF0F6;
+
+  --rosa:         #E12C77;
+  --rosa-escuro:  #A81355;
+  --rosa-medio:   #F587B4;
+  --rosa-claro:   #FBD9E6;
+
+  --linha:        #F0D5DF;
+  --linha-forte:  #E3B7C8;
+  --sombra:       0 1px 2px rgba(74,16,48,.06), 0 12px 32px -18px rgba(74,16,48,.35);
+
+  --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  --display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --corpo: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
+  --script: "Caveat", "Brush Script MT", cursive;
+
+  --larg: 1180px;
+  --gutter: clamp(1.25rem, 4vw, 3rem);
+}
+
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme: dark;
+    --papel:        #170A11;
+    --superficie:   #23111B;
+    --faixa:        #250F1B;
+    --faixa-quente: #241310;
+    --profundo:     #300A1E;
+    --profundo-2:   #421029;
+
+    --tinta:        #FBE7EF;
+    --tinta-suave:  #C79FB2;
+    --tinta-clara:  #FFF0F6;
+
+    --rosa:         #FF6FA8;
+    --rosa-escuro:  #FFA6C6;
+    --rosa-medio:   #B34A76;
+    --rosa-claro:   #3A1728;
+
+    --linha:        #3C1B29;
+    --linha-forte:  #56283A;
+    --sombra:       0 1px 2px rgba(0,0,0,.4), 0 12px 32px -18px rgba(0,0,0,.8);
+  }
+}
+
+:root[data-theme="dark"]{
+  color-scheme: dark;
+  --papel:        #170A11;
+  --superficie:   #23111B;
+  --faixa:        #250F1B;
+  --faixa-quente: #241310;
+  --profundo:     #300A1E;
+  --profundo-2:   #421029;
+
+  --tinta:        #FBE7EF;
+  --tinta-suave:  #C79FB2;
+  --tinta-clara:  #FFF0F6;
+
+  --rosa:         #FF6FA8;
+  --rosa-escuro:  #FFA6C6;
+  --rosa-medio:   #B34A76;
+  --rosa-claro:   #3A1728;
+
+  --linha:        #3C1B29;
+  --linha-forte:  #56283A;
+  --sombra:       0 1px 2px rgba(0,0,0,.4), 0 12px 32px -18px rgba(0,0,0,.8);
+}
+
+*,*::before,*::after{ box-sizing:border-box; }
+
+body{
+  margin:0;
+  background: var(--papel);
+  color: var(--tinta);
+  font-family: var(--corpo);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,h2,h3,h4{
+  font-family: var(--display);
+  font-weight: 800;
+  line-height: 1.05;
+  text-wrap: balance;
+  margin: 0;
+}
+
+p{ margin:0; }
+a{ color: var(--rosa-escuro); }
+
+:focus-visible{
+  outline: 3px solid var(--rosa);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.env{ width:100%; max-width: var(--larg); margin-inline:auto; padding-inline: var(--gutter); }
+
+.rotulo{
+  font-family: var(--display);
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--rosa-escuro);
+  margin:0;
+}
+
+.script{ font-family: var(--script); font-weight:700; color: var(--rosa); }
+
+.secao{ padding-block: clamp(3.5rem, 8vw, 6.5rem); }
+.secao--faixa{ background: var(--faixa); }
+.secao--quente{ background: var(--faixa-quente); }
+
+.cabecalho-secao{ display:flex; flex-direction:column; gap:.85rem; max-width: 46rem; }
+.cabecalho-secao h2{ font-size: clamp(1.7rem, 3.6vw, 2.6rem); font-stretch: 108%; text-transform: uppercase; letter-spacing:-.01em; }
+.cabecalho-secao p{ color: var(--tinta-suave); max-width: 60ch; }
+
+/* ---------- botões ---------- */
+.btn{
+  display:inline-flex; align-items:center; gap:.55rem;
+  font-family: var(--display); font-weight:700; font-size:.9rem;
+  letter-spacing:.04em; text-transform:uppercase;
+  padding: .95rem 1.6rem; border-radius: 999px;
+  border:2px solid transparent; text-decoration:none; cursor:pointer;
+  transition: transform .18s ease, background-color .18s ease, color .18s ease, border-color .18s ease;
+}
+.btn--primario{ background: var(--rosa); color:#fff; }
+.btn--primario:hover{ background: var(--rosa-escuro); transform: translateY(-2px); }
+.btn--vazado{ border-color: var(--linha-forte); color: var(--tinta); background:transparent; }
+.btn--vazado:hover{ border-color: var(--rosa); color: var(--rosa-escuro); transform: translateY(-2px); }
+.btn--claro{ background:#fff; color: var(--rosa-escuro); }
+.btn--claro:hover{ transform: translateY(-2px); background: var(--tinta-clara); }
+
+/* ---------- topo ---------- */
+.topo{
+  position: sticky; top:0; z-index:50;
+  background: color-mix(in srgb, var(--papel) 88%, transparent);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--linha);
+}
+.topo__grade{
+  display:flex; align-items:center; gap:1.25rem;
+  min-height: 76px; flex-wrap:nowrap; padding-block:.6rem;
+}
+.topo__nav{ display:flex; gap:1.4rem; margin-left:auto; overflow-x:auto; scrollbar-width:none; }
+.topo__nav::-webkit-scrollbar{ display:none; }
+.topo__nav a{
+  font-family: var(--display); font-size:.78rem; font-weight:600;
+  letter-spacing:.1em; text-transform:uppercase; text-decoration:none;
+  color: var(--tinta-suave); white-space:nowrap; padding-block:.3rem;
+  border-bottom:2px solid transparent;
+}
+.topo__nav a:hover{ color: var(--rosa-escuro); border-bottom-color: var(--rosa); }
+.topo .btn{ padding:.7rem 1.2rem; font-size:.78rem; flex:0 0 auto; }
+@media (max-width: 1060px){ .topo .btn{ display:none; } }
+@media (max-width: 720px){
+  .topo__grade{ flex-wrap:wrap; gap:.55rem 1rem; }
+  .topo__nav{ margin-left:0; width:100%; gap:1.1rem; padding-bottom:.3rem; }
+  .topo .logo-slot{ min-width:0; align-items:flex-start; text-align:left; }
+}
+
+/* ---------- slot de logo ---------- */
+.logo-slot{
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:.2rem; text-align:center;
+  border:1.5px dashed var(--linha-forte); border-radius:10px;
+  background: color-mix(in srgb, var(--rosa-claro) 45%, transparent);
+  padding:.5rem .9rem; min-width:170px; min-height:52px; flex:0 0 auto;
+}
+.logo-slot b{
+  font-family: var(--display); font-size:.72rem; font-weight:800;
+  letter-spacing:.14em; text-transform:uppercase; color: var(--rosa-escuro);
+}
+.logo-slot span{ font-size:.66rem; line-height:1.3; color: var(--tinta-suave); }
+
+/* ---------- hero ---------- */
+.hero{
+  position:relative;
+  background:
+    radial-gradient(120% 90% at 85% 0%, color-mix(in srgb, var(--rosa-claro) 90%, transparent) 0%, transparent 62%),
+    linear-gradient(168deg, var(--faixa) 0%, var(--papel) 78%);
+  border-bottom:1px solid var(--linha);
+}
+.hero__grade{
+  display:grid; grid-template-columns: 1.05fr .95fr; gap: clamp(2rem,5vw,4rem);
+  align-items:center; padding-block: clamp(2.5rem, 6vw, 5rem);
+}
+@media (max-width: 900px){ .hero__grade{ grid-template-columns:1fr; } }
+
+.hero__texto{ display:flex; flex-direction:column; gap:1.35rem; position:relative; z-index:2; }
+.marca{ display:flex; flex-direction:column; line-height:.82; }
+.marca__nome{
+  font-family: var(--display); font-weight:900; font-stretch:118%;
+  font-size: clamp(3.4rem, 11vw, 6.6rem); letter-spacing:-.035em;
+  text-transform:uppercase; color: var(--tinta);
+}
+.marca__rosa{
+  font-family: var(--script); font-weight:700; color: var(--rosa);
+  font-size: clamp(3.6rem, 12vw, 7.2rem); line-height:.7;
+  margin-left: .12em; margin-top:-.06em;
+}
+.hero__frase{
+  font-family: var(--display); font-weight:600; font-size: clamp(1.2rem, 2.4vw, 1.65rem);
+  line-height:1.28; max-width: 22ch; color: var(--tinta);
+}
+.hero__frase em{ font-style:normal; color: var(--rosa-escuro); }
+.hero__apoio{ color: var(--tinta-suave); max-width: 48ch; }
+.hero__acoes{ display:flex; flex-wrap:wrap; gap:.75rem; margin-top:.35rem; }
+
+.hero__arte{ position:relative; width:100%; max-width:400px; margin-inline-start:auto; }
+@media (max-width: 900px){ .hero__arte{ margin-inline-start:0; max-width:none; } }
+
+
+/* ---------- faixa de dados ---------- */
+.dados{ background: var(--profundo); color: var(--tinta-clara); }
+.dados__grade{
+  display:grid; grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1.5rem,4vw,3rem); padding-block: clamp(2.5rem,5vw,3.5rem);
+}
+@media (max-width: 780px){ .dados__grade{ grid-template-columns:1fr; } }
+.dado{ display:flex; flex-direction:column; gap:.4rem; }
+.dado + .dado{ border-top:1px solid rgba(255,255,255,.14); padding-top:1.5rem; }
+@media (min-width: 781px){
+  .dado + .dado{ border-top:0; padding-top:0; border-left:1px solid rgba(255,255,255,.14); padding-left: clamp(1.5rem,3vw,3rem); }
+}
+.dado__num{
+  font-family: var(--display); font-weight:800; font-stretch:110%;
+  font-size: clamp(2.1rem, 4.6vw, 3.1rem); line-height:1;
+  color: var(--rosa-medio); font-variant-numeric: tabular-nums;
+}
+.dado__txt{ font-size:.95rem; color: rgba(255,240,246,.82); max-width:34ch; }
+.dados__fonte{ font-size:.75rem; color: rgba(255,240,246,.55); padding-bottom:2rem; }
+
+/* ---------- sobre ---------- */
+.sobre__grade{
+  display:grid; grid-template-columns: 1fr 1fr; gap: clamp(1.5rem,4vw,3rem);
+  align-items:start; margin-top:2.75rem;
+}
+@media (max-width: 880px){ .sobre__grade{ grid-template-columns:1fr; } }
+.sobre__coluna{ display:flex; flex-direction:column; gap:1.5rem; }
+.declaracao{
+  background: var(--superficie); border:1px solid var(--linha);
+  border-left:4px solid var(--rosa); border-radius: 4px 18px 18px 4px;
+  padding: clamp(1.5rem,3vw,2.25rem); box-shadow: var(--sombra);
+  display:flex; flex-direction:column; gap:1rem;
+}
+.declaracao p{ font-size:1.1rem; }
+.declaracao p strong{ color: var(--rosa-escuro); }
+.declaracao__assina{ font-family: var(--script); font-size:1.5rem; color: var(--rosa); }
+
+/* ---------- passos ---------- */
+.passos{
+  display:grid; grid-template-columns: repeat(3,1fr);
+  gap: clamp(1rem,2.5vw,1.75rem); margin-top:2.75rem;
+}
+@media (max-width: 900px){ .passos{ grid-template-columns:1fr; } }
+.passo{ display:flex; flex-direction:column; gap:1rem; }
+.passo__topo{ display:flex; align-items:baseline; gap:.7rem; }
+.passo__num{
+  font-family: var(--display); font-weight:800; font-size:1.55rem;
+  color: var(--rosa); font-variant-numeric: tabular-nums; line-height:1;
+}
+.passo h3{
+  font-size:1.02rem; letter-spacing:.06em; text-transform:uppercase;
+  font-weight:700; font-stretch:104%;
+}
+.passo p{ font-size:.95rem; color: var(--tinta-suave); }
+
+.aviso{
+  display:flex; gap:1rem; align-items:flex-start; margin-top:2.5rem;
+  padding: 1.15rem 1.35rem; border-radius:14px;
+  background: color-mix(in srgb, var(--rosa-claro) 55%, var(--superficie));
+  border:1px solid var(--linha-forte);
+}
+.aviso svg{ flex:0 0 auto; margin-top:.15rem; }
+.aviso p{ font-size:.95rem; }
+.aviso strong{ color: var(--rosa-escuro); }
+
+/* ---------- sinais ---------- */
+.sinais__grade{
+  display:grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
+  gap:1px; margin-top:2.5rem; background: var(--linha);
+  border:1px solid var(--linha); border-radius:16px; overflow:hidden;
+}
+.sinal{ background: var(--superficie); padding:1.4rem 1.5rem; display:flex; flex-direction:column; gap:.45rem; }
+.sinal h3{ font-size:.82rem; letter-spacing:.12em; text-transform:uppercase; color: var(--rosa-escuro); font-weight:700; }
+.sinal p{ font-size:.95rem; color: var(--tinta-suave); }
+
+.consulta{
+  margin-top:2rem; display:flex; flex-wrap:wrap; gap:1.25rem;
+  align-items:center; justify-content:space-between;
+  padding: clamp(1.25rem,3vw,1.9rem); border-radius:18px;
+  border:2px dashed var(--linha-forte);
+}
+.consulta p{ max-width: 52ch; font-size:.98rem; }
+
+/* ---------- parceiros ---------- */
+.parceiros__lista{
+  display:grid; grid-template-columns: repeat(4, 1fr); gap:1rem; margin-top:2.5rem;
+}
+@media (max-width: 820px){ .parceiros__lista{ grid-template-columns: repeat(2,1fr); } }
+.parceiro{
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:.35rem; text-align:center; min-height:120px; padding:1.1rem .9rem;
+  border:1.5px dashed var(--linha-forte); border-radius:14px;
+  background: var(--superficie);
+}
+.parceiro b{ font-family: var(--display); font-size:.85rem; font-weight:800; letter-spacing:.04em; color: var(--tinta); }
+.parceiro span{ font-size:.72rem; color: var(--tinta-suave); line-height:1.35; }
+.parceiros__nota{ margin-top:1.25rem; font-size:.8rem; color: var(--tinta-suave); }
+
+/* ---------- participar ---------- */
+.participar__grade{
+  display:grid; grid-template-columns: 1.25fr .75fr; gap: clamp(1.5rem,4vw,3rem);
+  align-items:start; margin-top:2.5rem;
+}
+@media (max-width: 880px){ .participar__grade{ grid-template-columns:1fr; } }
+.acoes-lista{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; }
+.acoes-lista li{
+  display:flex; gap:1rem; align-items:flex-start;
+  padding-block:1.1rem; border-bottom:1px solid var(--linha);
+}
+.acoes-lista li:first-child{ border-top:1px solid var(--linha); }
+.acoes-lista svg{ flex:0 0 auto; margin-top:.2rem; }
+.acoes-lista b{ display:block; font-family: var(--display); font-weight:700; font-size:1rem; }
+.acoes-lista span{ font-size:.94rem; color: var(--tinta-suave); }
+
+.cartao-frase{
+  background: var(--rosa); color:#fff; border-radius:20px;
+  padding: clamp(1.75rem,3.5vw,2.4rem);
+  display:flex; flex-direction:column; gap:1rem; align-items:flex-start;
+}
+.cartao-frase p{ font-family: var(--script); font-size: clamp(1.9rem,4vw,2.6rem); line-height:1.05; }
+.cartao-frase small{ font-size:.9rem; opacity:.9; line-height:1.5; }
+
+/* ---------- cta ---------- */
+.cta{ background: var(--rosa); color:#fff; }
+.cta__grade{
+  display:grid; grid-template-columns: 1fr 1fr; gap: clamp(1.5rem,4vw,3.5rem);
+  align-items:center; padding-block: clamp(3rem,6vw,4.5rem);
+}
+@media (max-width: 880px){ .cta__grade{ grid-template-columns:1fr; } }
+.cta h2{ font-size: clamp(1.8rem,4.2vw,2.9rem); text-transform:uppercase; font-stretch:108%; }
+.cta p{ margin-top:1rem; font-size:1.05rem; max-width:40ch; color: rgba(255,255,255,.9); }
+.cta .btn--claro{ margin-top:1.75rem; }
+.cta .mock{ --borda: rgba(255,255,255,.55); --tinta-mock:#fff; --fundo-mock: rgba(255,255,255,.1); }
+
+/* ---------- mock de imagem ---------- */
+.mock{
+  --borda: var(--linha-forte);
+  --tinta-mock: var(--tinta);
+  --fundo-mock: color-mix(in srgb, var(--rosa-claro) 40%, var(--superficie));
+  margin:0; display:flex; flex-direction:column; gap:.65rem;
+  aspect-ratio: var(--ar, 3/4); min-height: 15rem;
+  padding: .85rem;
+  border:2px dashed var(--borda); border-radius:16px;
+  background: var(--fundo-mock); color: var(--tinta-mock);
+}
+.mock__topo{ display:flex; align-items:center; gap:.5rem; flex-wrap:wrap; }
+.mock__tag{
+  font-family: var(--display); font-size:.66rem; font-weight:800;
+  letter-spacing:.13em; text-transform:uppercase;
+  padding:.28rem .6rem; border-radius:999px;
+  background: var(--rosa); color:#fff;
+}
+.mock__ar{
+  font-family: var(--mono); font-size:.68rem; opacity:.75;
+  font-variant-numeric: tabular-nums;
+}
+.mock__copiar{
+  margin-left:auto; cursor:pointer;
+  font-family: var(--display); font-size:.66rem; font-weight:700;
+  letter-spacing:.1em; text-transform:uppercase;
+  padding:.32rem .7rem; border-radius:999px;
+  border:1.5px solid var(--borda); background:transparent; color: var(--tinta-mock);
+  transition: background-color .15s ease, border-color .15s ease;
+}
+.mock__copiar:hover{ border-color: var(--rosa); background: color-mix(in srgb, var(--rosa) 12%, transparent); }
+.mock__copiar[data-ok="1"]{ background: var(--rosa); border-color: var(--rosa); color:#fff; }
+.mock__uso{
+  font-family: var(--display); font-weight:700; font-size:.86rem;
+  letter-spacing:.02em; line-height:1.3;
+}
+.mock__prompt{
+  flex:1; min-height:0; overflow-y:auto;
+  font-family: var(--mono); font-size:.7rem; line-height:1.6;
+  opacity:.88; padding-right:.4rem;
+  scrollbar-width:thin;
+}
+.mock__prompt::-webkit-scrollbar{ width:6px; }
+.mock__prompt::-webkit-scrollbar-thumb{ background: var(--linha-forte); border-radius:99px; }
+
+/* ---------- rodapé ---------- */
+.rodape{ background: var(--profundo); color: rgba(255,240,246,.78); }
+.rodape__grade{
+  display:grid; grid-template-columns: 1.2fr 1fr 1fr; gap:2.5rem;
+  padding-block: clamp(2.5rem,5vw,3.5rem);
+}
+@media (max-width: 820px){ .rodape__grade{ grid-template-columns:1fr; } }
+.rodape h3{
+  font-size:.75rem; letter-spacing:.16em; text-transform:uppercase;
+  color: var(--rosa-medio); margin-bottom:.9rem; font-weight:700;
+}
+.rodape ul{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:.5rem; font-size:.9rem; }
+.rodape a{ color: rgba(255,240,246,.78); text-decoration:none; }
+.rodape a:hover{ color:#fff; text-decoration:underline; }
+.rodape .logo-slot{
+  border-color: rgba(255,255,255,.3); background: rgba(255,255,255,.05); align-items:flex-start; text-align:left;
+}
+.rodape .logo-slot b{ color: var(--rosa-medio); }
+.rodape .logo-slot span{ color: rgba(255,240,246,.6); }
+.rodape__base{
+  border-top:1px solid rgba(255,255,255,.14); padding-block:1.5rem;
+  display:flex; flex-wrap:wrap; gap:1rem; justify-content:space-between; align-items:center;
+  font-size:.78rem; color: rgba(255,240,246,.55);
+}
+.rodape__disclaimer{ max-width:62ch; font-size:.8rem; line-height:1.6; padding-bottom:1.5rem; }
+.btn-briefing{
+  cursor:pointer; font-family: var(--display); font-size:.72rem; font-weight:700;
+  letter-spacing:.1em; text-transform:uppercase; padding:.6rem 1.1rem; border-radius:999px;
+  border:1.5px solid rgba(255,255,255,.35); background:transparent; color: var(--tinta-clara);
+}
+.btn-briefing:hover{ border-color: var(--rosa-medio); color:#fff; }
+
+html{ scroll-behavior:smooth; }
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto; }
+  *{ transition-duration:.01ms !important; animation-duration:.01ms !important; }
+}
+</style>
+
+<!-- ====================== TOPO ====================== -->
+<header class="topo">
+  <div class="env topo__grade">
+    <div class="logo-slot">
+      <b>Logo Ayumi</b>
+      <span>Arquivo oficial em SVG · versão horizontal</span>
+    </div>
+    <nav class="topo__nav" aria-label="Seções da página">
+      <a href="#campanha">A campanha</a>
+      <a href="#autoexame">Autoexame</a>
+      <a href="#sinais">Sinais de alerta</a>
+      <a href="#parceiros">Parceiros</a>
+      <a href="#participar">Como participar</a>
+    </nav>
+    <a class="btn btn--primario" href="#autoexame">Aprenda o autoexame</a>
+  </div>
+</header>
+
+<main>
+
+<!-- ====================== HERO ====================== -->
+<section class="hero">
+  <div class="env hero__grade">
+    <div class="hero__texto">
+      <p class="rotulo">Outubro Rosa 2026 · Ayumi</p>
+      <div class="marca">
+        <span class="marca__nome">Ayumi</span>
+        <span class="marca__rosa">rosa</span>
+      </div>
+      <p class="hero__frase">Cuidar de você é <em>o maior gesto de amor.</em></p>
+      <p class="hero__apoio">
+        Durante todo o mês de outubro, a Ayumi se junta a quem trabalha pela prevenção
+        e pelo diagnóstico precoce do câncer de mama. Aqui você aprende o que observar,
+        quando procurar ajuda e como levar essa conversa adiante.
+      </p>
+      <div class="hero__acoes">
+        <a class="btn btn--primario" href="#autoexame">Aprenda o autoexame</a>
+        <a class="btn btn--vazado" href="#participar">Como participar</a>
+      </div>
+    </div>
+
+    <div class="hero__arte">
+      <figure class="mock" style="--ar: 3/4">
+        <div class="mock__topo">
+          <span class="mock__tag">Imagem 01</span>
+          <span class="mock__ar">foto · 3:4 · 1200×1600</span>
+          <button class="mock__copiar" type="button">Copiar prompt</button>
+        </div>
+        <p class="mock__uso">Retrato principal do hero</p>
+        <p class="mock__prompt">Fotografia publicitária de uma mulher brasileira de aproximadamente 35 anos, cabelo castanho ondulado na altura dos ombros, pele morena clara, sorrindo de forma natural e serena, olhar direto para a câmera. Ela se abraça com os dois braços cruzados sobre o peito e as mãos apoiadas nos próprios ombros — gesto de autocuidado e acolhimento, nunca de medo ou proteção. Veste camisa de linho branco levemente amassada, com um laço de cetim rosa preso do lado esquerdo do peito. ENQUADRAMENTO: meio-corpo, da cintura para cima; corpo em três quartos e rosto voltado para a câmera; a figura ocupa o lado direito do quadro, deixando o terço esquerdo limpo para entrada de texto. LUZ: natural difusa de janela vindo da esquerda, sombras suaves, sem estouro de altas-luzes, sem flash direto. FUNDO: parede lisa em rosa muito claro (#FBE3EC), desfocada, sem objetos ou molduras. PALETA: rosas claros, branco e tons de pele quentes. ESTILO: editorial de campanha institucional de saúde — real, próximo, sem pose de banco de imagens. EVITAR: sorriso exagerado com muitos dentes, maquiagem pesada, joias chamativas, mãos ou dedos deformados, laço rosa gigante, ambiente hospitalar, expressão triste, qualquer texto ou marca d'água. Proporção 3:4 (retrato), mínimo 1200×1600 px.</p>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== DADOS ====================== -->
+<section class="dados" aria-label="O câncer de mama em números">
+  <div class="env">
+    <div class="dados__grade">
+      <div class="dado">
+        <span class="dado__num">73.610</span>
+        <p class="dado__txt">novos casos de câncer de mama estimados por ano no Brasil.</p>
+      </div>
+      <div class="dado">
+        <span class="dado__num">+95%</span>
+        <p class="dado__txt">de chance de cura quando o diagnóstico acontece em estágio inicial.</p>
+      </div>
+      <div class="dado">
+        <span class="dado__num">1 em 12</span>
+        <p class="dado__txt">é o risco aproximado de uma mulher desenvolver a doença até os 75 anos.</p>
+      </div>
+    </div>
+    <p class="dados__fonte">Fonte: INCA — Estimativa de Incidência de Câncer no Brasil (triênio 2023–2025). Confirme os números vigentes antes da publicação.</p>
+  </div>
+</section>
+
+<!-- ====================== CAMPANHA ====================== -->
+<section class="secao" id="campanha">
+  <div class="env">
+    <div class="cabecalho-secao">
+      <p class="rotulo">A campanha</p>
+      <h2>Outubro é o mês de olhar para dentro</h2>
+      <p>O Outubro Rosa é um movimento mundial de conscientização sobre a importância
+         da prevenção e do diagnóstico precoce do câncer de mama. O Ayumi Rosa é a nossa
+         forma de participar: informação clara, sem alarde e sem tabu.</p>
+    </div>
+
+    <div class="sobre__grade">
+      <div class="sobre__coluna">
+        <figure class="mock" style="--ar: 4/5">
+          <div class="mock__topo">
+            <span class="mock__tag">Imagem 02</span>
+            <span class="mock__ar">foto · 4:5 · 1400×1750</span>
+            <button class="mock__copiar" type="button">Copiar prompt</button>
+          </div>
+          <p class="mock__uso">Três gerações — bloco "A campanha"</p>
+          <p class="mock__prompt">Fotografia de três mulheres brasileiras juntas, de idades e tons de pele diferentes: uma de ~25 anos, negra, cabelo cacheado volumoso; uma de ~45 anos, branca, cabelo liso castanho na altura do ombro; e uma de ~65 anos, cabelo grisalho curto. Estão abraçadas lado a lado, rindo de algo que acontece fora do quadro — riso genuíno, não posado. Roupas em tons de rosa claro, branco e off-white; a mulher do meio usa um pequeno laço rosa na lapela. ENQUADRAMENTO: horizontal, do peito para cima, as três em foco, câmera na altura dos olhos, leve movimento natural nos corpos. LUZ: natural de fim de tarde, quente e suave, difusa, sem contraluz forte e sem sombras duras no rosto. FUNDO: ambiente externo claro e desfocado (praça arborizada), bokeh suave em verdes dessaturados para não competir com o rosa. CLIMA: amizade, leveza e cumplicidade entre gerações. EVITAR: pose de foto oficial olhando fixo para a lente, fundo escuro ou saturado, uniformes, excesso de laços rosa, mãos deformadas, texto ou marca d'água. Proporção 4:5, mínimo 1400×1750 px.</p>
+        </figure>
+      </div>
+
+      <div class="sobre__coluna">
+        <div class="declaracao">
+          <p>O câncer de mama é o tipo mais comum entre as mulheres brasileiras — e também
+             um dos que mais respondem bem ao tratamento <strong>quando descoberto cedo</strong>.
+             É por isso que falar sobre ele importa: quem conhece o próprio corpo percebe
+             mudanças antes.</p>
+          <p style="color:var(--tinta-suave);font-size:.98rem">Homens também podem desenvolver
+             câncer de mama. É raro, cerca de 1% dos casos, mas existe — e merece a mesma atenção.</p>
+          <p class="declaracao__assina">Juntos pela prevenção e pelo cuidado.</p>
+        </div>
+
+        <figure class="mock" style="--ar: 4/3">
+          <div class="mock__topo">
+            <span class="mock__tag">Imagem 03</span>
+            <span class="mock__ar">still · 4:3 · 1600×1200</span>
+            <button class="mock__copiar" type="button">Copiar prompt</button>
+          </div>
+          <p class="mock__uso">Still do laço — apoio da coluna de texto</p>
+          <p class="mock__prompt">Still life fotográfico de um laço de cetim rosa vibrante (#E12C77) sobre superfície de papel texturizado em rosa muito claro. O laço é o objeto principal, posicionado ligeiramente fora do centro à esquerda, projetando uma sombra suave e alongada para a direita. Ao lado, dois ou três ramos discretos de gipsofila branca seca. LUZ: lateral rasante de janela, revelando a trama do cetim com micro-brilhos; sem luz dura. LENTE: macro, profundidade de campo rasa — a laçada em foco nítido e as pontas da fita saindo levemente de foco. PALETA restrita: rosa vibrante, rosa muito claro, branco e um bege quente. ESTILO: editorial de revista, minimalista, muito espaço negativo. EVITAR: fundo branco puro, mesa de madeira escura, muitos objetos, flores coloridas, glitter, brilho plástico, reflexos de estúdio, texto. Proporção 4:3, mínimo 1600×1200 px.</p>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== AUTOEXAME ====================== -->
+<section class="secao secao--faixa" id="autoexame">
+  <div class="env">
+    <div class="cabecalho-secao">
+      <p class="rotulo">A prevenção começa com o cuidado</p>
+      <h2>Faça o <span class="script" style="font-size:1.35em;line-height:.8">autoexame</span></h2>
+      <p>Não existe hora certa nem técnica complicada. O objetivo é simples: conhecer as
+         suas mamas o suficiente para notar quando alguma coisa mudar. Se você menstrua,
+         escolha os dias logo após a menstruação, quando as mamas estão menos sensíveis.</p>
+    </div>
+
+    <ol class="passos" style="list-style:none;padding:0;margin-top:2.75rem">
+      <li class="passo">
+        <figure class="mock" style="--ar: 1/1">
+          <div class="mock__topo">
+            <span class="mock__tag">Imagem 04</span>
+            <span class="mock__ar">ilustração · 1:1 · 1000×1000</span>
+            <button class="mock__copiar" type="button">Copiar prompt</button>
+          </div>
+          <p class="mock__uso">Passo 1 — observe no espelho</p>
+          <p class="mock__prompt">Ilustração vetorial de linha (line art) de uma mulher em pé diante de um espelho retangular simples, vista de costas para o observador; os dois braços estão erguidos acima da cabeça e o reflexo simplificado do tronco aparece no espelho. ESTILO OBRIGATÓRIO (idêntico nas três ilustrações da série): traço contínuo de espessura uniforme, cor rosa #E12C77, sobre fundo rosa muito claro #FDEEF4; figura feminina estilizada, silhueta simples e respeitosa, sem detalhes anatômicos explícitos, rosto sem feições (apenas contorno da cabeça e do cabelo preso); preenchimentos chapados em rosa claro #F8C9DC usados só como apoio, no máximo dois por imagem; composição centralizada com margem de respiro em todos os lados. SEM sombreado, SEM gradiente, SEM textura, SEM efeito 3D, SEM moldura, SEM texto ou números dentro da imagem. Proporção 1:1, mínimo 1000×1000 px, fundo chapado ou PNG transparente.</p>
+        </figure>
+        <div class="passo__topo"><span class="passo__num">01</span><h3>Observe no espelho</h3></div>
+        <p>De pé, braços ao longo do corpo e depois erguidos. Procure mudanças no formato,
+           no tamanho, na cor da pele ou na posição dos mamilos.</p>
+      </li>
+
+      <li class="passo">
+        <figure class="mock" style="--ar: 1/1">
+          <div class="mock__topo">
+            <span class="mock__tag">Imagem 05</span>
+            <span class="mock__ar">ilustração · 1:1 · 1000×1000</span>
+            <button class="mock__copiar" type="button">Copiar prompt</button>
+          </div>
+          <p class="mock__uso">Passo 2 — toque em pé, no banho</p>
+          <p class="mock__prompt">Ilustração vetorial de linha (line art) de uma mulher em pé sob o chuveiro, indicado por poucos traços curtos de água acima da cabeça; o braço esquerdo está erguido com a mão atrás da nuca e a mão direita apoiada sobre a mama esquerda, com os três dedos centrais estendidos. Pequenos círculos pontilhados sobre a mama indicam o trajeto circular da palpação. ESTILO OBRIGATÓRIO (idêntico nas três ilustrações da série): traço contínuo de espessura uniforme, cor rosa #E12C77, sobre fundo rosa muito claro #FDEEF4; figura feminina estilizada, silhueta simples e respeitosa, sem detalhes anatômicos explícitos, rosto sem feições (apenas contorno da cabeça e do cabelo preso); preenchimentos chapados em rosa claro #F8C9DC usados só como apoio, no máximo dois por imagem; composição centralizada com margem de respiro em todos os lados. SEM sombreado, SEM gradiente, SEM textura, SEM efeito 3D, SEM moldura, SEM texto ou números dentro da imagem. Proporção 1:1, mínimo 1000×1000 px, fundo chapado ou PNG transparente.</p>
+        </figure>
+        <div class="passo__topo"><span class="passo__num">02</span><h3>Toque com as mãos</h3></div>
+        <p>Com a pele molhada e ensaboada, deslize os três dedos centrais em movimentos
+           circulares, de fora para dentro, cobrindo toda a mama.</p>
+      </li>
+
+      <li class="passo">
+        <figure class="mock" style="--ar: 1/1">
+          <div class="mock__topo">
+            <span class="mock__tag">Imagem 06</span>
+            <span class="mock__ar">ilustração · 1:1 · 1000×1000</span>
+            <button class="mock__copiar" type="button">Copiar prompt</button>
+          </div>
+          <p class="mock__uso">Passo 3 — deitada, incluindo a axila</p>
+          <p class="mock__prompt">Ilustração vetorial de linha (line art) de uma mulher deitada de costas sobre uma superfície plana simples, com uma toalha dobrada sob o ombro direito e o braço direito atrás da cabeça; a mão esquerda toca a mama direita e uma linha pontilhada segue do peito até a axila, indicando que a região axilar também é examinada. Vista de cima, em perspectiva plana. ESTILO OBRIGATÓRIO (idêntico nas três ilustrações da série): traço contínuo de espessura uniforme, cor rosa #E12C77, sobre fundo rosa muito claro #FDEEF4; figura feminina estilizada, silhueta simples e respeitosa, sem detalhes anatômicos explícitos, rosto sem feições (apenas contorno da cabeça e do cabelo preso); preenchimentos chapados em rosa claro #F8C9DC usados só como apoio, no máximo dois por imagem; composição centralizada com margem de respiro em todos os lados. SEM sombreado, SEM gradiente, SEM textura, SEM efeito 3D, SEM moldura, SEM texto ou números dentro da imagem. Proporção 1:1, mínimo 1000×1000 px, fundo chapado ou PNG transparente.</p>
+        </figure>
+        <div class="passo__topo"><span class="passo__num">03</span><h3>Não esqueça a axila</h3></div>
+        <p>Deitada, com uma toalha sob o ombro e o braço atrás da cabeça, examine a mama
+           do mesmo lado e siga até a axila e a clavícula.</p>
+      </li>
+    </ol>
+
+    <div class="aviso">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <circle cx="12" cy="12" r="10" stroke="var(--rosa)" stroke-width="2"/>
+        <path d="M12 7v6" stroke="var(--rosa)" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="12" cy="16.6" r="1.2" fill="var(--rosa)"/>
+      </svg>
+      <p><strong>O autoexame não substitui a mamografia.</strong> Ele serve para você conhecer
+         o próprio corpo e perceber mudanças. O rastreamento que detecta tumores ainda pequenos
+         demais para serem sentidos é feito por exame de imagem — e ele continua necessário
+         mesmo quando está tudo bem no toque.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== SINAIS ====================== -->
+<section class="secao" id="sinais">
+  <div class="env">
+    <div class="cabecalho-secao">
+      <p class="rotulo">Quando procurar um médico</p>
+      <h2>Sinais que merecem uma consulta</h2>
+      <p>Nenhum dos sinais abaixo significa, sozinho, que existe um câncer — a maioria tem
+         causas benignas. Mas todos merecem avaliação profissional. Marque a consulta e leve
+         a informação com você.</p>
+    </div>
+
+    <div class="sinais__grade">
+      <article class="sinal">
+        <h3>Nódulo</h3>
+        <p>Caroço endurecido, fixo e geralmente indolor na mama ou na axila.</p>
+      </article>
+      <article class="sinal">
+        <h3>Pele da mama</h3>
+        <p>Área avermelhada, retraída ou com aspecto de casca de laranja.</p>
+      </article>
+      <article class="sinal">
+        <h3>Mamilo</h3>
+        <p>Inversão recente, descamação persistente ou mudança de posição.</p>
+      </article>
+      <article class="sinal">
+        <h3>Secreção</h3>
+        <p>Saída espontânea de líquido pelo mamilo, principalmente se for sanguinolenta.</p>
+      </article>
+      <article class="sinal">
+        <h3>Formato</h3>
+        <p>Alteração de tamanho ou contorno em apenas uma das mamas.</p>
+      </article>
+      <article class="sinal">
+        <h3>Gânglios</h3>
+        <p>Pequenos caroços na axila ou acima da clavícula que não desaparecem.</p>
+      </article>
+    </div>
+
+    <div class="consulta">
+      <p><strong>E o rastreamento de rotina?</strong> O Ministério da Saúde recomenda mamografia
+         a cada dois anos para mulheres de 50 a 69 anos. Histórico familiar, mutações genéticas
+         ou outros fatores de risco podem antecipar esse início — quem define é o seu médico.</p>
+      <a class="btn btn--vazado" href="#participar">Como participar da campanha</a>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== PARCEIROS ====================== -->
+<section class="secao secao--quente" id="parceiros">
+  <div class="env">
+    <div class="cabecalho-secao">
+      <p class="rotulo">Juntos somos mais fortes</p>
+      <h2>Parceiros do Ayumi Rosa</h2>
+      <p>Instituições que atuam há anos em prevenção, acolhimento e apoio a pacientes.
+         Conhecer o trabalho delas é o primeiro passo para apoiar de verdade.</p>
+    </div>
+
+    <div class="parceiros__lista">
+      <div class="parceiro"><b>FEMAMA</b><span>Federação Brasileira de Instituições Filantrópicas de Apoio à Saúde da Mama</span></div>
+      <div class="parceiro"><b>Hospital de Amor</b><span>Barretos — prevenção e tratamento oncológico gratuito</span></div>
+      <div class="parceiro"><b>ABRALE</b><span>Associação Brasileira de Linfoma e Leucemia</span></div>
+      <div class="parceiro"><b>Instituto Avon</b><span>Programas de detecção precoce e enfrentamento</span></div>
+    </div>
+    <p class="parceiros__nota">Slots de logotipo: inserir os arquivos oficiais em SVG, versão monocromática,
+       altura óptica equalizada. O uso de marca de terceiros depende de autorização formal de cada instituição.</p>
+  </div>
+</section>
+
+<!-- ====================== PARTICIPAR ====================== -->
+<section class="secao" id="participar">
+  <div class="env">
+    <div class="cabecalho-secao">
+      <p class="rotulo">Como você pode fazer parte?</p>
+      <h2>Quatro atitudes que cabem na sua semana</h2>
+    </div>
+
+    <div class="participar__grade">
+      <ul class="acoes-lista">
+        <li>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="12" cy="12" r="10" fill="var(--rosa-claro)"/>
+            <path d="M7.5 12.4l3 3 6-6.4" stroke="var(--rosa)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <div><b>Compartilhe informação</b><span>Mande esta página para três mulheres da sua família. A conversa costuma começar por alguém.</span></div>
+        </li>
+        <li>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="12" cy="12" r="10" fill="var(--rosa-claro)"/>
+            <path d="M7.5 12.4l3 3 6-6.4" stroke="var(--rosa)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <div><b>Marque o seu exame</b><span>Se está atrasado, coloque no calendário agora — antes que outubro acabe.</span></div>
+        </li>
+        <li>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="12" cy="12" r="10" fill="var(--rosa-claro)"/>
+            <path d="M7.5 12.4l3 3 6-6.4" stroke="var(--rosa)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <div><b>Apoie quem está em tratamento</b><span>Carona para a sessão, uma refeição pronta, companhia na consulta. O apoio prático vale mais que a frase de efeito.</span></div>
+        </li>
+        <li>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="12" cy="12" r="10" fill="var(--rosa-claro)"/>
+            <path d="M7.5 12.4l3 3 6-6.4" stroke="var(--rosa)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <div><b>Doe para quem já está lá</b><span>As instituições parceiras recebem doações e trabalho voluntário o ano inteiro, não só em outubro.</span></div>
+        </li>
+      </ul>
+
+      <div class="cartao-frase">        <p>Pequenas atitudes salvam vidas.</p>
+        <small>Nenhuma campanha diagnostica ninguém. Quem faz isso é a consulta que você marca depois de ler.</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== CTA ====================== -->
+<section class="cta">
+  <div class="env cta__grade">
+    <div>
+      <h2>A prevenção está em suas mãos</h2>
+      <p>Cuide de você. Cuide de quem você ama. Comece hoje: entenda o autoexame,
+         confira a data do seu último exame de imagem e converse com quem está por perto.</p>
+      <a class="btn btn--claro" href="#autoexame">Começar pelo autoexame</a>
+    </div>
+
+    <figure class="mock" style="--ar: 16/9">
+      <div class="mock__topo">
+        <span class="mock__tag">Imagem 07</span>
+        <span class="mock__ar">foto · 16:9 · 2000×1125</span>
+        <button class="mock__copiar" type="button">Copiar prompt</button>
+      </div>
+      <p class="mock__uso">Mãos de duas gerações — bloco de chamada final</p>
+      <p class="mock__prompt">Fotografia horizontal de duas mãos femininas de gerações diferentes — uma mão jovem, de pele lisa, e uma mão idosa, com marcas de idade e veias visíveis — sobrepostas em gesto de apoio e continuidade. Entre os dedos, uma fita de cetim rosa. ENQUADRAMENTO: as mãos ocupam a metade esquerda do quadro, deixando a metade direita limpa para texto sobreposto; câmera ligeiramente acima, quase a pino. LUZ: suave e frontal, difusa, sem sombras duras, temperatura levemente quente. FOCO: nítido nas mãos, profundidade de campo rasa. FUNDO: superfície lisa em rosa claro uniforme, levemente desfocada. CLIMA: acolhimento e continuidade entre gerações, sereno, sem dramaticidade nem tom fúnebre. EVITAR: mãos deformadas ou com número errado de dedos, unhas postiças coloridas, anéis chamativos, fundo escuro, rostos no quadro, ambiente hospitalar, texto ou marca d'água. Proporção 16:9, mínimo 2000×1125 px.</p>
+    </figure>
+  </div>
+</section>
+
+</main>
+
+<!-- ====================== RODAPÉ ====================== -->
+<footer class="rodape">
+  <div class="env">
+    <div class="rodape__grade">
+      <div>
+        <div class="logo-slot">
+          <b>Logo Ayumi — versão negativa</b>
+          <span>SVG monocromático branco + assinatura da campanha</span>
+        </div>
+        <p style="margin-top:1rem;font-size:.88rem;max-width:34ch">
+          Ayumi Rosa — campanha de conscientização sobre o câncer de mama.
+          Outubro de 2026.
+        </p>
+      </div>
+
+      <div>
+        <h3>Nesta página</h3>
+        <ul>
+          <li><a href="#campanha">A campanha</a></li>
+          <li><a href="#autoexame">Autoexame em 3 passos</a></li>
+          <li><a href="#sinais">Sinais de alerta</a></li>
+          <li><a href="#participar">Como participar</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3>Onde buscar ajuda</h3>
+        <ul>
+          <li>Unidade Básica de Saúde mais próxima</li>
+          <li>Disque Saúde — 136</li>
+          <li>Instituições parceiras da campanha</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="rodape__disclaimer">
+      Este conteúdo tem caráter informativo e educativo e não substitui a consulta,
+      o diagnóstico ou o tratamento realizados por profissional de saúde habilitado.
+      Em caso de dúvida ou de qualquer alteração percebida, procure um médico.
+    </p>
+
+    <div class="rodape__base">
+      <span>© 2026 Ayumi. Todos os direitos reservados.</span>
+      <button class="btn-briefing" type="button" id="briefing">Copiar os 7 prompts de imagem</button>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  function copiar(texto, botao, rotuloOk, rotuloPadrao){
+    var feito = function(){
+      botao.dataset.ok = "1";
+      botao.textContent = rotuloOk;
+      setTimeout(function(){ botao.removeAttribute("data-ok"); botao.textContent = rotuloPadrao; }, 1800);
+    };
+    if (navigator.clipboard && window.isSecureContext){
+      navigator.clipboard.writeText(texto).then(feito, function(){ manual(texto, feito); });
+    } else {
+      manual(texto, feito);
+    }
+  }
+
+  function manual(texto, feito){
+    var area = document.createElement("textarea");
+    area.value = texto;
+    area.setAttribute("readonly", "");
+    area.style.cssText = "position:fixed;top:-1000px;opacity:0";
+    document.body.appendChild(area);
+    area.select();
+    try { document.execCommand("copy"); feito(); } catch(e){ /* silencioso */ }
+    document.body.removeChild(area);
+  }
+
+  document.querySelectorAll(".mock__copiar").forEach(function(botao){
+    botao.addEventListener("click", function(){
+      var bloco = botao.closest(".mock");
+      var prompt = bloco.querySelector(".mock__prompt").textContent.trim();
+      copiar(prompt, botao, "Copiado", "Copiar prompt");
+    });
+  });
+
+  var briefing = document.getElementById("briefing");
+  briefing.addEventListener("click", function(){
+    var partes = [];
+    document.querySelectorAll(".mock").forEach(function(bloco){
+      var tag = bloco.querySelector(".mock__tag").textContent.trim();
+      var ar  = bloco.querySelector(".mock__ar").textContent.trim();
+      var uso = bloco.querySelector(".mock__uso").textContent.trim();
+      var txt = bloco.querySelector(".mock__prompt").textContent.trim();
+      partes.push(tag + " — " + uso + " (" + ar + ")\n\n" + txt);
+    });
+    copiar("AYUMI ROSA — BRIEFING DE IMAGENS\n\n" + partes.join("\n\n———\n\n"),
+           briefing, "Briefing copiado", "Copiar os 7 prompts de imagem");
+  });
+})();
+</script>
