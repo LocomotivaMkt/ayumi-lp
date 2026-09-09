@@ -30,6 +30,12 @@
 <style>
 /* ============================================================
    AYUMI ROSA — campanha Outubro Rosa
+   TEMA CLARO E SO. Nao existe variante escura: o `color-scheme: light` no
+   :root faz o navegador desenhar controles e barra de rolagem no claro mesmo
+   com o aparelho no modo escuro, e nao ha nenhum bloco prefers-color-scheme
+   nem [data-theme]. Se for reintroduzir tema escuro um dia, lembre que a logo
+   e vermelha e azul-marinho e precisa da negativa (img/logo-ayumi-branco.webp)
+   sobre fundo escuro.
    Paleta: magenta de campanha + neutros mornos enviesados ao rosa
    + ameixa profunda no lugar do preto.
    ============================================================ */
@@ -66,53 +72,7 @@
   --gutter: clamp(1.25rem, 4vw, 3rem);
 }
 
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    color-scheme: dark;
-    --papel:        #170A11;
-    --superficie:   #23111B;
-    --faixa:        #250F1B;
-    --faixa-quente: #241310;
-    --profundo:     #300A1E;
-    --profundo-2:   #421029;
 
-    --tinta:        #FBE7EF;
-    --tinta-suave:  #C79FB2;
-    --tinta-clara:  #FFF0F6;
-
-    --rosa:         #FF6FA8;
-    --rosa-escuro:  #FFA6C6;
-    --rosa-medio:   #B34A76;
-    --rosa-claro:   #3A1728;
-
-    --linha:        #3C1B29;
-    --linha-forte:  #56283A;
-    --sombra:       0 1px 2px rgba(0,0,0,.4), 0 12px 32px -18px rgba(0,0,0,.8);
-  }
-}
-
-:root[data-theme="dark"]{
-  color-scheme: dark;
-  --papel:        #170A11;
-  --superficie:   #23111B;
-  --faixa:        #250F1B;
-  --faixa-quente: #241310;
-  --profundo:     #300A1E;
-  --profundo-2:   #421029;
-
-  --tinta:        #FBE7EF;
-  --tinta-suave:  #C79FB2;
-  --tinta-clara:  #FFF0F6;
-
-  --rosa:         #FF6FA8;
-  --rosa-escuro:  #FFA6C6;
-  --rosa-medio:   #B34A76;
-  --rosa-claro:   #3A1728;
-
-  --linha:        #3C1B29;
-  --linha-forte:  #56283A;
-  --sombra:       0 1px 2px rgba(0,0,0,.4), 0 12px 32px -18px rgba(0,0,0,.8);
-}
 
 *,*::before,*::after{ box-sizing:border-box; }
 img{ max-width:100%; }
@@ -238,16 +198,6 @@ a{ color: var(--rosa-escuro); }
 .logo-rodape{ display:block; width:180px; height:auto; }
 .rodape .logo-link:hover{ opacity:.75; }
 
-/* A logo e vermelha e azul-marinho. O azul #0d54c9 sobre o fundo quase preto
-   do tema escuro fica ilegivel, entao no escuro entra a negativa — que e
-   exatamente a razao de uma marca ter versao negativa. */
-.logo-topo--negativa{ display:none; }
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]) .logo-topo--cor{ display:none; }
-  :root:not([data-theme="light"]) .logo-topo--negativa{ display:block; }
-}
-:root[data-theme="dark"] .logo-topo--cor{ display:none; }
-:root[data-theme="dark"] .logo-topo--negativa{ display:block; }
 
 /* ---------- hero ---------- */
 .hero{
@@ -474,9 +424,7 @@ html{ scroll-behavior:smooth; }
 <header class="topo">
   <div class="env topo__grade">
     <a class="logo-link" href="https://www.ayumi.com.br/">
-      <img class="logo-topo logo-topo--cor" src="img/logo-ayumi.webp"
-           width="300" height="145" alt="Ayumi Supermercados Online">
-      <img class="logo-topo logo-topo--negativa" src="img/logo-ayumi-branco.webp"
+      <img class="logo-topo" src="img/logo-ayumi.webp"
            width="300" height="145" alt="Ayumi Supermercados Online">
     </a>
     <nav class="topo__nav" aria-label="Seções da página">

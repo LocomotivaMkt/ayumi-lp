@@ -45,10 +45,10 @@ Os originais em alta resolução não estão versionados; ficam em
 `img/logo-ayumi-branco.webp` é a mesma arte pintada de branco puro, guardando o
 canal alfa original para as bordas continuarem suaves sobre fundo escuro.
 
-O topo troca de versão conforme o tema: a logo é vermelha e azul-marinho, e o
-azul `#0d54c9` sobre o fundo quase preto do tema escuro fica ilegível, então no
-escuro entra a negativa. O rodapé usa sempre a negativa, porque o fundo dele é
-ameixa escuro nos dois temas.
+O topo usa a colorida e o rodapé usa a negativa, porque o fundo do rodapé é
+ameixa escuro. A negativa também é o que resolveria o tema escuro, se ele
+voltar um dia: o azul `#0d54c9` da marca sobre fundo quase preto fica
+ilegível.
 
 As duas são clicáveis e levam para **https://www.ayumi.com.br/**, na mesma aba.
 A marca tem outros dois domínios no ar (`ayumisupermercados.com.br`, também
@@ -73,6 +73,14 @@ de autorização formal de cada instituição.
 - [ ] Confirmar autorização de uso das marcas dos parceiros
 - [ ] Definir o destino real dos CTAs (hoje são âncoras internas)
 - [ ] Só então remover o `noindex` do vhost
+
+## Tema
+
+A página é **clara e só**. Não há variante escura: nenhum bloco
+`prefers-color-scheme`, nenhum `[data-theme]`, e `color-scheme: light` no
+`:root` faz o navegador desenhar controles e barra de rolagem no claro mesmo
+quando o aparelho está no modo escuro. Foi decisão do cliente. Verificado com
+o sistema forçado em escuro: fundo `#FFF8FA`, texto `#3A1B2A`.
 
 ## Estrutura do arquivo
 
