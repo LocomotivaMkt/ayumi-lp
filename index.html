@@ -1,4 +1,28 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Ayumi Rosa</title>
+<meta name="description" content="Outubro Rosa da Ayumi: como fazer o autoexame, quais sinais merecem uma consulta e por que o diagnóstico precoce muda tudo.">
+
+<!-- Endereco provisorio: reforca o X-Robots-Tag que o Caddy manda no cabecalho.
+     Tirar os dois juntos quando a pagina for final. -->
+<meta name="robots" content="noindex, nofollow">
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Ayumi">
+<meta property="og:title" content="Ayumi Rosa — cuidar de você é o maior gesto de amor">
+<meta property="og:description" content="Outubro Rosa da Ayumi: como fazer o autoexame, quais sinais merecem uma consulta e por que o diagnóstico precoce muda tudo.">
+<meta property="og:url" content="https://ayumi.locomotiva.art.br/">
+<meta property="og:image" content="https://ayumi.locomotiva.art.br/img/og-ayumi-rosa.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Laço de cetim rosa sobre papel texturizado">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#e12c77">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..900&family=Instrument+Sans:wght@400;500;600&family=Caveat:wght@500;700&display=swap">
@@ -91,6 +115,7 @@
 }
 
 *,*::before,*::after{ box-sizing:border-box; }
+img{ max-width:100%; }
 
 body{
   margin:0;
@@ -179,11 +204,31 @@ a{ color: var(--rosa-escuro); }
 .topo__nav a:hover{ color: var(--rosa-escuro); border-bottom-color: var(--rosa); }
 .topo .btn{ padding:.7rem 1.2rem; font-size:.78rem; flex:0 0 auto; }
 @media (max-width: 1060px){ .topo .btn{ display:none; } }
-@media (max-width: 720px){
-  .topo__grade{ flex-wrap:wrap; gap:.55rem 1rem; }
-  .topo__nav{ margin-left:0; width:100%; gap:1.1rem; padding-bottom:.3rem; }
-  .topo .logo-slot{ min-width:0; align-items:flex-start; text-align:left; }
+
+/* Faixa de tablet: logo + 5 itens nao cabem em uma linha, e a rolagem lateral
+   do menu escondia um item sem nenhuma pista. Quebra em duas linhas.
+   Precisa vir ANTES do bloco de 720px, que esconde o menu de vez no celular. */
+@media (max-width: 920px){
+  .topo__grade{ flex-wrap:wrap; }
+  .topo__nav{ margin-left:0; width:100%; flex-wrap:wrap; overflow:visible; gap:.2rem 1.1rem; }
+  .topo__nav a{ padding-block:.45rem; }
 }
+@media (max-width: 720px){
+  /* Sem menu no topo. Medido: os 5 itens quebravam em 3 linhas e o cabecalho
+     ia a 206px — mais de um quarto da tela de um celular so de cabecalho,
+     antes de comecar a pagina. Numa landing linear a rolagem ja e a
+     navegacao, e o rodape repete os mesmos 4 links. */
+  .topo{ position:static; }
+  .topo__nav{ display:none; }
+  .topo__grade{ min-height:0; }
+  .topo .logo-slot{ min-width:0; align-items:flex-start; text-align:left; }
+  .topo .logo-slot span{ display:none; }   /* a dica de arquivo e andaime */
+
+  /* 18px de alvo de toque nos links do rodape era pequeno demais para o dedo */
+  .rodape ul{ gap:.15rem; }
+  .rodape ul a{ display:inline-block; padding-block:.55rem; }
+}
+
 
 /* ---------- slot de logo ---------- */
 .logo-slot{
@@ -331,6 +376,13 @@ a{ color: var(--rosa-escuro); }
   display:grid; grid-template-columns: repeat(4, 1fr); gap:1rem; margin-top:2.5rem;
 }
 @media (max-width: 820px){ .parceiros__lista{ grid-template-columns: repeat(2,1fr); } }
+/* Nome de instituicao e longo: em 2 colunas de 159px virava uma coluna de
+   texto de 10 linhas em corpo miudo. Precisa vir DEPOIS da regra de 820px:
+   mesma especificidade, quem vier por ultimo vence. */
+@media (max-width: 560px){
+  .parceiros__lista{ grid-template-columns:1fr; }
+  .parceiro{ min-height:0; }
+}
 .parceiro{
   display:flex; flex-direction:column; align-items:center; justify-content:center;
   gap:.35rem; text-align:center; min-height:120px; padding:1.1rem .9rem;
@@ -375,7 +427,6 @@ a{ color: var(--rosa-escuro); }
 .cta h2{ font-size: clamp(1.8rem,4.2vw,2.9rem); text-transform:uppercase; font-stretch:108%; }
 .cta p{ margin-top:1rem; font-size:1.05rem; max-width:40ch; color: rgba(255,255,255,.9); }
 .cta .btn--claro{ margin-top:1.75rem; }
-.cta .mock{ --borda: rgba(255,255,255,.55); --tinta-mock:#fff; --fundo-mock: rgba(255,255,255,.1); }
 
 /* ---------- imagens ---------- */
 .foto{
@@ -383,51 +434,6 @@ a{ color: var(--rosa-escuro); }
   border-radius:18px;
   background: var(--rosa-claro);   /* segura o layout enquanto carrega */
 }
-
-/* ---------- mock de imagem (so a que falta) ---------- */
-.mock{
-  --borda: var(--linha-forte);
-  --tinta-mock: var(--tinta);
-  --fundo-mock: color-mix(in srgb, var(--rosa-claro) 40%, var(--superficie));
-  margin:0; display:flex; flex-direction:column; gap:.65rem;
-  aspect-ratio: var(--ar, 3/4); min-height: 15rem;
-  padding: .85rem;
-  border:2px dashed var(--borda); border-radius:16px;
-  background: var(--fundo-mock); color: var(--tinta-mock);
-}
-.mock__topo{ display:flex; align-items:center; gap:.5rem; flex-wrap:wrap; }
-.mock__tag{
-  font-family: var(--display); font-size:.66rem; font-weight:800;
-  letter-spacing:.13em; text-transform:uppercase;
-  padding:.28rem .6rem; border-radius:999px;
-  background: var(--rosa); color:#fff;
-}
-.mock__ar{
-  font-family: var(--mono); font-size:.68rem; opacity:.75;
-  font-variant-numeric: tabular-nums;
-}
-.mock__copiar{
-  margin-left:auto; cursor:pointer;
-  font-family: var(--display); font-size:.66rem; font-weight:700;
-  letter-spacing:.1em; text-transform:uppercase;
-  padding:.32rem .7rem; border-radius:999px;
-  border:1.5px solid var(--borda); background:transparent; color: var(--tinta-mock);
-  transition: background-color .15s ease, border-color .15s ease;
-}
-.mock__copiar:hover{ border-color: var(--rosa); background: color-mix(in srgb, var(--rosa) 12%, transparent); }
-.mock__copiar[data-ok="1"]{ background: var(--rosa); border-color: var(--rosa); color:#fff; }
-.mock__uso{
-  font-family: var(--display); font-weight:700; font-size:.86rem;
-  letter-spacing:.02em; line-height:1.3;
-}
-.mock__prompt{
-  flex:1; min-height:0; overflow-y:auto;
-  font-family: var(--mono); font-size:.7rem; line-height:1.6;
-  opacity:.88; padding-right:.4rem;
-  scrollbar-width:thin;
-}
-.mock__prompt::-webkit-scrollbar{ width:6px; }
-.mock__prompt::-webkit-scrollbar-thumb{ background: var(--linha-forte); border-radius:99px; }
 
 /* ---------- rodapé ---------- */
 .rodape{ background: var(--profundo); color: rgba(255,240,246,.78); }
@@ -450,16 +456,10 @@ a{ color: var(--rosa-escuro); }
 .rodape .logo-slot span{ color: rgba(255,240,246,.6); }
 .rodape__base{
   border-top:1px solid rgba(255,255,255,.14); padding-block:1.5rem;
-  display:flex; flex-wrap:wrap; gap:1rem; justify-content:space-between; align-items:center;
+  display:flex; flex-wrap:wrap; gap:1rem; align-items:center;
   font-size:.78rem; color: rgba(255,240,246,.55);
 }
 .rodape__disclaimer{ max-width:62ch; font-size:.8rem; line-height:1.6; padding-bottom:1.5rem; }
-.btn-briefing{
-  cursor:pointer; font-family: var(--display); font-size:.72rem; font-weight:700;
-  letter-spacing:.1em; text-transform:uppercase; padding:.6rem 1.1rem; border-radius:999px;
-  border:1.5px solid rgba(255,255,255,.35); background:transparent; color: var(--tinta-clara);
-}
-.btn-briefing:hover{ border-color: var(--rosa-medio); color:#fff; }
 
 html{ scroll-behavior:smooth; }
 @media (prefers-reduced-motion: reduce){
@@ -467,6 +467,8 @@ html{ scroll-behavior:smooth; }
   *{ transition-duration:.01ms !important; animation-duration:.01ms !important; }
 }
 </style>
+</head>
+<body>
 
 <!-- ====================== TOPO ====================== -->
 <header class="topo">
@@ -565,15 +567,9 @@ html{ scroll-behavior:smooth; }
           <p class="declaracao__assina">Juntos pela prevenção e pelo cuidado.</p>
         </div>
 
-        <figure class="mock" style="--ar: 4/3">
-          <div class="mock__topo">
-            <span class="mock__tag">Imagem 03</span>
-            <span class="mock__ar">still · 4:3 · 1600×1200</span>
-            <button class="mock__copiar" type="button">Copiar prompt</button>
-          </div>
-          <p class="mock__uso">Still do laço — apoio da coluna de texto</p>
-          <p class="mock__prompt">Still life fotográfico de um laço de cetim rosa vibrante (#E12C77) sobre superfície de papel texturizado em rosa muito claro. O laço é o objeto principal, posicionado ligeiramente fora do centro à esquerda, projetando uma sombra suave e alongada para a direita. Ao lado, dois ou três ramos discretos de gipsofila branca seca. LUZ: lateral rasante de janela, revelando a trama do cetim com micro-brilhos; sem luz dura. LENTE: macro, profundidade de campo rasa — a laçada em foco nítido e as pontas da fita saindo levemente de foco. PALETA restrita: rosa vibrante, rosa muito claro, branco e um bege quente. ESTILO: editorial de revista, minimalista, muito espaço negativo. EVITAR: fundo branco puro, mesa de madeira escura, muitos objetos, flores coloridas, glitter, brilho plástico, reflexos de estúdio, texto. Proporção 4:3, mínimo 1600×1200 px.</p>
-        </figure>
+        <img class="foto" src="img/campanha-laco.webp" width="1000" height="750"
+          alt="Laço de cetim rosa sobre papel texturizado, ao lado de ramos de gipsofila branca seca"
+          decoding="async" loading="lazy">
       </div>
     </div>
   </div>
@@ -805,57 +801,9 @@ html{ scroll-behavior:smooth; }
 
     <div class="rodape__base">
       <span>© 2026 Ayumi. Todos os direitos reservados.</span>
-      <button class="btn-briefing" type="button" id="briefing">Copiar os 7 prompts de imagem</button>
     </div>
   </div>
 </footer>
 
-<script>
-(function(){
-  function copiar(texto, botao, rotuloOk, rotuloPadrao){
-    var feito = function(){
-      botao.dataset.ok = "1";
-      botao.textContent = rotuloOk;
-      setTimeout(function(){ botao.removeAttribute("data-ok"); botao.textContent = rotuloPadrao; }, 1800);
-    };
-    if (navigator.clipboard && window.isSecureContext){
-      navigator.clipboard.writeText(texto).then(feito, function(){ manual(texto, feito); });
-    } else {
-      manual(texto, feito);
-    }
-  }
-
-  function manual(texto, feito){
-    var area = document.createElement("textarea");
-    area.value = texto;
-    area.setAttribute("readonly", "");
-    area.style.cssText = "position:fixed;top:-1000px;opacity:0";
-    document.body.appendChild(area);
-    area.select();
-    try { document.execCommand("copy"); feito(); } catch(e){ /* silencioso */ }
-    document.body.removeChild(area);
-  }
-
-  document.querySelectorAll(".mock__copiar").forEach(function(botao){
-    botao.addEventListener("click", function(){
-      var bloco = botao.closest(".mock");
-      var prompt = bloco.querySelector(".mock__prompt").textContent.trim();
-      copiar(prompt, botao, "Copiado", "Copiar prompt");
-    });
-  });
-
-  var briefing = document.getElementById("briefing");
-  briefing.addEventListener("click", function(){
-    var partes = [];
-    document.querySelectorAll(".mock").forEach(function(bloco){
-      var tag = bloco.querySelector(".mock__tag").textContent.trim();
-      var ar  = bloco.querySelector(".mock__ar").textContent.trim();
-      var uso = bloco.querySelector(".mock__uso").textContent.trim();
-      var txt = bloco.querySelector(".mock__prompt").textContent.trim();
-      partes.push(tag + " — " + uso + " (" + ar + ")\n\n" + txt);
-    });
-    copiar("AYUMI ROSA — BRIEFING DE IMAGENS\n\n" + partes.join("\n\n———\n\n"),
-           briefing, "Briefing copiado", "Copiar os 7 prompts de imagem");
-  });
-})();
-</script>
+</body>
+</html>
