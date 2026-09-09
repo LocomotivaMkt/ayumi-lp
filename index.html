@@ -233,8 +233,10 @@ a{ color: var(--rosa-escuro); }
 .hero__apoio{ color: var(--tinta-suave); max-width: 48ch; }
 .hero__acoes{ display:flex; flex-wrap:wrap; gap:.75rem; margin-top:.35rem; }
 
-.hero__arte{ position:relative; width:100%; max-width:400px; margin-inline-start:auto; }
-@media (max-width: 900px){ .hero__arte{ margin-inline-start:0; max-width:none; } }
+.hero__arte{ position:relative; width:100%; max-width:440px; margin-inline-start:auto; }
+/* Coluna unica: sem teto, o retrato 3:4 ocupava 796px de largura e ~133vh de
+   altura, empurrando o resto da pagina para fora da primeira tela. */
+@media (max-width: 900px){ .hero__arte{ margin-inline:auto; max-width:380px; } }
 
 
 /* ---------- faixa de dados ---------- */
@@ -262,7 +264,10 @@ a{ color: var(--rosa-escuro); }
   display:grid; grid-template-columns: 1fr 1fr; gap: clamp(1.5rem,4vw,3rem);
   align-items:start; margin-top:2.75rem;
 }
-@media (max-width: 880px){ .sobre__grade{ grid-template-columns:1fr; } }
+@media (max-width: 880px){
+  .sobre__grade{ grid-template-columns:1fr; }
+  .sobre__coluna .foto{ max-width:460px; margin-inline:auto; }
+}
 .sobre__coluna{ display:flex; flex-direction:column; gap:1.5rem; }
 .declaracao{
   background: var(--superficie); border:1px solid var(--linha);
@@ -275,11 +280,12 @@ a{ color: var(--rosa-escuro); }
 .declaracao__assina{ font-family: var(--script); font-size:1.5rem; color: var(--rosa); }
 
 /* ---------- passos ---------- */
+/* auto-fit, e nao 3->1: com o corte seco em 900px cada ilustracao 1:1 virava
+   um quadrado de 796px. Assim cai para 2 colunas antes de cair para 1. */
 .passos{
-  display:grid; grid-template-columns: repeat(3,1fr);
+  display:grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
   gap: clamp(1rem,2.5vw,1.75rem); margin-top:2.75rem;
 }
-@media (max-width: 900px){ .passos{ grid-template-columns:1fr; } }
 .passo{ display:flex; flex-direction:column; gap:1rem; }
 .passo__topo{ display:flex; align-items:baseline; gap:.7rem; }
 .passo__num{
@@ -371,7 +377,14 @@ a{ color: var(--rosa-escuro); }
 .cta .btn--claro{ margin-top:1.75rem; }
 .cta .mock{ --borda: rgba(255,255,255,.55); --tinta-mock:#fff; --fundo-mock: rgba(255,255,255,.1); }
 
-/* ---------- mock de imagem ---------- */
+/* ---------- imagens ---------- */
+.foto{
+  display:block; width:100%; height:auto;
+  border-radius:18px;
+  background: var(--rosa-claro);   /* segura o layout enquanto carrega */
+}
+
+/* ---------- mock de imagem (so a que falta) ---------- */
 .mock{
   --borda: var(--linha-forte);
   --tinta-mock: var(--tinta);
@@ -497,15 +510,8 @@ html{ scroll-behavior:smooth; }
     </div>
 
     <div class="hero__arte">
-      <figure class="mock" style="--ar: 3/4">
-        <div class="mock__topo">
-          <span class="mock__tag">Imagem 01</span>
-          <span class="mock__ar">foto · 3:4 · 1200×1600</span>
-          <button class="mock__copiar" type="button">Copiar prompt</button>
-        </div>
-        <p class="mock__uso">Retrato principal do hero</p>
-        <p class="mock__prompt">Fotografia publicitária de uma mulher brasileira de aproximadamente 35 anos, cabelo castanho ondulado na altura dos ombros, pele morena clara, sorrindo de forma natural e serena, olhar direto para a câmera. Ela se abraça com os dois braços cruzados sobre o peito e as mãos apoiadas nos próprios ombros — gesto de autocuidado e acolhimento, nunca de medo ou proteção. Veste camisa de linho branco levemente amassada, com um laço de cetim rosa preso do lado esquerdo do peito. ENQUADRAMENTO: meio-corpo, da cintura para cima; corpo em três quartos e rosto voltado para a câmera; a figura ocupa o lado direito do quadro, deixando o terço esquerdo limpo para entrada de texto. LUZ: natural difusa de janela vindo da esquerda, sombras suaves, sem estouro de altas-luzes, sem flash direto. FUNDO: parede lisa em rosa muito claro (#FBE3EC), desfocada, sem objetos ou molduras. PALETA: rosas claros, branco e tons de pele quentes. ESTILO: editorial de campanha institucional de saúde — real, próximo, sem pose de banco de imagens. EVITAR: sorriso exagerado com muitos dentes, maquiagem pesada, joias chamativas, mãos ou dedos deformados, laço rosa gigante, ambiente hospitalar, expressão triste, qualquer texto ou marca d'água. Proporção 3:4 (retrato), mínimo 1200×1600 px.</p>
-      </figure>
+      <img class="foto" src="img/hero-retrato.webp" width="800" height="1067"
+             alt="Mulher sorrindo, de camisa branca com laço rosa no peito, abraçando os próprios ombros" decoding="async" fetchpriority="high">
     </div>
   </div>
 </section>
@@ -544,15 +550,8 @@ html{ scroll-behavior:smooth; }
 
     <div class="sobre__grade">
       <div class="sobre__coluna">
-        <figure class="mock" style="--ar: 4/5">
-          <div class="mock__topo">
-            <span class="mock__tag">Imagem 02</span>
-            <span class="mock__ar">foto · 4:5 · 1400×1750</span>
-            <button class="mock__copiar" type="button">Copiar prompt</button>
-          </div>
-          <p class="mock__uso">Três gerações — bloco "A campanha"</p>
-          <p class="mock__prompt">Fotografia de três mulheres brasileiras juntas, de idades e tons de pele diferentes: uma de ~25 anos, negra, cabelo cacheado volumoso; uma de ~45 anos, branca, cabelo liso castanho na altura do ombro; e uma de ~65 anos, cabelo grisalho curto. Estão abraçadas lado a lado, rindo de algo que acontece fora do quadro — riso genuíno, não posado. Roupas em tons de rosa claro, branco e off-white; a mulher do meio usa um pequeno laço rosa na lapela. ENQUADRAMENTO: horizontal, do peito para cima, as três em foco, câmera na altura dos olhos, leve movimento natural nos corpos. LUZ: natural de fim de tarde, quente e suave, difusa, sem contraluz forte e sem sombras duras no rosto. FUNDO: ambiente externo claro e desfocado (praça arborizada), bokeh suave em verdes dessaturados para não competir com o rosa. CLIMA: amizade, leveza e cumplicidade entre gerações. EVITAR: pose de foto oficial olhando fixo para a lente, fundo escuro ou saturado, uniformes, excesso de laços rosa, mãos deformadas, texto ou marca d'água. Proporção 4:5, mínimo 1400×1750 px.</p>
-        </figure>
+        <img class="foto" src="img/campanha-tres-geracoes.webp" width="900" height="1125"
+             alt="Três mulheres de idades diferentes, abraçadas e rindo ao ar livre; a do meio usa um laço rosa na lapela" decoding="async" loading="lazy">
       </div>
 
       <div class="sobre__coluna">
@@ -593,45 +592,24 @@ html{ scroll-behavior:smooth; }
 
     <ol class="passos" style="list-style:none;padding:0;margin-top:2.75rem">
       <li class="passo">
-        <figure class="mock" style="--ar: 1/1">
-          <div class="mock__topo">
-            <span class="mock__tag">Imagem 04</span>
-            <span class="mock__ar">ilustração · 1:1 · 1000×1000</span>
-            <button class="mock__copiar" type="button">Copiar prompt</button>
-          </div>
-          <p class="mock__uso">Passo 1 — observe no espelho</p>
-          <p class="mock__prompt">Ilustração vetorial de linha (line art) de uma mulher em pé diante de um espelho retangular simples, vista de costas para o observador; os dois braços estão erguidos acima da cabeça e o reflexo simplificado do tronco aparece no espelho. ESTILO OBRIGATÓRIO (idêntico nas três ilustrações da série): traço contínuo de espessura uniforme, cor rosa #E12C77, sobre fundo rosa muito claro #FDEEF4; figura feminina estilizada, silhueta simples e respeitosa, sem detalhes anatômicos explícitos, rosto sem feições (apenas contorno da cabeça e do cabelo preso); preenchimentos chapados em rosa claro #F8C9DC usados só como apoio, no máximo dois por imagem; composição centralizada com margem de respiro em todos os lados. SEM sombreado, SEM gradiente, SEM textura, SEM efeito 3D, SEM moldura, SEM texto ou números dentro da imagem. Proporção 1:1, mínimo 1000×1000 px, fundo chapado ou PNG transparente.</p>
-        </figure>
+        <img class="foto" src="img/autoexame-1-espelho.webp" width="720" height="720"
+             alt="Ilustração: mulher de costas diante do espelho, com os braços erguidos acima da cabeça" decoding="async" loading="lazy">
         <div class="passo__topo"><span class="passo__num">01</span><h3>Observe no espelho</h3></div>
         <p>De pé, braços ao longo do corpo e depois erguidos. Procure mudanças no formato,
            no tamanho, na cor da pele ou na posição dos mamilos.</p>
       </li>
 
       <li class="passo">
-        <figure class="mock" style="--ar: 1/1">
-          <div class="mock__topo">
-            <span class="mock__tag">Imagem 05</span>
-            <span class="mock__ar">ilustração · 1:1 · 1000×1000</span>
-            <button class="mock__copiar" type="button">Copiar prompt</button>
-          </div>
-          <p class="mock__uso">Passo 2 — toque em pé, no banho</p>
-          <p class="mock__prompt">Ilustração vetorial de linha (line art) de uma mulher em pé sob o chuveiro, indicado por poucos traços curtos de água acima da cabeça; o braço esquerdo está erguido com a mão atrás da nuca e a mão direita apoiada sobre a mama esquerda, com os três dedos centrais estendidos. Pequenos círculos pontilhados sobre a mama indicam o trajeto circular da palpação. ESTILO OBRIGATÓRIO (idêntico nas três ilustrações da série): traço contínuo de espessura uniforme, cor rosa #E12C77, sobre fundo rosa muito claro #FDEEF4; figura feminina estilizada, silhueta simples e respeitosa, sem detalhes anatômicos explícitos, rosto sem feições (apenas contorno da cabeça e do cabelo preso); preenchimentos chapados em rosa claro #F8C9DC usados só como apoio, no máximo dois por imagem; composição centralizada com margem de respiro em todos os lados. SEM sombreado, SEM gradiente, SEM textura, SEM efeito 3D, SEM moldura, SEM texto ou números dentro da imagem. Proporção 1:1, mínimo 1000×1000 px, fundo chapado ou PNG transparente.</p>
-        </figure>
+        <img class="foto" src="img/autoexame-2-banho.webp" width="720" height="720"
+             alt="Ilustração: mulher no banho, com um braço atrás da cabeça, apalpando a mama em movimentos circulares" decoding="async" loading="lazy">
         <div class="passo__topo"><span class="passo__num">02</span><h3>Toque com as mãos</h3></div>
         <p>Com a pele molhada e ensaboada, deslize os três dedos centrais em movimentos
            circulares, de fora para dentro, cobrindo toda a mama.</p>
       </li>
 
       <li class="passo">
-        <figure class="mock" style="--ar: 1/1">
-          <div class="mock__topo">
-            <span class="mock__tag">Imagem 06</span>
-            <span class="mock__ar">ilustração · 1:1 · 1000×1000</span>
-            <button class="mock__copiar" type="button">Copiar prompt</button>
-          </div>
-          <p class="mock__uso">Passo 3 — deitada, incluindo a axila</p>
-          <p class="mock__prompt">Ilustração vetorial de linha (line art) de uma mulher deitada de costas sobre uma superfície plana simples, com uma toalha dobrada sob o ombro direito e o braço direito atrás da cabeça; a mão esquerda toca a mama direita e uma linha pontilhada segue do peito até a axila, indicando que a região axilar também é examinada. Vista de cima, em perspectiva plana. ESTILO OBRIGATÓRIO (idêntico nas três ilustrações da série): traço contínuo de espessura uniforme, cor rosa #E12C77, sobre fundo rosa muito claro #FDEEF4; figura feminina estilizada, silhueta simples e respeitosa, sem detalhes anatômicos explícitos, rosto sem feições (apenas contorno da cabeça e do cabelo preso); preenchimentos chapados em rosa claro #F8C9DC usados só como apoio, no máximo dois por imagem; composição centralizada com margem de respiro em todos os lados. SEM sombreado, SEM gradiente, SEM textura, SEM efeito 3D, SEM moldura, SEM texto ou números dentro da imagem. Proporção 1:1, mínimo 1000×1000 px, fundo chapado ou PNG transparente.</p>
-        </figure>
+        <img class="foto" src="img/autoexame-3-deitada.webp" width="720" height="720"
+             alt="Ilustração: mulher deitada com uma toalha sob o ombro e o braço atrás da cabeça, apalpando a mama em direção à axila" decoding="async" loading="lazy">
         <div class="passo__topo"><span class="passo__num">03</span><h3>Não esqueça a axila</h3></div>
         <p>Deitada, com uma toalha sob o ombro e o braço atrás da cabeça, examine a mama
            do mesmo lado e siga até a axila e a clavícula.</p>
@@ -777,15 +755,8 @@ html{ scroll-behavior:smooth; }
       <a class="btn btn--claro" href="#autoexame">Começar pelo autoexame</a>
     </div>
 
-    <figure class="mock" style="--ar: 16/9">
-      <div class="mock__topo">
-        <span class="mock__tag">Imagem 07</span>
-        <span class="mock__ar">foto · 16:9 · 2000×1125</span>
-        <button class="mock__copiar" type="button">Copiar prompt</button>
-      </div>
-      <p class="mock__uso">Mãos de duas gerações — bloco de chamada final</p>
-      <p class="mock__prompt">Fotografia horizontal de duas mãos femininas de gerações diferentes — uma mão jovem, de pele lisa, e uma mão idosa, com marcas de idade e veias visíveis — sobrepostas em gesto de apoio e continuidade. Entre os dedos, uma fita de cetim rosa. ENQUADRAMENTO: as mãos ocupam a metade esquerda do quadro, deixando a metade direita limpa para texto sobreposto; câmera ligeiramente acima, quase a pino. LUZ: suave e frontal, difusa, sem sombras duras, temperatura levemente quente. FOCO: nítido nas mãos, profundidade de campo rasa. FUNDO: superfície lisa em rosa claro uniforme, levemente desfocada. CLIMA: acolhimento e continuidade entre gerações, sereno, sem dramaticidade nem tom fúnebre. EVITAR: mãos deformadas ou com número errado de dedos, unhas postiças coloridas, anéis chamativos, fundo escuro, rostos no quadro, ambiente hospitalar, texto ou marca d'água. Proporção 16:9, mínimo 2000×1125 px.</p>
-    </figure>
+    <img class="foto" src="img/cta-maos.webp" width="1200" height="675"
+             alt="Mão jovem apoiada sobre uma mão idosa, com uma fita rosa entre os dedos" decoding="async" loading="lazy">
   </div>
 </section>
 

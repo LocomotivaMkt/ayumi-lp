@@ -1,33 +1,45 @@
 # Ayumi Rosa — landing page
 
 Landing page da campanha de Outubro Rosa da Ayumi, construída a partir do
-protótipo interno. Arquivo único: `index.html` (HTML + CSS + JS inline, sem
-build, sem dependência instalada).
+protótipo interno. Sem build e sem dependência instalada: `index.html` carrega
+HTML, CSS e JS inline, e as imagens saem de `img/`.
 
-Para ver, é só abrir o `index.html` no navegador.
+Para ver localmente, abra o `index.html` no navegador.
 
-## Espaços de imagem
+**No ar (provisório):** https://ayumi.locomotiva.art.br — sem senha, mas com
+`X-Robots-Tag: noindex`. Servido como estático pelo Caddy no Droplet, a partir
+de `/srv/sites/ayumi`. Push na `main` **não** publica: o deploy é manual.
 
-As sete imagens ainda não existem. Cada uma tem, no lugar dela, um bloco na
-proporção final com o prompt de geração escrito dentro e um botão **Copiar
-prompt**. No rodapé há um botão que copia o briefing dos sete de uma vez.
+## Imagens
 
-| # | Onde entra | Tipo | Proporção | Mínimo |
-|---|---|---|---|---|
-| 01 | Retrato do hero | foto | 3:4 | 1200×1600 |
-| 02 | Três gerações — bloco "A campanha" | foto | 4:5 | 1400×1750 |
-| 03 | Still do laço de cetim | foto | 4:3 | 1600×1200 |
-| 04 | Autoexame, passo 1 — no espelho | ilustração | 1:1 | 1000×1000 |
-| 05 | Autoexame, passo 2 — no banho | ilustração | 1:1 | 1000×1000 |
-| 06 | Autoexame, passo 3 — deitada | ilustração | 1:1 | 1000×1000 |
-| 07 | Mãos, chamada final | foto | 16:9 | 2000×1125 |
+Seis das sete já entraram. Ficam em `img/`, todas em WebP.
 
-Os prompts de 04 a 06 repetem o mesmo parágrafo de estilo (cor, traço,
-fundo, o que evitar). É isso que faz as três saírem coerentes mesmo geradas
-em sessões separadas — não altere esse trecho sem alterar nos três.
+| Arquivo | Onde entra | Exibido | Origem |
+|---|---|---|---|
+| `hero-retrato.webp` | retrato do hero | 800×1067 | foto |
+| `campanha-tres-geracoes.webp` | bloco "A campanha" | 900×1125 | foto |
+| `autoexame-1-espelho.webp` | passo 1 — no espelho | 720×720 | ilustração |
+| `autoexame-2-banho.webp` | passo 2 — no banho | 720×720 | ilustração |
+| `autoexame-3-deitada.webp` | passo 3 — deitada | 720×720 | ilustração |
+| `cta-maos.webp` | chamada final | 1200×675 | foto |
 
-Para trocar um mock pela imagem: substitua o `<figure class="mock">` por um
-`<img>` com a mesma `aspect-ratio`, `width`, `height` e um `alt` descritivo.
+**Falta a Imagem 03** (still do laço de cetim, 4:3). Ela continua na página como
+espaço mock com o prompt dentro e botão de copiar — o mesmo formato que as
+outras seis tinham antes de existirem.
+
+As três ilustrações do autoexame chegaram com fundos diferentes entre si: uma
+transparente e as outras duas em tons de rosa que não batiam. Todas foram
+normalizadas para **`#fce8f2`** exato, e por isso são gravadas em **WebP sem
+perda** — o WebP com perda desloca a cor chapada em ±1 e o fundo deixa de bater
+entre as três. Se substituir alguma, mantenha os dois detalhes.
+
+Os prompts que geraram cada imagem estão em
+[`docs/prompts-imagens.md`](docs/prompts-imagens.md). Os das ilustrações 04, 05
+e 06 repetem o mesmo parágrafo de estilo de propósito: é isso que faz as três
+saírem coerentes mesmo geradas em sessões separadas.
+
+Os originais em alta resolução não estão versionados; ficam em
+`~/Desktop/fotos ayumi/` na máquina de quem montou.
 
 ## Slots de logo
 
@@ -40,15 +52,16 @@ O uso de marca de terceiro depende de autorização formal de cada instituição
 
 ## Pendências antes de publicar
 
-- [ ] Gerar as 7 imagens e substituir os mocks
+- [ ] Gerar a Imagem 03 (still do laço) e substituir o último mock
 - [ ] Inserir os logos oficiais
 - [ ] **Reconferir os números do INCA** na faixa de dados (73.610 / +95% / 1 em 12)
 - [ ] Confirmar autorização de uso das marcas dos parceiros
 - [ ] Definir o destino real dos CTAs (hoje são âncoras internas)
+- [ ] Só então remover o `noindex` do vhost
 
 ## Conteúdo de saúde
 
 A página traz o aviso de que o autoexame não substitui a mamografia, a
-recomendação de rastreamento do Ministério da Saúde e o disclaimer de
-conteúdo informativo no rodapé. Esses três trechos não devem ser removidos
-em ajustes de copy.
+recomendação de rastreamento do Ministério da Saúde e o disclaimer de conteúdo
+informativo no rodapé. Esses três trechos não devem ser removidos em ajustes de
+copy.
