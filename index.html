@@ -13,7 +13,7 @@
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pt_BR">
 <meta property="og:site_name" content="Ayumi">
-<meta property="og:title" content="Ayumi Rosa — cuidar de você é o maior gesto de amor">
+<meta property="og:title" content="Ayumi Rosa: cuidar de você é o maior gesto de amor">
 <meta property="og:description" content="Outubro Rosa da Ayumi: como fazer o autoexame, quais sinais merecem uma consulta e por que o diagnóstico precoce muda tudo.">
 <meta property="og:url" content="https://ayumi.locomotiva.art.br/">
 <meta property="og:image" content="https://ayumi.locomotiva.art.br/img/og-ayumi-rosa.jpg">
@@ -221,8 +221,7 @@ a{ color: var(--rosa-escuro); }
   .topo{ position:static; }
   .topo__nav{ display:none; }
   .topo__grade{ min-height:0; }
-  .topo .logo-slot{ min-width:0; align-items:flex-start; text-align:left; }
-  .topo .logo-slot span{ display:none; }   /* a dica de arquivo e andaime */
+  .logo-topo{ width:132px; }
 
   /* 18px de alvo de toque nos links do rodape era pequeno demais para o dedo */
   .rodape ul{ gap:.15rem; }
@@ -230,19 +229,25 @@ a{ color: var(--rosa-escuro); }
 }
 
 
-/* ---------- slot de logo ---------- */
-.logo-slot{
-  display:flex; flex-direction:column; align-items:center; justify-content:center;
-  gap:.2rem; text-align:center;
-  border:1.5px dashed var(--linha-forte); border-radius:10px;
-  background: color-mix(in srgb, var(--rosa-claro) 45%, transparent);
-  padding:.5rem .9rem; min-width:170px; min-height:52px; flex:0 0 auto;
+/* ---------- logo ---------- */
+/* Mesma aba, de proposito: logo que leva ao site da marca e comportamento
+   conhecido, e mandar o visitante para a loja e o objetivo da campanha. */
+.logo-link{ display:inline-flex; flex:0 0 auto; border-radius:8px; transition: opacity .18s ease; }
+.logo-link:hover{ opacity:.82; }
+.logo-topo{ display:block; width:150px; height:auto; }
+.logo-rodape{ display:block; width:180px; height:auto; }
+.rodape .logo-link:hover{ opacity:.75; }
+
+/* A logo e vermelha e azul-marinho. O azul #0d54c9 sobre o fundo quase preto
+   do tema escuro fica ilegivel, entao no escuro entra a negativa — que e
+   exatamente a razao de uma marca ter versao negativa. */
+.logo-topo--negativa{ display:none; }
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]) .logo-topo--cor{ display:none; }
+  :root:not([data-theme="light"]) .logo-topo--negativa{ display:block; }
 }
-.logo-slot b{
-  font-family: var(--display); font-size:.72rem; font-weight:800;
-  letter-spacing:.14em; text-transform:uppercase; color: var(--rosa-escuro);
-}
-.logo-slot span{ font-size:.66rem; line-height:1.3; color: var(--tinta-suave); }
+:root[data-theme="dark"] .logo-topo--cor{ display:none; }
+:root[data-theme="dark"] .logo-topo--negativa{ display:block; }
 
 /* ---------- hero ---------- */
 .hero{
@@ -449,11 +454,6 @@ a{ color: var(--rosa-escuro); }
 .rodape ul{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:.5rem; font-size:.9rem; }
 .rodape a{ color: rgba(255,240,246,.78); text-decoration:none; }
 .rodape a:hover{ color:#fff; text-decoration:underline; }
-.rodape .logo-slot{
-  border-color: rgba(255,255,255,.3); background: rgba(255,255,255,.05); align-items:flex-start; text-align:left;
-}
-.rodape .logo-slot b{ color: var(--rosa-medio); }
-.rodape .logo-slot span{ color: rgba(255,240,246,.6); }
 .rodape__base{
   border-top:1px solid rgba(255,255,255,.14); padding-block:1.5rem;
   display:flex; flex-wrap:wrap; gap:1rem; align-items:center;
@@ -473,10 +473,12 @@ html{ scroll-behavior:smooth; }
 <!-- ====================== TOPO ====================== -->
 <header class="topo">
   <div class="env topo__grade">
-    <div class="logo-slot">
-      <b>Logo Ayumi</b>
-      <span>Arquivo oficial em SVG · versão horizontal</span>
-    </div>
+    <a class="logo-link" href="https://www.ayumi.com.br/">
+      <img class="logo-topo logo-topo--cor" src="img/logo-ayumi.webp"
+           width="300" height="145" alt="Ayumi Supermercados Online">
+      <img class="logo-topo logo-topo--negativa" src="img/logo-ayumi-branco.webp"
+           width="300" height="145" alt="Ayumi Supermercados Online">
+    </a>
     <nav class="topo__nav" aria-label="Seções da página">
       <a href="#campanha">A campanha</a>
       <a href="#autoexame">Autoexame</a>
@@ -535,7 +537,7 @@ html{ scroll-behavior:smooth; }
         <p class="dado__txt">é o risco aproximado de uma mulher desenvolver a doença até os 75 anos.</p>
       </div>
     </div>
-    <p class="dados__fonte">Fonte: INCA — Estimativa de Incidência de Câncer no Brasil (triênio 2023–2025). Confirme os números vigentes antes da publicação.</p>
+    <p class="dados__fonte">Fonte: INCA, Estimativa de Incidência de Câncer no Brasil (triênio 2023-2025). Confirme os números vigentes antes da publicação.</p>
   </div>
 </section>
 
@@ -558,12 +560,12 @@ html{ scroll-behavior:smooth; }
 
       <div class="sobre__coluna">
         <div class="declaracao">
-          <p>O câncer de mama é o tipo mais comum entre as mulheres brasileiras — e também
+          <p>O câncer de mama é o tipo mais comum entre as mulheres brasileiras, e também
              um dos que mais respondem bem ao tratamento <strong>quando descoberto cedo</strong>.
              É por isso que falar sobre ele importa: quem conhece o próprio corpo percebe
              mudanças antes.</p>
           <p style="color:var(--tinta-suave);font-size:.98rem">Homens também podem desenvolver
-             câncer de mama. É raro, cerca de 1% dos casos, mas existe — e merece a mesma atenção.</p>
+             câncer de mama. É raro, cerca de 1% dos casos, mas existe e merece a mesma atenção.</p>
           <p class="declaracao__assina">Juntos pela prevenção e pelo cuidado.</p>
         </div>
 
@@ -620,8 +622,8 @@ html{ scroll-behavior:smooth; }
       </svg>
       <p><strong>O autoexame não substitui a mamografia.</strong> Ele serve para você conhecer
          o próprio corpo e perceber mudanças. O rastreamento que detecta tumores ainda pequenos
-         demais para serem sentidos é feito por exame de imagem — e ele continua necessário
-         mesmo quando está tudo bem no toque.</p>
+         demais para serem sentidos é feito por exame de imagem, que continua
+         necessário mesmo quando está tudo bem no toque.</p>
     </div>
   </div>
 </section>
@@ -632,7 +634,7 @@ html{ scroll-behavior:smooth; }
     <div class="cabecalho-secao">
       <p class="rotulo">Quando procurar um médico</p>
       <h2>Sinais que merecem uma consulta</h2>
-      <p>Nenhum dos sinais abaixo significa, sozinho, que existe um câncer — a maioria tem
+      <p>Nenhum dos sinais abaixo significa, sozinho, que existe um câncer. A maioria tem
          causas benignas. Mas todos merecem avaliação profissional. Marque a consulta e leve
          a informação com você.</p>
     </div>
@@ -667,7 +669,7 @@ html{ scroll-behavior:smooth; }
     <div class="consulta">
       <p><strong>E o rastreamento de rotina?</strong> O Ministério da Saúde recomenda mamografia
          a cada dois anos para mulheres de 50 a 69 anos. Histórico familiar, mutações genéticas
-         ou outros fatores de risco podem antecipar esse início — quem define é o seu médico.</p>
+         ou outros fatores de risco podem antecipar esse início. Quem define é o seu médico.</p>
       <a class="btn btn--vazado" href="#participar">Como participar da campanha</a>
     </div>
   </div>
@@ -685,7 +687,7 @@ html{ scroll-behavior:smooth; }
 
     <div class="parceiros__lista">
       <div class="parceiro"><b>FEMAMA</b><span>Federação Brasileira de Instituições Filantrópicas de Apoio à Saúde da Mama</span></div>
-      <div class="parceiro"><b>Hospital de Amor</b><span>Barretos — prevenção e tratamento oncológico gratuito</span></div>
+      <div class="parceiro"><b>Hospital de Amor</b><span>Prevenção e tratamento oncológico gratuito, em Barretos</span></div>
       <div class="parceiro"><b>ABRALE</b><span>Associação Brasileira de Linfoma e Leucemia</span></div>
       <div class="parceiro"><b>Instituto Avon</b><span>Programas de detecção precoce e enfrentamento</span></div>
     </div>
@@ -716,7 +718,7 @@ html{ scroll-behavior:smooth; }
             <circle cx="12" cy="12" r="10" fill="var(--rosa-claro)"/>
             <path d="M7.5 12.4l3 3 6-6.4" stroke="var(--rosa)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
-          <div><b>Marque o seu exame</b><span>Se está atrasado, coloque no calendário agora — antes que outubro acabe.</span></div>
+          <div><b>Marque o seu exame</b><span>Se está atrasado, coloque no calendário agora, antes que outubro acabe.</span></div>
         </li>
         <li>
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -763,12 +765,12 @@ html{ scroll-behavior:smooth; }
   <div class="env">
     <div class="rodape__grade">
       <div>
-        <div class="logo-slot">
-          <b>Logo Ayumi — versão negativa</b>
-          <span>SVG monocromático branco + assinatura da campanha</span>
-        </div>
+        <a class="logo-link" href="https://www.ayumi.com.br/">
+          <img class="logo-rodape" src="img/logo-ayumi-branco.webp"
+               width="300" height="145" alt="Ayumi Supermercados Online">
+        </a>
         <p style="margin-top:1rem;font-size:.88rem;max-width:34ch">
-          Ayumi Rosa — campanha de conscientização sobre o câncer de mama.
+          Ayumi Rosa, campanha de conscientização sobre o câncer de mama.
           Outubro de 2026.
         </p>
       </div>
@@ -787,7 +789,7 @@ html{ scroll-behavior:smooth; }
         <h3>Onde buscar ajuda</h3>
         <ul>
           <li>Unidade Básica de Saúde mais próxima</li>
-          <li>Disque Saúde — 136</li>
+          <li>Disque Saúde 136</li>
           <li>Instituições parceiras da campanha</li>
         </ul>
       </div>

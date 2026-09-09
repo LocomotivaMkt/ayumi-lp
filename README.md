@@ -39,18 +39,36 @@ saírem coerentes mesmo geradas em sessões separadas.
 Os originais em alta resolução não estão versionados; ficam em
 `~/Desktop/fotos ayumi/` na máquina de quem montou.
 
-## Slots de logo
+## Logo
 
-Não levam prompt — são arquivos oficiais em SVG:
+`img/logo-ayumi.webp` é a marca como veio, 300×145 com transparência.
+`img/logo-ayumi-branco.webp` é a mesma arte pintada de branco puro, guardando o
+canal alfa original para as bordas continuarem suaves sobre fundo escuro.
 
-- topo e rodapé: marca Ayumi (horizontal e negativa) + assinatura da campanha;
-- parceiros: FEMAMA, Hospital de Amor, ABRALE, Instituto Avon.
+O topo troca de versão conforme o tema: a logo é vermelha e azul-marinho, e o
+azul `#0d54c9` sobre o fundo quase preto do tema escuro fica ilegível, então no
+escuro entra a negativa. O rodapé usa sempre a negativa, porque o fundo dele é
+ameixa escuro nos dois temas.
 
-O uso de marca de terceiro depende de autorização formal de cada instituição.
+As duas são clicáveis e levam para **https://www.ayumi.com.br/**, na mesma aba.
+A marca tem outros dois domínios no ar (`ayumisupermercados.com.br`, também
+loja online, e `redeayumi.com.br`, institucional em WordPress que hoje responde
+com erro de PHP). Se o oficial for outro, é uma linha no `index.html`.
+
+O ideal ainda é receber o **SVG** da marca: o arquivo atual é raster de 300px,
+exibido a 150px, o que dá 2x e resolve, mas não escala além disso.
+
+### Slots de parceiro
+
+FEMAMA, Hospital de Amor, ABRALE e Instituto Avon continuam como caixas
+tracejadas, esperando os arquivos oficiais. O uso de marca de terceiro depende
+de autorização formal de cada instituição.
 
 ## Pendências antes de publicar
 
-- [ ] Inserir os logos oficiais
+- [ ] Inserir os logos dos parceiros
+- [ ] Confirmar o domínio oficial para onde a logo aponta
+- [ ] Trocar a logo por SVG, se houver
 - [ ] **Reconferir os números do INCA** na faixa de dados (73.610 / +95% / 1 em 12)
 - [ ] Confirmar autorização de uso das marcas dos parceiros
 - [ ] Definir o destino real dos CTAs (hoje são âncoras internas)
@@ -65,6 +83,9 @@ Vale o aviso porque a primeira versão nasceu no formato de Artifact, onde esse
 envelope é injetado por fora. Servido direto pelo Caddy, sem ele, o navegador
 caía em *quirks mode* e o celular renderizava a página a 980px de largura,
 encolhendo tudo.
+
+O texto não usa travessão. Foi pedido assim; ao editar a copy, resolva com
+vírgula, ponto ou dois-pontos.
 
 A página **não tem JavaScript**. O `<script>` que existia servia só para copiar
 os prompts dos mocks e saiu junto com eles.
