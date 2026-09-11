@@ -34,7 +34,7 @@
    :root faz o navegador desenhar controles e barra de rolagem no claro mesmo
    com o aparelho no modo escuro, e nao ha nenhum bloco prefers-color-scheme
    nem [data-theme]. Se for reintroduzir tema escuro um dia, lembre que a logo
-   e vermelha e azul-marinho e precisa da negativa (img/logo-ayumi-branco.webp)
+   e vermelha e azul e precisa da negativa (img/logo-ayumi-branco.webp)
    sobre fundo escuro.
    Paleta: magenta de campanha + neutros mornos enviesados ao rosa
    + ameixa profunda no lugar do preto.
@@ -165,7 +165,7 @@ a{ color: var(--rosa-escuro); }
 .topo .btn{ padding:.7rem 1.2rem; font-size:.78rem; flex:0 0 auto; }
 @media (max-width: 1060px){ .topo .btn{ display:none; } }
 
-/* Faixa de tablet: logo + 5 itens nao cabem em uma linha, e a rolagem lateral
+/* Faixa de tablet: logo + 4 itens nao cabem em uma linha, e a rolagem lateral
    do menu escondia um item sem nenhuma pista. Quebra em duas linhas.
    Precisa vir ANTES do bloco de 720px, que esconde o menu de vez no celular. */
 @media (max-width: 920px){
@@ -174,14 +174,13 @@ a{ color: var(--rosa-escuro); }
   .topo__nav a{ padding-block:.45rem; }
 }
 @media (max-width: 720px){
-  /* Sem menu no topo. Medido: os 5 itens quebravam em 3 linhas e o cabecalho
+  /* Sem menu no topo. Medido: os itens quebravam em 3 linhas e o cabecalho
      ia a 206px — mais de um quarto da tela de um celular so de cabecalho,
      antes de comecar a pagina. Numa landing linear a rolagem ja e a
-     navegacao, e o rodape repete os mesmos 4 links. */
+     navegacao, e o rodape repete os mesmos links. */
   .topo{ position:static; }
   .topo__nav{ display:none; }
   .topo__grade{ min-height:0; }
-  .logo-topo{ width:132px; }
 
   /* 18px de alvo de toque nos links do rodape era pequeno demais para o dedo */
   .rodape ul{ gap:.15rem; }
@@ -194,9 +193,12 @@ a{ color: var(--rosa-escuro); }
    conhecido, e mandar o visitante para a loja e o objetivo da campanha. */
 .logo-link{ display:inline-flex; flex:0 0 auto; border-radius:8px; transition: opacity .18s ease; }
 .logo-link:hover{ opacity:.82; }
-.logo-topo{ display:block; width:150px; height:auto; }
-.logo-rodape{ display:block; width:180px; height:auto; }
+.logo-topo{ display:block; width:176px; height:auto; }
+.logo-rodape{ display:block; width:208px; height:auto; }
 .rodape .logo-link:hover{ opacity:.75; }
+/* Precisa vir DEPOIS das larguras base: ficava junto do resto do topo, no
+   @media de 720px la em cima, e a regra base sobrescrevia a versao menor. */
+@media (max-width: 720px){ .logo-topo{ width:152px; } }
 
 
 /* ---------- hero ---------- */
@@ -230,6 +232,12 @@ a{ color: var(--rosa-escuro); }
   line-height:1.28; max-width: 22ch; color: var(--tinta);
 }
 .hero__frase em{ font-style:normal; color: var(--rosa-escuro); }
+/* Mote da campanha logo abaixo da frase de abertura: um degrau menor, para ler
+   como assinatura e nao como uma segunda manchete. */
+.hero__mote{
+  display:block; margin-top:.55rem; font-size:.84em; color: var(--rosa-escuro);
+  text-wrap:balance;   /* sem isso sobra "cuidado." sozinho na segunda linha */
+}
 .hero__apoio{ color: var(--tinta-suave); max-width: 48ch; }
 .hero__acoes{ display:flex; flex-wrap:wrap; gap:.75rem; margin-top:.35rem; }
 
@@ -270,6 +278,7 @@ a{ color: var(--rosa-escuro); }
 }
 .sobre__coluna{ display:flex; flex-direction:column; gap:1.5rem; }
 .declaracao{
+  position:relative;
   background: var(--superficie); border:1px solid var(--linha);
   border-left:4px solid var(--rosa); border-radius: 4px 18px 18px 4px;
   padding: clamp(1.5rem,3vw,2.25rem); box-shadow: var(--sombra);
@@ -277,6 +286,16 @@ a{ color: var(--rosa-escuro); }
 }
 .declaracao p{ font-size:1.1rem; }
 .declaracao p strong{ color: var(--rosa-escuro); }
+/* Ornamento no pe da caixa: ultimo elemento do fluxo, encostado na direita
+   pela margem automatica da esquerda, e descendo para fora da caixa pela
+   margem de baixo negativa. Como ele vem depois do texto e nao e posicionado
+   fora do fluxo, nao ha largura em que cubra alguma linha. O transbordo cabe
+   no respiro que a secao ja tem embaixo. */
+.declaracao__laco{
+  display:block; width:min(52%, 230px); height:auto;
+  margin: .6rem -.6rem -68px auto;
+}
+
 .declaracao__assina{ font-family: var(--script); font-size:1.5rem; color: var(--rosa); }
 
 /* ---------- passos ---------- */
@@ -298,6 +317,34 @@ a{ color: var(--rosa-escuro); }
 }
 .passo p{ font-size:.95rem; color: var(--tinta-suave); }
 
+/* Seis regioes do autoexame: 3x2 no desktop. Precisa vir DEPOIS de .passos,
+   que e auto-fit e deixaria 4+2 na primeira linha. */
+.passos--seis{ grid-template-columns: repeat(3, minmax(0,1fr)); }
+@media (max-width: 880px){ .passos--seis{ grid-template-columns: repeat(2, minmax(0,1fr)); } }
+/* Titulo de duas linhas ("Debaixo do braco esquerdo") desalinhava o texto das
+   colunas vizinhas; reserva a altura das duas linhas enquanto ha mais de uma. */
+@media (min-width: 561px){ .passos--seis .passo__topo{ min-height:2.2rem; } }
+@media (max-width: 560px){ .passos--seis{ grid-template-columns: 1fr; } }
+
+/* Observacao no espelho: nao e uma regiao de toque, entao fica fora da grade
+   e vem antes dela, que e a ordem do exame. */
+.antes{
+  display:grid; grid-template-columns: minmax(0,300px) 1fr;
+  gap: clamp(1.25rem,3vw,2.5rem); align-items:center;
+  margin-top:2.75rem; padding: clamp(1rem,2.2vw,1.5rem);
+  background: var(--superficie); border:1px solid var(--linha);
+  border-radius:22px; box-shadow: var(--sombra);
+}
+.antes h3{
+  font-size:1.3rem; text-transform:uppercase; letter-spacing:.02em;
+  font-stretch:104%; margin-block:.35rem .7rem;
+}
+.antes__txt p + p{ margin-top:.7rem; color: var(--tinta-suave); font-size:.95rem; }
+@media (max-width: 760px){
+  .antes{ grid-template-columns:1fr; }
+  .antes .foto{ max-width:320px; margin-inline:auto; }
+}
+
 .aviso{
   display:flex; gap:1rem; align-items:flex-start; margin-top:2.5rem;
   padding: 1.15rem 1.35rem; border-radius:14px;
@@ -318,59 +365,28 @@ a{ color: var(--rosa-escuro); }
 .sinal h3{ font-size:.82rem; letter-spacing:.12em; text-transform:uppercase; color: var(--rosa-escuro); font-weight:700; }
 .sinal p{ font-size:.95rem; color: var(--tinta-suave); }
 
-.consulta{
-  margin-top:2rem; display:flex; flex-wrap:wrap; gap:1.25rem;
-  align-items:center; justify-content:space-between;
-  padding: clamp(1.25rem,3vw,1.9rem); border-radius:18px;
-  border:2px dashed var(--linha-forte);
-}
-.consulta p{ max-width: 52ch; font-size:.98rem; }
-
 /* ---------- parceiros ---------- */
 .parceiros__lista{
   display:grid; grid-template-columns: repeat(4, 1fr); gap:1rem; margin-top:2.5rem;
 }
-@media (max-width: 820px){ .parceiros__lista{ grid-template-columns: repeat(2,1fr); } }
-/* Nome de instituicao e longo: em 2 colunas de 159px virava uma coluna de
-   texto de 10 linhas em corpo miudo. Precisa vir DEPOIS da regra de 820px:
-   mesma especificidade, quem vier por ultimo vence. */
+@media (max-width: 1000px){ .parceiros__lista{ grid-template-columns: repeat(2,1fr); } }
+/* Precisa vir DEPOIS da regra de 1000px: mesma especificidade, quem vier por
+   ultimo vence. */
 @media (max-width: 560px){
   .parceiros__lista{ grid-template-columns:1fr; }
   .parceiro{ min-height:0; }
 }
 .parceiro{
   display:flex; flex-direction:column; align-items:center; justify-content:center;
-  gap:.35rem; text-align:center; min-height:120px; padding:1.1rem .9rem;
-  border:1.5px dashed var(--linha-forte); border-radius:14px;
+  gap:.35rem; text-align:center; min-height:104px; padding:1.1rem .9rem;
+  border:1px solid var(--linha); border-radius:14px;
   background: var(--superficie);
 }
-.parceiro b{ font-family: var(--display); font-size:.85rem; font-weight:800; letter-spacing:.04em; color: var(--tinta); }
-.parceiro span{ font-size:.72rem; color: var(--tinta-suave); line-height:1.35; }
-.parceiros__nota{ margin-top:1.25rem; font-size:.8rem; color: var(--tinta-suave); }
-
-/* ---------- participar ---------- */
-.participar__grade{
-  display:grid; grid-template-columns: 1.25fr .75fr; gap: clamp(1.5rem,4vw,3rem);
-  align-items:start; margin-top:2.5rem;
-}
-@media (max-width: 880px){ .participar__grade{ grid-template-columns:1fr; } }
-.acoes-lista{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; }
-.acoes-lista li{
-  display:flex; gap:1rem; align-items:flex-start;
-  padding-block:1.1rem; border-bottom:1px solid var(--linha);
-}
-.acoes-lista li:first-child{ border-top:1px solid var(--linha); }
-.acoes-lista svg{ flex:0 0 auto; margin-top:.2rem; }
-.acoes-lista b{ display:block; font-family: var(--display); font-weight:700; font-size:1rem; }
-.acoes-lista span{ font-size:.94rem; color: var(--tinta-suave); }
-
-.cartao-frase{
-  background: var(--rosa); color:#fff; border-radius:20px;
-  padding: clamp(1.75rem,3.5vw,2.4rem);
-  display:flex; flex-direction:column; gap:1rem; align-items:flex-start;
-}
-.cartao-frase p{ font-family: var(--script); font-size: clamp(1.9rem,4vw,2.6rem); line-height:1.05; }
-.cartao-frase small{ font-size:.9rem; opacity:.9; line-height:1.5; }
+/* Os quatro arquivos ja saem com a MESMA area aparente (ver README): logo
+   largo fica mais baixo, logo compacto fica mais alto, e a fileira pesa igual.
+   Por isso aqui nao ha altura fixa: quem manda e o tamanho intrinseco de cada
+   um, e o max-width so entra quando a coluna aperta. */
+.parceiro img{ display:block; max-width:100%; height:auto; }
 
 /* ---------- cta ---------- */
 .cta{ background: var(--rosa); color:#fff; }
@@ -425,14 +441,13 @@ html{ scroll-behavior:smooth; }
   <div class="env topo__grade">
     <a class="logo-link" href="https://www.ayumi.com.br/">
       <img class="logo-topo" src="img/logo-ayumi.webp"
-           width="300" height="145" alt="Ayumi Supermercados Online">
+           width="547" height="217" alt="Ayumi Supermercados">
     </a>
     <nav class="topo__nav" aria-label="Seções da página">
       <a href="#campanha">A campanha</a>
       <a href="#autoexame">Autoexame</a>
       <a href="#sinais">Sinais de alerta</a>
       <a href="#parceiros">Parceiros</a>
-      <a href="#participar">Como participar</a>
     </nav>
     <a class="btn btn--primario" href="#autoexame">Aprenda o autoexame</a>
   </div>
@@ -449,7 +464,8 @@ html{ scroll-behavior:smooth; }
         <span class="marca__nome">Ayumi</span>
         <span class="marca__rosa">rosa</span>
       </div>
-      <p class="hero__frase">Cuidar de você é <em>o maior gesto de amor.</em></p>
+      <p class="hero__frase">Cuidar de você é <em>o maior gesto de amor.</em>
+         <span class="hero__mote">Juntos pela prevenção e pelo cuidado.</span></p>
       <p class="hero__apoio">
         Durante todo o mês de outubro, a Ayumi se junta a quem trabalha pela prevenção
         e pelo diagnóstico precoce do câncer de mama. Aqui você aprende o que observar,
@@ -457,7 +473,7 @@ html{ scroll-behavior:smooth; }
       </p>
       <div class="hero__acoes">
         <a class="btn btn--primario" href="#autoexame">Aprenda o autoexame</a>
-        <a class="btn btn--vazado" href="#participar">Como participar</a>
+        <a class="btn btn--vazado" href="#sinais">Sinais de alerta</a>
       </div>
     </div>
 
@@ -496,8 +512,8 @@ html{ scroll-behavior:smooth; }
       <p class="rotulo">A campanha</p>
       <h2>Outubro é o mês de olhar para dentro</h2>
       <p>O Outubro Rosa é um movimento mundial de conscientização sobre a importância
-         da prevenção e do diagnóstico precoce do câncer de mama. O Ayumi Rosa é a nossa
-         forma de participar: informação clara, sem alarde e sem tabu.</p>
+         da prevenção e do diagnóstico precoce do câncer de mama. O Ayumi Rosa é o nosso
+         jeito de somar: informação clara, sem alarde e sem tabu.</p>
     </div>
 
     <div class="sobre__grade">
@@ -515,11 +531,9 @@ html{ scroll-behavior:smooth; }
           <p style="color:var(--tinta-suave);font-size:.98rem">Homens também podem desenvolver
              câncer de mama. É raro, cerca de 1% dos casos, mas existe e merece a mesma atenção.</p>
           <p class="declaracao__assina">Juntos pela prevenção e pelo cuidado.</p>
+          <img class="declaracao__laco" src="img/laco-outubro-rosa.webp" width="574" height="400"
+               alt="" aria-hidden="true" decoding="async" loading="lazy">
         </div>
-
-        <img class="foto" src="img/campanha-laco.webp" width="1000" height="750"
-          alt="Laço de cetim rosa sobre papel texturizado, ao lado de ramos de gipsofila branca seca"
-          decoding="async" loading="lazy">
       </div>
     </div>
   </div>
@@ -536,29 +550,73 @@ html{ scroll-behavior:smooth; }
          escolha os dias logo após a menstruação, quando as mamas estão menos sensíveis.</p>
     </div>
 
-    <ol class="passos" style="list-style:none;padding:0;margin-top:2.75rem">
+    <!-- Observação no espelho: vem antes do toque e não é uma das seis regiões,
+         por isso fica fora da grade. -->
+    <div class="antes">
+      <img class="foto" src="img/autoexame-1-espelho.webp" width="720" height="720"
+           alt="Ilustração: mulher de costas diante do espelho, com os braços erguidos acima da cabeça" decoding="async" loading="lazy">
+      <div class="antes__txt">
+        <p class="rotulo">Antes de tocar, olhe</p>
+        <h3>Comece no espelho</h3>
+        <p>De pé, com os braços ao longo do corpo e depois erguidos acima da cabeça.
+           Procure mudanças no formato, no tamanho, na cor da pele, na posição dos mamilos
+           ou alguma área que pareça repuxada ou afundada.</p>
+        <p>Depois de olhar, é hora de tocar. São seis regiões, e a ideia é não pular
+           nenhuma — use sempre os três dedos centrais, com movimentos firmes e sem pressa.</p>
+      </div>
+    </div>
+
+    <ol class="passos passos--seis" style="list-style:none;padding:0">
       <li class="passo">
-        <img class="foto" src="img/autoexame-1-espelho.webp" width="720" height="720"
-             alt="Ilustração: mulher de costas diante do espelho, com os braços erguidos acima da cabeça" decoding="async" loading="lazy">
-        <div class="passo__topo"><span class="passo__num">01</span><h3>Observe no espelho</h3></div>
-        <p>De pé, braços ao longo do corpo e depois erguidos. Procure mudanças no formato,
-           no tamanho, na cor da pele ou na posição dos mamilos.</p>
+        <img class="foto" src="img/autoexame-axila-direita.webp" width="720" height="720"
+             alt="Ilustração: mulher com o braço direito erguido e a mão atrás da nuca, apalpando a axila direita com a outra mão em movimentos circulares" decoding="async" loading="lazy">
+        <div class="passo__topo"><span class="passo__num">01</span><h3>Debaixo do braço direito</h3></div>
+        <p>Erga o braço direito e leve a mão à nuca. Com os três dedos da mão esquerda,
+           examine a axila em movimentos circulares: é ali que ficam os gânglios que
+           costumam avisar primeiro.</p>
       </li>
 
       <li class="passo">
-        <img class="foto" src="img/autoexame-2-banho.webp" width="720" height="720"
-             alt="Ilustração: mulher no banho, com um braço atrás da cabeça, apalpando a mama em movimentos circulares" decoding="async" loading="lazy">
-        <div class="passo__topo"><span class="passo__num">02</span><h3>Toque com as mãos</h3></div>
-        <p>Com a pele molhada e ensaboada, deslize os três dedos centrais em movimentos
-           circulares, de fora para dentro, cobrindo toda a mama.</p>
+        <img class="foto" src="img/autoexame-axila-esquerda.webp" width="720" height="720"
+             alt="Ilustração: mulher com o braço esquerdo erguido e a mão atrás da nuca, apalpando a axila esquerda com a outra mão em movimentos circulares" decoding="async" loading="lazy">
+        <div class="passo__topo"><span class="passo__num">02</span><h3>Debaixo do braço esquerdo</h3></div>
+        <p>Repita do outro lado, com a mão direita. Os dois lados quase nunca são
+           idênticos, e tudo bem: o que interessa não é a diferença entre eles, é o que
+           mudou no seu.</p>
+      </li>
+
+      <li class="passo">
+        <img class="foto" src="img/autoexame-mama-inteira.webp" width="720" height="720"
+             alt="Ilustração: mulher com o braço esquerdo erguido, sustentando a mama por baixo, com uma espiral tracejada que vai da borda externa até o centro" decoding="async" loading="lazy">
+        <div class="passo__topo"><span class="passo__num">03</span><h3>Toda a mama</h3></div>
+        <p>Cubra a mama inteira, sem pular pedaço: da clavícula até a prega de baixo do
+           seio, e do osso do meio do peito até a axila. Siga sempre o mesmo caminho para
+           não se perder.</p>
+      </li>
+
+      <li class="passo">
+        <img class="foto" src="img/autoexame-parte-de-cima.webp" width="720" height="720"
+             alt="Ilustração: mulher com a mão espalmada sobre a parte de cima da mama, pressionando em direção às costelas" decoding="async" loading="lazy">
+        <div class="passo__topo"><span class="passo__num">04</span><h3>Por cima da mama</h3></div>
+        <p>Com a mão espalmada sobre a parte de cima da mama, pressione com firmeza suave
+           em direção às costelas. A faixa perto da clavícula é a que mais passa batido.</p>
       </li>
 
       <li class="passo">
         <img class="foto" src="img/autoexame-3-deitada.webp" width="720" height="720"
              alt="Ilustração: mulher deitada com uma toalha sob o ombro e o braço atrás da cabeça, apalpando a mama em direção à axila" decoding="async" loading="lazy">
-        <div class="passo__topo"><span class="passo__num">03</span><h3>Não esqueça a axila</h3></div>
-        <p>Deitada, com uma toalha sob o ombro e o braço atrás da cabeça, examine a mama
-           do mesmo lado e siga até a axila e a clavícula.</p>
+        <div class="passo__topo"><span class="passo__num">05</span><h3>Deite-se e toque-se</h3></div>
+        <p>Deitada, com uma toalha dobrada sob o ombro e o braço atrás da cabeça, o tecido
+           se espalha e fica mais fácil sentir. Examine a mama desse lado e siga até a axila.</p>
+      </li>
+
+      <li class="passo">
+        <img class="foto" src="img/autoexame-2-banho.webp" width="720" height="720"
+             alt="Ilustração: mulher no banho, com um braço atrás da cabeça, apalpando a mama em movimentos circulares" decoding="async" loading="lazy">
+        <div class="passo__topo"><span class="passo__num">06</span><h3>Explore realizando círculos</h3></div>
+        <p>No banho, com a pele ensaboada, deslize os três dedos centrais em círculos
+           pequenos, de fora para dentro, sem tirar a mão da pele. A espuma faz o toque
+           correr e ajuda a sentir.</p>
       </li>
     </ol>
 
@@ -613,81 +671,6 @@ html{ scroll-behavior:smooth; }
         <p>Pequenos caroços na axila ou acima da clavícula que não desaparecem.</p>
       </article>
     </div>
-
-    <div class="consulta">
-      <p><strong>E o rastreamento de rotina?</strong> O Ministério da Saúde recomenda mamografia
-         a cada dois anos para mulheres de 50 a 69 anos. Histórico familiar, mutações genéticas
-         ou outros fatores de risco podem antecipar esse início. Quem define é o seu médico.</p>
-      <a class="btn btn--vazado" href="#participar">Como participar da campanha</a>
-    </div>
-  </div>
-</section>
-
-<!-- ====================== PARCEIROS ====================== -->
-<section class="secao secao--quente" id="parceiros">
-  <div class="env">
-    <div class="cabecalho-secao">
-      <p class="rotulo">Juntos somos mais fortes</p>
-      <h2>Parceiros do Ayumi Rosa</h2>
-      <p>Instituições que atuam há anos em prevenção, acolhimento e apoio a pacientes.
-         Conhecer o trabalho delas é o primeiro passo para apoiar de verdade.</p>
-    </div>
-
-    <div class="parceiros__lista">
-      <div class="parceiro"><b>FEMAMA</b><span>Federação Brasileira de Instituições Filantrópicas de Apoio à Saúde da Mama</span></div>
-      <div class="parceiro"><b>Hospital de Amor</b><span>Prevenção e tratamento oncológico gratuito, em Barretos</span></div>
-      <div class="parceiro"><b>ABRALE</b><span>Associação Brasileira de Linfoma e Leucemia</span></div>
-      <div class="parceiro"><b>Instituto Avon</b><span>Programas de detecção precoce e enfrentamento</span></div>
-    </div>
-    <p class="parceiros__nota">Slots de logotipo: inserir os arquivos oficiais em SVG, versão monocromática,
-       altura óptica equalizada. O uso de marca de terceiros depende de autorização formal de cada instituição.</p>
-  </div>
-</section>
-
-<!-- ====================== PARTICIPAR ====================== -->
-<section class="secao" id="participar">
-  <div class="env">
-    <div class="cabecalho-secao">
-      <p class="rotulo">Como você pode fazer parte?</p>
-      <h2>Quatro atitudes que cabem na sua semana</h2>
-    </div>
-
-    <div class="participar__grade">
-      <ul class="acoes-lista">
-        <li>
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <circle cx="12" cy="12" r="10" fill="var(--rosa-claro)"/>
-            <path d="M7.5 12.4l3 3 6-6.4" stroke="var(--rosa)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          <div><b>Compartilhe informação</b><span>Mande esta página para três mulheres da sua família. A conversa costuma começar por alguém.</span></div>
-        </li>
-        <li>
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <circle cx="12" cy="12" r="10" fill="var(--rosa-claro)"/>
-            <path d="M7.5 12.4l3 3 6-6.4" stroke="var(--rosa)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          <div><b>Marque o seu exame</b><span>Se está atrasado, coloque no calendário agora, antes que outubro acabe.</span></div>
-        </li>
-        <li>
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <circle cx="12" cy="12" r="10" fill="var(--rosa-claro)"/>
-            <path d="M7.5 12.4l3 3 6-6.4" stroke="var(--rosa)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          <div><b>Apoie quem está em tratamento</b><span>Carona para a sessão, uma refeição pronta, companhia na consulta. O apoio prático vale mais que a frase de efeito.</span></div>
-        </li>
-        <li>
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <circle cx="12" cy="12" r="10" fill="var(--rosa-claro)"/>
-            <path d="M7.5 12.4l3 3 6-6.4" stroke="var(--rosa)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          <div><b>Doe para quem já está lá</b><span>As instituições parceiras recebem doações e trabalho voluntário o ano inteiro, não só em outubro.</span></div>
-        </li>
-      </ul>
-
-      <div class="cartao-frase">        <p>Pequenas atitudes salvam vidas.</p>
-        <small>Nenhuma campanha diagnostica ninguém. Quem faz isso é a consulta que você marca depois de ler.</small>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -706,6 +689,36 @@ html{ scroll-behavior:smooth; }
   </div>
 </section>
 
+<!-- ====================== PARCEIROS ====================== -->
+<section class="secao secao--quente" id="parceiros">
+  <div class="env">
+    <div class="cabecalho-secao">
+      <h2>Parceiros do Ayumi Rosa</h2>
+    </div>
+
+    <div class="parceiros__lista">
+      <div class="parceiro">
+        <img src="img/parceiro-femama.webp" width="130" height="40"
+             alt="FEMAMA — Federação Brasileira de Instituições Filantrópicas de Apoio à Saúde da Mama"
+             decoding="async" loading="lazy">
+      </div>
+      <div class="parceiro">
+        <img src="img/parceiro-hospital-de-amor.webp" width="194" height="27"
+             alt="Hospital de Amor" decoding="async" loading="lazy">
+      </div>
+      <div class="parceiro">
+        <img src="img/parceiro-abrale.webp" width="133" height="40"
+             alt="ABRALE — Associação Brasileira de Linfoma e Leucemia"
+             decoding="async" loading="lazy">
+      </div>
+      <div class="parceiro">
+        <img src="img/parceiro-instituto-avon.webp" width="109" height="48"
+             alt="Instituto Avon" decoding="async" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
 </main>
 
 <!-- ====================== RODAPÉ ====================== -->
@@ -715,7 +728,7 @@ html{ scroll-behavior:smooth; }
       <div>
         <a class="logo-link" href="https://www.ayumi.com.br/">
           <img class="logo-rodape" src="img/logo-ayumi-branco.webp"
-               width="300" height="145" alt="Ayumi Supermercados Online">
+               width="547" height="217" alt="Ayumi Supermercados">
         </a>
         <p style="margin-top:1rem;font-size:.88rem;max-width:34ch">
           Ayumi Rosa, campanha de conscientização sobre o câncer de mama.
@@ -727,9 +740,9 @@ html{ scroll-behavior:smooth; }
         <h3>Nesta página</h3>
         <ul>
           <li><a href="#campanha">A campanha</a></li>
-          <li><a href="#autoexame">Autoexame em 3 passos</a></li>
+          <li><a href="#autoexame">Autoexame passo a passo</a></li>
           <li><a href="#sinais">Sinais de alerta</a></li>
-          <li><a href="#participar">Como participar</a></li>
+          <li><a href="#parceiros">Parceiros</a></li>
         </ul>
       </div>
 
@@ -756,4 +769,5 @@ html{ scroll-behavior:smooth; }
 </footer>
 
 </body>
+
 </html>
