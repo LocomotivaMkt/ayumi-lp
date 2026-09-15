@@ -83,6 +83,20 @@ dois botões.
 A fonte **Caveat** continua sendo carregada mesmo sem o "rosa" manuscrito —
 ela ainda escreve o "autoexame" do título daquela seção.
 
+### Texto do banner
+
+A frase do banner segue a arte da campanha (`~/Downloads/Ayumi rosa.png` na
+máquina de quem montou), não a paleta da página: **azul-marinho `#001b54`** com
+o "amor." em **`#df0d6c`** e itálico, os dois medidos no arquivo. São os dois
+únicos lugares com azul no site — `--marinho` e `--rosa-banner` existem só para
+isso e não devem virar cor de interface.
+
+As quebras de linha são forçadas com `<br>`, como na arte: "Cuidar de você /
+é o maior gesto de amor." e "Juntos pela prevenção / e pelo cuidado." O tamanho
+da frase é `clamp(1.3rem, 6vw, 2.15rem)`: o termo em `vw` segura o tamanho nas
+telas médias, e o mínimo existe porque em 320px a segunda linha chegava a 11px
+da borda e qualquer fonte de fallback a quebraria em três linhas.
+
 ## Logo
 
 `img/logo-ayumi.webp` é a marca como veio, 547×217 com transparência, recortada

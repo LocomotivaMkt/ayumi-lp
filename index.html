@@ -37,7 +37,8 @@
    e vermelha e azul e precisa da negativa (img/logo-ayumi-branco.webp)
    sobre fundo escuro.
    Paleta: magenta de campanha + neutros mornos enviesados ao rosa
-   + ameixa profunda no lugar do preto.
+   + ameixa profunda no lugar do preto. O azul-marinho entra so na frase do
+   banner, para bater com a arte da campanha; nao e cor de interface.
    ============================================================ */
 
 :root{
@@ -53,6 +54,9 @@
   --tinta:        #3A1B2A;
   --tinta-suave:  #7A5866;
   --tinta-clara:  #FFF0F6;
+
+  --marinho:      #001B54;   /* texto do banner, medido na arte da campanha */
+  --rosa-banner:  #DF0D6C;   /* o "amor." do banner, idem */
 
   --rosa:         #E12C77;
   --rosa-escuro:  #A81355;
@@ -224,15 +228,15 @@ a{ color: var(--rosa-escuro); }
 .marca{ margin:0; }
 .marca img{ display:block; width:min(100%, 500px); height:auto; }
 .hero__frase{
-  font-family: var(--display); font-weight:600; font-size: clamp(1.2rem, 2.4vw, 1.65rem);
-  line-height:1.28; max-width: 22ch; color: var(--tinta);
+  font-family: var(--display); font-weight:800; font-size: clamp(1.3rem, 6vw, 2.15rem);
+  line-height:1.18; letter-spacing:-.015em; color: var(--marinho);
 }
-.hero__frase em{ font-style:normal; color: var(--rosa-escuro); }
+.hero__frase em{ font-style:italic; color: var(--rosa-banner); }
 /* Mote da campanha logo abaixo da frase de abertura: um degrau menor, para ler
    como assinatura e nao como uma segunda manchete. */
 .hero__mote{
-  display:block; margin-top:.55rem; font-size:.84em; color: var(--rosa-escuro);
-  text-wrap:balance;   /* sem isso sobra "cuidado." sozinho na segunda linha */
+  display:block; margin-top:.7rem; font-size:.66em; font-weight:600;
+  color: var(--marinho); letter-spacing:0;
 }
 .hero__acoes{ display:flex; flex-wrap:wrap; gap:.75rem; margin-top:.35rem; }
 
@@ -457,8 +461,8 @@ html{ scroll-behavior:smooth; }
         <img src="img/marca-ayumi-rosa.webp" width="500" height="177"
              alt="Ayumi Rosa" decoding="async" fetchpriority="high">
       </h1>
-      <p class="hero__frase">Cuidar de você é <em>o maior gesto de amor.</em>
-         <span class="hero__mote">Juntos pela prevenção e pelo cuidado.</span></p>
+      <p class="hero__frase">Cuidar de você<br>é o maior gesto de <em>amor.</em>
+         <span class="hero__mote">Juntos pela prevenção<br>e pelo cuidado.</span></p>
       <div class="hero__acoes">
         <a class="btn btn--primario" href="#autoexame">Aprenda o autoexame</a>
         <a class="btn btn--vazado" href="#sinais">Sinais de alerta</a>
