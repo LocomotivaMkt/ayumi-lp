@@ -125,6 +125,9 @@ a{ color: var(--rosa-escuro); }
 .cabecalho-secao{ display:flex; flex-direction:column; gap:.85rem; max-width: 46rem; }
 .cabecalho-secao h2{ font-size: clamp(1.7rem, 3.6vw, 2.6rem); font-stretch: 108%; text-transform: uppercase; letter-spacing:-.01em; }
 .cabecalho-secao p{ color: var(--tinta-suave); max-width: 60ch; }
+/* So os parceiros usam: o titulo fica sozinho na secao e os dois cartoes ja
+   sao centrados, entao alinhar a esquerda deixava o titulo fora de eixo. */
+.cabecalho-secao--centro{ align-items:center; text-align:center; margin-inline:auto; }
 
 /* ---------- botões ---------- */
 .btn{
@@ -216,17 +219,10 @@ a{ color: var(--rosa-escuro); }
 @media (max-width: 900px){ .hero__grade{ grid-template-columns:1fr; } }
 
 .hero__texto{ display:flex; flex-direction:column; gap:1.35rem; position:relative; z-index:2; }
-.marca{ display:flex; flex-direction:column; line-height:.82; }
-.marca__nome{
-  font-family: var(--display); font-weight:900; font-stretch:118%;
-  font-size: clamp(3.4rem, 11vw, 6.6rem); letter-spacing:-.035em;
-  text-transform:uppercase; color: var(--tinta);
-}
-.marca__rosa{
-  font-family: var(--script); font-weight:700; color: var(--rosa);
-  font-size: clamp(3.6rem, 12vw, 7.2rem); line-height:.7;
-  margin-left: .12em; margin-top:-.06em;
-}
+/* A marca da campanha e arte pronta, nao tipografia: o "rosa" manuscrito
+   termina num laco que vira coracao, e isso nao se remonta com fonte. */
+.marca{ margin:0; }
+.marca img{ display:block; width:min(100%, 500px); height:auto; }
 .hero__frase{
   font-family: var(--display); font-weight:600; font-size: clamp(1.2rem, 2.4vw, 1.65rem);
   line-height:1.28; max-width: 22ch; color: var(--tinta);
@@ -238,7 +234,6 @@ a{ color: var(--rosa-escuro); }
   display:block; margin-top:.55rem; font-size:.84em; color: var(--rosa-escuro);
   text-wrap:balance;   /* sem isso sobra "cuidado." sozinho na segunda linha */
 }
-.hero__apoio{ color: var(--tinta-suave); max-width: 48ch; }
 .hero__acoes{ display:flex; flex-wrap:wrap; gap:.75rem; margin-top:.35rem; }
 
 .hero__arte{ position:relative; width:100%; max-width:440px; margin-inline-start:auto; }
@@ -458,17 +453,12 @@ html{ scroll-behavior:smooth; }
   <div class="env hero__grade">
     <div class="hero__texto">
       <p class="rotulo">Outubro Rosa 2026 · Ayumi</p>
-      <div class="marca">
-        <span class="marca__nome">Ayumi</span>
-        <span class="marca__rosa">rosa</span>
-      </div>
+      <h1 class="marca">
+        <img src="img/marca-ayumi-rosa.webp" width="500" height="177"
+             alt="Ayumi Rosa" decoding="async" fetchpriority="high">
+      </h1>
       <p class="hero__frase">Cuidar de você é <em>o maior gesto de amor.</em>
          <span class="hero__mote">Juntos pela prevenção e pelo cuidado.</span></p>
-      <p class="hero__apoio">
-        Durante todo o mês de outubro, a Ayumi se junta a quem trabalha pela prevenção
-        e pelo diagnóstico precoce do câncer de mama. Aqui você aprende o que observar,
-        quando procurar ajuda e como levar essa conversa adiante.
-      </p>
       <div class="hero__acoes">
         <a class="btn btn--primario" href="#autoexame">Aprenda o autoexame</a>
         <a class="btn btn--vazado" href="#sinais">Sinais de alerta</a>
@@ -690,7 +680,7 @@ html{ scroll-behavior:smooth; }
 <!-- ====================== PARCEIROS ====================== -->
 <section class="secao secao--quente" id="parceiros">
   <div class="env">
-    <div class="cabecalho-secao">
+    <div class="cabecalho-secao cabecalho-secao--centro">
       <h2>Parceiros do Ayumi Rosa</h2>
     </div>
 

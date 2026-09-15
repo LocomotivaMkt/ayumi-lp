@@ -12,11 +12,12 @@ de `/srv/sites/ayumi`. Push na `main` **não** publica: o deploy é manual.
 
 ## Imagens
 
-As treze já entraram. Ficam em `img/`, doze em WebP e a capa de
+As catorze já entraram. Ficam em `img/`, treze em WebP e a capa de
 compartilhamento em JPEG.
 
 | Arquivo | Onde entra | Exibido | Origem |
 |---|---|---|---|
+| `marca-ayumi-rosa.webp` | marca da campanha, no hero | 500×177 | arte |
 | `hero-retrato.webp` | retrato do hero | 800×1067 | foto |
 | `campanha-tres-geracoes.webp` | bloco "A campanha" | 900×1125 | foto |
 | `autoexame-1-espelho.webp` | bloco "Comece no espelho" | 720×720 | ilustração |
@@ -59,6 +60,28 @@ ornamento, então vai com `alt=""` e `aria-hidden="true"` — leitor de tela pul
 
 Os originais em alta resolução não estão versionados; ficam em
 `~/Desktop/fotos ayumi/` na máquina de quem montou.
+
+## Marca da campanha
+
+O "AYUMI rosa" do banner era tipografia — Archivo em caixa alta com o "rosa"
+por cima em Caveat. Desde 15/09/2026 é **arte pronta**
+(`img/marca-ayumi-rosa.webp`), enviada pelo dono do projeto: o "rosa"
+manuscrito termina num traço que vira coração, e isso não se remonta com
+fonte nenhuma. É o `<h1>` da página, com `alt="Ayumi Rosa"` — antes a página
+não tinha `<h1>`, só os `<h2>` das seções.
+
+O PNG original já vinha com transparência, mas com os pixels invisíveis em
+preto por baixo. Reduzir direto misturaria esse preto na borda e deixaria
+halo, então a arte foi redesenhada na cor dela (`#e0014a`, que é a do arquivo,
+não o `--rosa` da página) guardando só o canal alfa. O original fica fora do
+repositório, em `~/Downloads/ayumi-rosa.png` na máquina de quem montou.
+
+No mesmo dia saiu o parágrafo de apoio do banner ("Durante todo o mês de
+outubro..."), a pedido do dono: o banner ficou com rótulo, marca, frase e os
+dois botões.
+
+A fonte **Caveat** continua sendo carregada mesmo sem o "rosa" manuscrito —
+ela ainda escreve o "autoexame" do título daquela seção.
 
 ## Logo
 
