@@ -12,7 +12,7 @@ de `/srv/sites/ayumi`. Push na `main` **não** publica: o deploy é manual.
 
 ## Imagens
 
-As quinze já entraram. Ficam em `img/`, catorze em WebP e a capa de
+As treze já entraram. Ficam em `img/`, doze em WebP e a capa de
 compartilhamento em JPEG.
 
 | Arquivo | Onde entra | Exibido | Origem |
@@ -27,10 +27,8 @@ compartilhamento em JPEG.
 | `autoexame-mama-inteira.webp` | região 03 | 720×720 | ilustração |
 | `autoexame-parte-de-cima.webp` | região 04 | 720×720 | ilustração |
 | `laco-outubro-rosa.webp` | ornamento no pé da caixa de texto | 230×160 | line art |
-| `parceiro-femama.webp` | slot de parceiro | 130×40 | logotipo |
-| `parceiro-hospital-de-amor.webp` | slot de parceiro | 194×27 | logotipo |
-| `parceiro-abrale.webp` | slot de parceiro | 133×40 | logotipo |
-| `parceiro-instituto-avon.webp` | slot de parceiro | 109×48 | logotipo |
+| `parceiro-benassi.webp` | slot de parceiro | 197×46 | logotipo |
+| `parceiro-dois-cunhados.webp` | slot de parceiro | 176×52 | logotipo |
 | `cta-maos.webp` | chamada final | 1200×675 | foto |
 | `og-ayumi-rosa.jpg` | capa de compartilhamento | 1200×630 | foto |
 
@@ -85,29 +83,35 @@ escala além disso.
 
 ### Slots de parceiro
 
-Os quatro logotipos entraram em 11/09/2026, enviados pelo dono do projeto:
-FEMAMA, Hospital de Amor, ABRALE e Instituto Avon. **O uso de marca de terceiro
-depende de autorização formal de cada instituição** — isso continua valendo e
-não foi verificado aqui.
+São **dois**, definidos em 14/09/2026: **Benassi | SP** e **Dois Cunhados
+Hortifruti**. Empresas, não instituições de saúde — em 11/09/2026 os slots
+chegaram a receber FEMAMA, Hospital de Amor, ABRALE e Instituto Avon, e o dono
+do projeto trocou os quatro por estes dois. Se aparecer referência a
+instituição parceira em algum texto, é resíduo daquela versão. **O uso de marca
+de terceiro depende de autorização formal de cada empresa** — não foi
+verificado aqui.
 
-Os quatro têm proporções muito diferentes (o do Hospital de Amor é 7:1, o do
-Instituto Avon é 2,3:1), então igualar a altura faria um parecer gigante e o
-outro sumir. O que iguala a fileira é a **área aparente**: cada arquivo foi
-gerado com cerca de 5.200 px² de área de exibição, pela fórmula
-`altura = raiz(5200 / proporção)`. Logo largo sai mais baixo, logo compacto sai
+Os dois vieram em PDF vetorial. Foram rasterizados a 300 dpi com
+`pdftocairo -png -transp`, que preserva o fundo transparente e o antisserrilhado
+do vetor (recortar o branco depois deixaria franja). Os originais ficam fora do
+repositório, em `~/Desktop/` na máquina de quem montou: `LOGO NOVO PDF.pdf` e
+`versão vetores.pdf`. Do segundo saiu a versão principal, a do "teste de
+redução" — preto com `HORTIFRUTI` em verde, que é a de melhor contraste sobre
+o branco do cartão.
+
+Os dois têm proporções diferentes (4,3:1 e 3,4:1), então igualar a altura faria
+um parecer maior que o outro. O que iguala é a **área aparente**: cada arquivo
+foi gerado com cerca de 9.000 px² de área de exibição, pela fórmula
+`altura = raiz(9000 / proporção)`. Logo largo sai mais baixo, logo compacto sai
 mais alto, e o peso visual bate. Os arquivos estão gravados em 2x (o dobro da
 medida de exibição, que é a que está nos atributos `width`/`height` do HTML),
 para ficarem nítidos em tela retina.
 
 Por isso o CSS **não** define altura para `.parceiro img`: quem manda é o
 tamanho intrínseco de cada arquivo. Se substituir um logotipo, refaça a conta
-em vez de esticar no CSS, senão aquele logo desequilibra a fileira. A grade cai
-para duas colunas já em 1000px (e não em 820px, como as outras): abaixo disso o
-cartão fica estreito demais para o logotipo do Hospital de Amor, que encolheria
-e quebraria a equalização.
-
-Os originais recebidos estão em `~/Desktop/TCC-ARRUMADOS/` na máquina de quem
-montou — fora do repositório, como as demais fontes em alta resolução.
+em vez de esticar no CSS, senão aquele logo desequilibra a dupla. A grade são
+duas colunas de no máximo 320px, centralizadas — com dois cartões, `1fr` cada
+deixaria dois retângulos enormes com um logo pequeno no meio.
 
 Em 11/09/2026 a seção passou a fechar a página, depois da chamada final, e
 ficou **só com o título**: saíram o rótulo "Juntos somos mais fortes", o

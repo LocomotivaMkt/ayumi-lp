@@ -367,18 +367,16 @@ a{ color: var(--rosa-escuro); }
 
 /* ---------- parceiros ---------- */
 .parceiros__lista{
-  display:grid; grid-template-columns: repeat(4, 1fr); gap:1rem; margin-top:2.5rem;
+  display:grid; grid-template-columns: repeat(2, minmax(0,320px));
+  justify-content:center; gap:1rem; margin-top:2.5rem;
 }
-@media (max-width: 1000px){ .parceiros__lista{ grid-template-columns: repeat(2,1fr); } }
-/* Precisa vir DEPOIS da regra de 1000px: mesma especificidade, quem vier por
-   ultimo vence. */
 @media (max-width: 560px){
-  .parceiros__lista{ grid-template-columns:1fr; }
+  .parceiros__lista{ grid-template-columns: minmax(0,320px); }
   .parceiro{ min-height:0; }
 }
 .parceiro{
   display:flex; flex-direction:column; align-items:center; justify-content:center;
-  gap:.35rem; text-align:center; min-height:104px; padding:1.1rem .9rem;
+  gap:.35rem; text-align:center; min-height:124px; padding:1.25rem 1rem;
   border:1px solid var(--linha); border-radius:14px;
   background: var(--superficie);
 }
@@ -698,22 +696,12 @@ html{ scroll-behavior:smooth; }
 
     <div class="parceiros__lista">
       <div class="parceiro">
-        <img src="img/parceiro-femama.webp" width="130" height="40"
-             alt="FEMAMA — Federação Brasileira de Instituições Filantrópicas de Apoio à Saúde da Mama"
-             decoding="async" loading="lazy">
+        <img src="img/parceiro-benassi.webp" width="197" height="46"
+             alt="Benassi SP" decoding="async" loading="lazy">
       </div>
       <div class="parceiro">
-        <img src="img/parceiro-hospital-de-amor.webp" width="194" height="27"
-             alt="Hospital de Amor" decoding="async" loading="lazy">
-      </div>
-      <div class="parceiro">
-        <img src="img/parceiro-abrale.webp" width="133" height="40"
-             alt="ABRALE — Associação Brasileira de Linfoma e Leucemia"
-             decoding="async" loading="lazy">
-      </div>
-      <div class="parceiro">
-        <img src="img/parceiro-instituto-avon.webp" width="109" height="48"
-             alt="Instituto Avon" decoding="async" loading="lazy">
+        <img src="img/parceiro-dois-cunhados.webp" width="176" height="52"
+             alt="Dois Cunhados Hortifruti" decoding="async" loading="lazy">
       </div>
     </div>
   </div>
@@ -751,7 +739,6 @@ html{ scroll-behavior:smooth; }
         <ul>
           <li>Unidade Básica de Saúde mais próxima</li>
           <li>Disque Saúde 136</li>
-          <li>Instituições parceiras da campanha</li>
         </ul>
       </div>
     </div>
