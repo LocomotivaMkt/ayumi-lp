@@ -18,7 +18,7 @@ compartilhamento em JPEG.
 | Arquivo | Onde entra | Exibido | Origem |
 |---|---|---|---|
 | `marca-ayumi-rosa.webp` | marca da campanha, no hero | 500×177 | arte |
-| `hero-retrato.webp` | retrato do hero | 800×1067 | foto |
+| `hero-composicao.webp` | figura do banner | 620×413 | foto recortada |
 | `campanha-autocuidado.webp` | bloco "A campanha" | 900×1125 | foto |
 | `autoexame-1-espelho.webp` | bloco "Comece no espelho" | 720×720 | ilustração |
 | `autoexame-2-banho.webp` | região 06 — círculos | 720×720 | ilustração |
@@ -62,14 +62,58 @@ descreveria outra foto. Hoje é `campanha-autocuidado.webp`.
 O **laço** deixou de ser desenho de linha e voltou a ser foto de cetim, mas
 agora recortada: o PNG do cliente vinha com fundo branco e sombra projetada, e
 o laço precisa de fundo transparente porque transborda a caixa e cai sobre o
-rosa da seção. O recorte é por **saturação** (`HSV`, canal S acima de 26), sem
+rosa da seção. O recorte é por **saturação** (`HSV`, canal S acima de 18), sem
 fechamento morfológico: o fundo e a sombra são cinza quase sem saturação e
-saem, e o vão da laçada fica vazado de verdade. Fechar buracos, como tentei
-antes, tapava esse vão e deixava uma mancha clara no meio do laço. É ornamento,
-então vai com `alt=""` e `aria-hidden="true"` — leitor de tela pula.
+saem, e o vão da laçada fica vazado de verdade. Fechar buracos tapa esse vão e
+deixa uma mancha clara no meio do laço.
+
+**O brilho do cetim precisa ser tingido**, e esse é o ponto não óbvio. No alto
+da laçada a fita reflete a luz e fica quase branca na foto — sobre o fundo
+branco do original isso não se nota, mas recortado sobre a caixa o laço parece
+ter um pedaço faltando. O tratamento: dentro da máscara, todo pixel com
+saturação abaixo de 48 e valor acima de 215 recebe a **matiz média do cetim**
+(medida na própria foto) e tem a saturação elevada, preservando a luminosidade.
+São ~67 mil pixels, quase todos na alça de cima. Sem isso, o laço chega no site
+mordido — foi exatamente o que o dono viu em 16/09/2026.
+
+É ornamento, então vai com `alt=""` e `aria-hidden="true"` — leitor de tela
+pula.
 
 Os originais em alta resolução não estão versionados; ficam em
 `~/Desktop/fotos ayumi/` e em `~/Downloads/` na máquina de quem montou.
+
+### Figura do banner
+
+Em 16/09/2026 o cliente pediu, sobre a arte de campanha dele: "aproximar a moça
+do título Ayumi rosa e trazer o laço rosa por trás". O dono do projeto mandou
+uma **imagem única** com a moça e o laço já compostos, recortada, e ela entrou
+no lugar do retrato emoldurado.
+
+O que mudou no layout, e é o que atende o pedido:
+
+- a imagem **não usa a classe `.foto`**, que traz borda arredondada e fundo. É
+  `.hero__figura`, sem moldura, então o gradiente do banner passa por trás da
+  moça e do laço como na arte da campanha;
+- o **vão entre texto e figura caiu** de ~64px para ~20px (o `gap` da grade foi
+  de `clamp(2rem,5vw,4rem)` para `clamp(.75rem,2vw,1.75rem)`) e a coluna da
+  direita ficou um pouco maior — é isso que "aproxima a moça do título";
+- a figura **sangra até a borda da tela** pela direita
+  (`width: calc(100% + var(--gutter))` com margem negativa do mesmo tamanho),
+  para o laço sair do quadro como no banner do cliente. O `.hero` ganhou
+  `overflow:hidden` por causa disso. Em coluna única o sangramento é desfeito,
+  senão ela encosta só na borda direita em vez de ficar centrada;
+- **a figura encosta no topo da seção**, e isso não é decoração: a foto corta o
+  alto da cabeça da moça. Solta no meio do banner, com fundo rosa acima, o
+  corte lê como erro de recorte; encostada no topo, ele vira a borda da página.
+  O `align-self:start` com `margin-top: calc(-1 * var(--hero-respiro))` anula
+  exatamente o respiro superior da grade — as duas coisas usam a mesma
+  variável de propósito, para não descolarem. Em coluna única a figura sobe
+  para antes do texto (`order:-1`) pelo mesmo motivo. **Se a foto do banner for
+  trocada por uma sem corte no topo, esse alinhamento pode voltar ao centro.**
+
+O arquivo é WebP com alpha a q=76: q=84 pesava 167KB e a diferença no rosto,
+ampliada em 2x, não aparece. É a maior imagem da página e o LCP do banner, por
+isso vai sem `loading="lazy"` e com `fetchpriority="high"`.
 
 ## Marca da campanha
 

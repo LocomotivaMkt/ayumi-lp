@@ -210,15 +210,16 @@ a{ color: var(--rosa-escuro); }
 
 /* ---------- hero ---------- */
 .hero{
-  position:relative;
+  position:relative; overflow:hidden;   /* a figura sangra: sem isso viraria rolagem lateral */
   background:
     radial-gradient(120% 90% at 85% 0%, color-mix(in srgb, var(--rosa-claro) 90%, transparent) 0%, transparent 62%),
     linear-gradient(168deg, var(--faixa) 0%, var(--papel) 78%);
   border-bottom:1px solid var(--linha);
 }
 .hero__grade{
-  display:grid; grid-template-columns: 1.05fr .95fr; gap: clamp(2rem,5vw,4rem);
-  align-items:center; padding-block: clamp(2.5rem, 6vw, 5rem);
+  --hero-respiro: clamp(2.5rem, 6vw, 5rem);
+  display:grid; grid-template-columns: 1fr 1.08fr; gap: clamp(.75rem,2vw,1.75rem);
+  align-items:center; padding-block: var(--hero-respiro);
 }
 @media (max-width: 900px){ .hero__grade{ grid-template-columns:1fr; } }
 
@@ -240,10 +241,29 @@ a{ color: var(--rosa-escuro); }
 }
 .hero__acoes{ display:flex; flex-wrap:wrap; gap:.75rem; margin-top:.35rem; }
 
-.hero__arte{ position:relative; width:100%; max-width:440px; margin-inline-start:auto; }
-/* Coluna unica: sem teto, o retrato 3:4 ocupava 796px de largura e ~133vh de
-   altura, empurrando o resto da pagina para fora da primeira tela. */
-@media (max-width: 900px){ .hero__arte{ margin-inline:auto; max-width:380px; } }
+.hero__arte{
+  position:relative; margin-inline-start:auto;
+  /* A foto corta o alto da cabeca. Solta no meio do banner isso lê como erro,
+     entao a figura sobe ate encostar no topo da secao: o corte passa a ser a
+     borda da pagina. A margem negativa anula exatamente o respiro de cima. */
+  align-self:start; margin-top: calc(-1 * var(--hero-respiro));
+  /* sangra ate a borda da tela: e o que da a mesma presenca da arte da
+     campanha, onde a moca e o laco ocupam o lado direito inteiro */
+  width: calc(100% + var(--gutter)); max-width: 720px;
+  margin-inline-end: calc(-1 * var(--gutter));
+}
+/* A figura do banner vem recortada, com o laco ja atras da moca, e entra sem
+   moldura: nada de borda arredondada nem fundo, para o gradiente do hero
+   passar por tras dela como na arte da campanha. */
+.hero__figura{ display:block; width:100%; height:auto; }
+/* Coluna unica: sem teto a figura crescia demais e empurrava o resto da
+   pagina para fora da primeira tela. */
+@media (max-width: 900px){
+  /* em coluna unica o sangramento nao faz sentido: a figura volta a caber na
+     coluna e fica centrada, senao encosta so na borda direita. E ela vai para
+     o alto da secao, pelo mesmo motivo do corte da cabeca. */
+  .hero__arte{ width:100%; max-width:520px; margin-inline:auto; order:-1; }
+}
 
 
 /* ---------- faixa de dados ---------- */
@@ -470,8 +490,8 @@ html{ scroll-behavior:smooth; }
     </div>
 
     <div class="hero__arte">
-      <img class="foto" src="img/hero-retrato.webp" width="800" height="1067"
-             alt="Mulher de camiseta rosa sorrindo, formando um coração com as mãos ao redor de um laço rosa no peito" decoding="async" fetchpriority="high">
+      <img class="hero__figura" src="img/hero-composicao.webp" width="620" height="413"
+             alt="Mulher de camiseta rosa sorrindo, formando um coração com as mãos, ao lado de um grande laço rosa" decoding="async" fetchpriority="high">
     </div>
   </div>
 </section>
@@ -523,7 +543,7 @@ html{ scroll-behavior:smooth; }
           <p style="color:var(--tinta-suave);font-size:.98rem">Homens também podem desenvolver
              câncer de mama. É raro, cerca de 1% dos casos, mas existe e merece a mesma atenção.</p>
           <p class="declaracao__assina">Juntos pela prevenção e pelo cuidado.</p>
-          <img class="declaracao__laco" src="img/laco-outubro-rosa.webp" width="190" height="151"
+          <img class="declaracao__laco" src="img/laco-outubro-rosa.webp" width="190" height="150"
                alt="" aria-hidden="true" decoding="async" loading="lazy">
         </div>
       </div>
