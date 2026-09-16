@@ -109,8 +109,15 @@ O que mudou no layout, e é o que atende o pedido:
   oposto do que o cliente pediu. Solta, ela preenche o vão inteiro entre o
   texto e a borda: em 1920px fica com 985px de largura e o banner sobe para
   ~820px de altura, que é o que faz a moça dominar o quadro;
-- as colunas são `1fr 1.14fr`. Cheguei a apertar mais a do texto (`.92fr`) para
-  a figura crescer, mas aí os dois botões do banner empilhavam em 1180px;
+- as colunas são `1.15fr 1.05fr`. **É a divisão das colunas que controla o
+  tamanho da marca**, não o `max-width` dela: a arte ocupa 100% da coluna de
+  texto, então enquanto a coluna não cresce o `width` não muda nada. Cheguei a
+  apertar a coluna do texto (`.92fr`) para a figura crescer, mas aí os dois
+  botões do banner empilhavam em 1180px; e cheguei a dar ao banner um container
+  próprio, mais largo (`--larg: 1340px`), o que aumentava a marca mas
+  desalinhava o banner das outras seções em 80px — o rótulo do hero começava
+  antes do das demais. Redistribuir as colunas dá o mesmo ganho na marca (+12%)
+  sem quebrar o alinhamento, ao custo de 6% na figura;
 - **a figura encosta no topo da seção**, e isso não é decoração: a foto corta o
   alto da cabeça da moça. Solta no meio do banner, com fundo rosa acima, o
   corte lê como erro de recorte; encostada no topo, ele vira a borda da página.
