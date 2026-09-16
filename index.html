@@ -221,13 +221,20 @@ a{ color: var(--rosa-escuro); }
   display:grid; grid-template-columns: 1.15fr 1.05fr; gap: clamp(.5rem,1.5vw,1.25rem);
   align-items:center; padding-block: var(--hero-respiro);
 }
+/* Em tela grande sobra largura: a coluna do texto puxa mais, e a marca chega
+   perto da moca como na arte da campanha. Abaixo disso a mesma divisao
+   espremia a figura — em 1180px ela caia para 454px de largura, com 323px de
+   faixa vazia embaixo. */
+@media (min-width: 1500px){ .hero__grade{ grid-template-columns: 1.4fr .8fr; } }
 @media (max-width: 900px){ .hero__grade{ grid-template-columns:1fr; } }
 
 .hero__texto{ display:flex; flex-direction:column; gap:1.35rem; position:relative; z-index:2; }
 /* A marca da campanha e arte pronta, nao tipografia: o "rosa" manuscrito
    termina num laco que vira coracao, e isso nao se remonta com fonte. */
 .marca{ margin:0; }
-.marca img{ display:block; width:min(100%, 620px); height:auto; }
+/* sem teto: a marca ocupa a coluna inteira, e o tamanho dela e a divisao
+   das colunas do banner que define */
+.marca img{ display:block; width:100%; height:auto; }
 .hero__frase{
   font-family: var(--display); font-weight:800; font-size: clamp(1.3rem, 6vw, 2.15rem);
   line-height:1.18; letter-spacing:-.015em; color: var(--marinho);

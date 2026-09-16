@@ -109,9 +109,19 @@ O que mudou no layout, e é o que atende o pedido:
   oposto do que o cliente pediu. Solta, ela preenche o vão inteiro entre o
   texto e a borda: em 1920px fica com 985px de largura e o banner sobe para
   ~820px de altura, que é o que faz a moça dominar o quadro;
-- as colunas são `1.15fr 1.05fr`. **É a divisão das colunas que controla o
-  tamanho da marca**, não o `max-width` dela: a arte ocupa 100% da coluna de
-  texto, então enquanto a coluna não cresce o `width` não muda nada. Cheguei a
+- as colunas são `1.15fr 1.05fr`, e **`1.4fr .8fr` acima de 1500px**. **É a
+  divisão das colunas que controla o tamanho da marca**, não o `max-width`
+  dela: a arte ocupa 100% da coluna de texto, então enquanto a coluna não
+  cresce o `width` não muda nada (por isso ela não tem mais teto). Em 1920px a
+  marca sai de 556×197 para 677×240. A divisão maior vale só na tela grande:
+  aplicada em 1180px ela espremia a figura para 454px de largura, com 323px de
+  faixa vazia embaixo.
+
+  **Marca grande e faixa vazia são o mesmo espaço.** Quanto maior a marca, mais
+  alta fica a coluna de texto, e a figura — limitada pela coluna da direita
+  mais o sangramento — não acompanha: em 1920px a faixa embaixo dela foi de 1px
+  para 88px quando a marca cresceu 22%. Não dá para melhorar os dois ao mesmo
+  tempo sem uma foto mais alta ou um banner mais baixo. Cheguei a
   apertar a coluna do texto (`.92fr`) para a figura crescer, mas aí os dois
   botões do banner empilhavam em 1180px; e cheguei a dar ao banner um container
   próprio, mais largo (`--larg: 1340px`), o que aumentava a marca mas
