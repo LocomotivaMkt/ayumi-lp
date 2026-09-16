@@ -117,11 +117,18 @@ O que mudou no layout, e é o que atende o pedido:
   aplicada em 1180px ela espremia a figura para 454px de largura, com 323px de
   faixa vazia embaixo.
 
-  **Marca grande e faixa vazia são o mesmo espaço.** Quanto maior a marca, mais
-  alta fica a coluna de texto, e a figura — limitada pela coluna da direita
-  mais o sangramento — não acompanha: em 1920px a faixa embaixo dela foi de 1px
-  para 88px quando a marca cresceu 22%. Não dá para melhorar os dois ao mesmo
-  tempo sem uma foto mais alta ou um banner mais baixo. Cheguei a
+  **Marca grande e figura grande disputam a mesma largura**, e a saída foi
+  tirar a figura da disputa: acima de 1500px ela avança 130px para a esquerda
+  (`margin-inline-start: -130px` com a largura compensada), passando **por trás
+  da coluna de texto**, que tem `z-index: 2`. Assim a marca fica no tamanho
+  cheio e a moça volta ao tamanho que tinha — em 1920px, 935×704 — e a faixa
+  vazia embaixo dela cai de 88px para 1px.
+
+  O efeito visível disso é que **o traço do coração da marca passa por cima do
+  braço da moça**, numa sobreposição de ~105px. É intencional, não é bug: sem
+  ela, ou a marca encolhe ou a figura encolhe. Essa regra precisa vir **depois**
+  de `.hero__arte` no arquivo — na primeira tentativa ficou antes e a regra base
+  venceu pela ordem, sem efeito nenhum. Cheguei a
   apertar a coluna do texto (`.92fr`) para a figura crescer, mas aí os dois
   botões do banner empilhavam em 1180px; e cheguei a dar ao banner um container
   próprio, mais largo (`--larg: 1340px`), o que aumentava a marca mas

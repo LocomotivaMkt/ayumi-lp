@@ -273,6 +273,14 @@ a{ color: var(--rosa-escuro); }
    moldura: nada de borda arredondada nem fundo, para o gradiente do hero
    passar por tras dela como na arte da campanha. */
 .hero__figura{ display:block; width:100%; height:auto; }
+/* Precisa vir DEPOIS de .hero__arte: mesma especificidade, quem vem por
+   ultimo vence. A coluna da direita sozinha nao devolve o tamanho da moca,
+   porque marca e figura disputam a mesma largura; aqui a figura avanca 130px
+   para a esquerda, por tras da coluna de texto (que tem z-index 2), sem
+   empurrar nada. */
+@media (min-width: 1500px){
+  .hero__arte{ width: calc(100% + var(--sangra) + 130px); margin-inline-start: -130px; }
+}
 /* Coluna unica: sem teto a figura crescia demais e empurrava o resto da
    pagina para fora da primeira tela. */
 @media (max-width: 900px){
