@@ -218,7 +218,7 @@ a{ color: var(--rosa-escuro); }
 }
 .hero__grade{
   --hero-respiro: clamp(2.5rem, 6vw, 5rem);
-  display:grid; grid-template-columns: 1fr 1.08fr; gap: clamp(.75rem,2vw,1.75rem);
+  display:grid; grid-template-columns: 1fr 1.14fr; gap: clamp(.5rem,1.5vw,1.25rem);
   align-items:center; padding-block: var(--hero-respiro);
 }
 @media (max-width: 900px){ .hero__grade{ grid-template-columns:1fr; } }
@@ -247,10 +247,14 @@ a{ color: var(--rosa-escuro); }
      entao a figura sobe ate encostar no topo da secao: o corte passa a ser a
      borda da pagina. A margem negativa anula exatamente o respiro de cima. */
   align-self:start; margin-top: calc(-1 * var(--hero-respiro));
-  /* sangra ate a borda da tela: e o que da a mesma presenca da arte da
-     campanha, onde a moca e o laco ocupam o lado direito inteiro */
-  width: calc(100% + var(--gutter)); max-width: 720px;
-  margin-inline-end: calc(-1 * var(--gutter));
+  /* Sangra ate a borda da JANELA, nao ate a do container: em tela larga o
+     .env para em 1180px e a figura ficava ilhada no meio do rosa, com um vazio
+     enorme embaixo dela. O termo com 100vw devolve o que sobra de cada lado. */
+  --sangra: calc(var(--gutter) + max(0px, (100vw - var(--larg)) / 2));
+  /* sem teto apertado: a figura preenche o vao inteiro entre o texto e a
+     borda, senao em tela larga ela encosta na borda mas fica longe do texto */
+  width: calc(100% + var(--sangra)); max-width: 1100px;
+  margin-inline-end: calc(-1 * var(--sangra));
 }
 /* A figura do banner vem recortada, com o laco ja atras da moca, e entra sem
    moldura: nada de borda arredondada nem fundo, para o gradiente do hero
@@ -490,7 +494,7 @@ html{ scroll-behavior:smooth; }
     </div>
 
     <div class="hero__arte">
-      <img class="hero__figura" src="img/hero-composicao.webp" width="620" height="413"
+      <img class="hero__figura" src="img/hero-composicao.webp" width="830" height="625"
              alt="Mulher de camiseta rosa sorrindo, formando um coração com as mãos, ao lado de um grande laço rosa" decoding="async" fetchpriority="high">
     </div>
   </div>

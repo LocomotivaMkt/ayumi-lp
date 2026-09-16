@@ -97,11 +97,20 @@ O que mudou no layout, e é o que atende o pedido:
 - o **vão entre texto e figura caiu** de ~64px para ~20px (o `gap` da grade foi
   de `clamp(2rem,5vw,4rem)` para `clamp(.75rem,2vw,1.75rem)`) e a coluna da
   direita ficou um pouco maior — é isso que "aproxima a moça do título";
-- a figura **sangra até a borda da tela** pela direita
-  (`width: calc(100% + var(--gutter))` com margem negativa do mesmo tamanho),
-  para o laço sair do quadro como no banner do cliente. O `.hero` ganhou
-  `overflow:hidden` por causa disso. Em coluna única o sangramento é desfeito,
-  senão ela encosta só na borda direita em vez de ficar centrada;
+- a figura **sangra até a borda da janela**, não até a do container. O `.env`
+  para em 1180px: sangrar só o `--gutter` deixava a figura ilhada no meio do
+  rosa em telas largas, com um vazio enorme embaixo dela. A variável `--sangra`
+  soma ao gutter o que sobra de cada lado (`(100vw - var(--larg)) / 2`), então
+  ela encosta na borda em qualquer largura. O `.hero` ganhou `overflow:hidden`
+  por causa disso. Em coluna única o sangramento é desfeito, senão ela encosta
+  só na borda direita em vez de ficar centrada;
+- o **teto de largura é folgado (1100px) de propósito**. Com teto apertado a
+  figura encostava na borda mas ficava a 210px do texto em tela grande — o
+  oposto do que o cliente pediu. Solta, ela preenche o vão inteiro entre o
+  texto e a borda: em 1920px fica com 985px de largura e o banner sobe para
+  ~820px de altura, que é o que faz a moça dominar o quadro;
+- as colunas são `1fr 1.14fr`. Cheguei a apertar mais a do texto (`.92fr`) para
+  a figura crescer, mas aí os dois botões do banner empilhavam em 1180px;
 - **a figura encosta no topo da seção**, e isso não é decoração: a foto corta o
   alto da cabeça da moça. Solta no meio do banner, com fundo rosa acima, o
   corte lê como erro de recorte; encostada no topo, ele vira a borda da página.
@@ -114,6 +123,13 @@ O que mudou no layout, e é o que atende o pedido:
 O arquivo é WebP com alpha a q=76: q=84 pesava 167KB e a diferença no rosto,
 ampliada em 2x, não aparece. É a maior imagem da página e o LCP do banner, por
 isso vai sem `loading="lazy"` e com `fetchpriority="high"`.
+
+As faixas laterais vazias do PNG original foram cortadas (a arte ocupa de 110 a
+1470 dos 1536px). Isso deixa o arquivo em 1360x1024, proporção 1,33 em vez de
+1,50 — mais alto para a mesma largura de coluna, que é o que ajuda a fechar o
+vazio embaixo. **Não há mais resolução disponível**: em telas grandes a figura
+é exibida a ~985px a partir desses 1360, o que em tela retina fica levemente
+suave. Se aparecer uma versão maior da foto, vale trocar.
 
 ## Marca da campanha
 
