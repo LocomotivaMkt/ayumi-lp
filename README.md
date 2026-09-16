@@ -116,7 +116,13 @@ O que mudou no layout, e é o que atende o pedido:
   corte lê como erro de recorte; encostada no topo, ele vira a borda da página.
   O `align-self:start` com `margin-top: calc(-1 * var(--hero-respiro))` anula
   exatamente o respiro superior da grade — as duas coisas usam a mesma
-  variável de propósito, para não descolarem. Em coluna única a figura sobe
+  variável de propósito, para não descolarem. **A margem negativa se repete
+  embaixo** (`margin-bottom`), senão sobra uma faixa vazia entre o pé da figura
+  e a faixa de números: com as duas, quando a figura é maior que o texto ela
+  passa a definir a altura da seção e encosta nas duas bordas. Em 1920px a
+  faixa que sobrava caiu de 81px para 1px. **Em coluna única essa margem de
+  baixo é zerada** — ali ela puxava o texto para cima da figura, sobrepondo o
+  rótulo. Em coluna única a figura sobe
   para antes do texto (`order:-1`) pelo mesmo motivo. **Se a foto do banner for
   trocada por uma sem corte no topo, esse alinhamento pode voltar ao centro.**
 

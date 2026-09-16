@@ -246,7 +246,13 @@ a{ color: var(--rosa-escuro); }
   /* A foto corta o alto da cabeca. Solta no meio do banner isso lê como erro,
      entao a figura sobe ate encostar no topo da secao: o corte passa a ser a
      borda da pagina. A margem negativa anula exatamente o respiro de cima. */
-  align-self:start; margin-top: calc(-1 * var(--hero-respiro));
+  align-self:start;
+  margin-top: calc(-1 * var(--hero-respiro));
+  /* e embaixo tambem: senao sobra uma faixa vazia entre o pe da figura e a
+     faixa de numeros, do tamanho do respiro. Com as duas margens, quando a
+     figura e maior que o texto ela passa a definir a altura da secao e encosta
+     nas duas bordas; o overflow:hidden do .hero apara o que passar. */
+  margin-bottom: calc(-1 * var(--hero-respiro));
   /* Sangra ate a borda da JANELA, nao ate a do container: em tela larga o
      .env para em 1180px e a figura ficava ilhada no meio do rosa, com um vazio
      enorme embaixo dela. O termo com 100vw devolve o que sobra de cada lado. */
@@ -266,7 +272,12 @@ a{ color: var(--rosa-escuro); }
   /* em coluna unica o sangramento nao faz sentido: a figura volta a caber na
      coluna e fica centrada, senao encosta so na borda direita. E ela vai para
      o alto da secao, pelo mesmo motivo do corte da cabeca. */
-  .hero__arte{ width:100%; max-width:520px; margin-inline:auto; order:-1; }
+  .hero__arte{
+    width:100%; max-width:520px; margin-inline:auto; order:-1;
+    /* a margem negativa de baixo so vale nas duas colunas: aqui ela puxava o
+       texto para cima da figura, sobrepondo o rotulo */
+    margin-bottom:0;
+  }
 }
 
 
