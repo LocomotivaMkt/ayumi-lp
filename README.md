@@ -19,7 +19,7 @@ compartilhamento em JPEG.
 |---|---|---|---|
 | `marca-ayumi-rosa.webp` | marca da campanha, no hero | 500×177 | arte |
 | `hero-retrato.webp` | retrato do hero | 800×1067 | foto |
-| `campanha-tres-geracoes.webp` | bloco "A campanha" | 900×1125 | foto |
+| `campanha-autocuidado.webp` | bloco "A campanha" | 900×1125 | foto |
 | `autoexame-1-espelho.webp` | bloco "Comece no espelho" | 720×720 | ilustração |
 | `autoexame-2-banho.webp` | região 06 — círculos | 720×720 | ilustração |
 | `autoexame-3-deitada.webp` | região 05 — deitada | 720×720 | ilustração |
@@ -27,7 +27,7 @@ compartilhamento em JPEG.
 | `autoexame-axila-esquerda.webp` | região 02 | 720×720 | espelho da 01 |
 | `autoexame-mama-inteira.webp` | região 03 | 720×720 | ilustração |
 | `autoexame-parte-de-cima.webp` | região 04 | 720×720 | ilustração |
-| `laco-outubro-rosa.webp` | ornamento no pé da caixa de texto | 230×160 | line art |
+| `laco-outubro-rosa.webp` | ornamento no pé da caixa de texto | 190×151 | foto |
 | `parceiro-benassi.webp` | slot de parceiro | 197×46 | logotipo |
 | `parceiro-dois-cunhados.webp` | slot de parceiro | 176×52 | logotipo |
 | `cta-maos.webp` | chamada final | 1200×675 | foto |
@@ -51,15 +51,25 @@ Os prompts que geraram cada imagem estão em
 autoexame repetem o mesmo parágrafo de estilo de propósito: é isso que faz a
 série sair coerente mesmo gerada em sessões separadas.
 
-O laço de `laco-outubro-rosa.webp` entrou em 11/09/2026 no lugar da foto do
-laço de cetim, que saiu da página. Veio como PNG com o fundo já recortado, e o
-recorte automático deixava halo cinza na borda do traço: o arquivo final é o
-traço redesenhado na cor `--rosa` (`#e12c77`) guardando **só o canal alfa do
-original**, que é o que faz a borda ficar limpa sobre o branco da caixa. É
-ornamento, então vai com `alt=""` e `aria-hidden="true"` — leitor de tela pula.
+Em 16/09/2026 o dono trocou **três imagens de uma vez**, todas vindas de um
+envio do cliente (`~/Downloads/wetransfer_shutterstock_2528042123-1-eps_…/`,
+fora do repositório): o retrato do hero, a foto do bloco "A campanha" e o laço.
+
+O arquivo do bloco "A campanha" mudou de nome junto — era
+`campanha-tres-geracoes.webp`, com três mulheres de idades diferentes, e o nome
+descreveria outra foto. Hoje é `campanha-autocuidado.webp`.
+
+O **laço** deixou de ser desenho de linha e voltou a ser foto de cetim, mas
+agora recortada: o PNG do cliente vinha com fundo branco e sombra projetada, e
+o laço precisa de fundo transparente porque transborda a caixa e cai sobre o
+rosa da seção. O recorte é por **saturação** (`HSV`, canal S acima de 26), sem
+fechamento morfológico: o fundo e a sombra são cinza quase sem saturação e
+saem, e o vão da laçada fica vazado de verdade. Fechar buracos, como tentei
+antes, tapava esse vão e deixava uma mancha clara no meio do laço. É ornamento,
+então vai com `alt=""` e `aria-hidden="true"` — leitor de tela pula.
 
 Os originais em alta resolução não estão versionados; ficam em
-`~/Desktop/fotos ayumi/` na máquina de quem montou.
+`~/Desktop/fotos ayumi/` e em `~/Downloads/` na máquina de quem montou.
 
 ## Marca da campanha
 
