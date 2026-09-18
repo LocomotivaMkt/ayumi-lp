@@ -10,6 +10,50 @@ Para ver localmente, abra o `index.html` no navegador.
 `X-Robots-Tag: noindex`. Servido como estático pelo Caddy no Droplet, a partir
 de `/srv/sites/ayumi`. Push na `main` **não** publica: o deploy é manual.
 
+## Domínio
+
+O definitivo é **ayumirosa.com.br**, registrado no Registro.br em 08/09/2026 em
+nome de Ayumi Supermercados (CNPJ 67.616.128/0013-99), com vencimento em
+08/09/2027. A zona é servida pelo DNS do próprio Registro.br
+(`a.auto.dns.br` / `b.auto.dns.br`) e **o DNSSEC está ligado**.
+
+Esse DNSSEC é a parte delicada. Enquanto os nameservers forem os do
+Registro.br, ele se assina sozinho e não dá trabalho. Mas apontar os
+nameservers para outro lugar (Cloudflare, Wix, cPanel) **sem antes desligar o
+DNSSEC no painel** derruba o domínio inteiro: o resolvedor recebe assinatura que
+não confere e responde SERVFAIL, o que não é "site fora do ar", é o domínio
+sumindo da internet — e-mail junto. Por isso a ligação foi feita só com registro
+A dentro da zona que já existe, sem trocar nameserver.
+
+Os registros pedidos à agência que administra o domínio:
+
+| Tipo | Nome | Valor |
+|---|---|---|
+| A | `@` (ou vazio) | `159.65.47.58` |
+| A | `www` | `159.65.47.58` |
+
+Não há IPv6 nesta ligação: o Droplet tem endereço v6, mas nenhum dos outros
+domínios do servidor publica AAAA, e misturar os dois só neste criaria um
+caminho que não é exercitado em lugar nenhum.
+
+A zona hoje tem `MX 0 .` e `TXT "v=spf1 -all"` — são os padrões que o
+Registro.br cria para domínio **sem e-mail**, e juntos significam "este domínio
+não recebe e não envia mensagem". Estão certos enquanto ninguém quiser
+`algo@ayumirosa.com.br`; se um dia quiser, os dois precisam sair, e aí o SPF
+tem de ser reescrito, não apenas apagado.
+
+No servidor, `ayumirosa.com.br` e `www` entram no mesmo bloco estático de
+`/srv/sites/ayumi`, com o `www` redirecionando para o domínio sem prefixo. O
+`ayumi.locomotiva.art.br` e o endereço `sslip.io` continuam respondendo de
+propósito: são a rede de segurança se a zona do Registro.br for mexida.
+
+**O `noindex` continua de pé também no domínio novo.** Ligar o domínio e abrir
+a página para o Google são duas decisões diferentes — a segunda depende das
+pendências lá embaixo, principalmente a autorização de uso das marcas dos
+parceiros. Quando for a hora, o `noindex` sai de três lugares no mesmo passo: o
+header do vhost, a `<meta name="robots">` do `index.html`, e as
+`og:url`/`og:image`, que ainda apontam para o endereço provisório.
+
 ## Imagens
 
 As catorze já entraram. Ficam em `img/`, treze em WebP e a capa de
@@ -286,7 +330,8 @@ Os prompts de todas estão em [`docs/prompts-imagens.md`](docs/prompts-imagens.m
 - [ ] **Reconferir os números do INCA** na faixa de dados (73.610 / +95% / 1 em 12)
 - [ ] Confirmar autorização de uso das marcas dos parceiros
 - [ ] Definir o destino real dos CTAs (hoje são âncoras internas)
-- [ ] Só então remover o `noindex` do vhost
+- [ ] Apontar `og:url` e `og:image` para `https://ayumirosa.com.br/`
+- [ ] Só então remover o `noindex` — do vhost **e** da `<meta name="robots">`
 
 ## Tema
 
