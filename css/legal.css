@@ -1,0 +1,166 @@
+/* ============================================================
+   PAGINAS LEGAIS — Privacidade e Termos de Uso.
+   Folha propria, e nao uma copia do CSS do index: a landing tem grade de
+   banner, faixa de numeros e seis ilustracoes; aqui e uma coluna de texto. O
+   que as duas precisam dividir sao os TOKENS, e eles estao repetidos abaixo
+   com os mesmos valores do index.html. Se a paleta mudar la, muda aqui.
+
+   Pagina legal e parte do site: mesma marca, mesmo rodape, mesma tipografia —
+   e indexavel. O `noindex` desta campanha esta no vhost e vale para tudo
+   enquanto a pagina nao for liberada; quando sair, sai para estas tambem.
+   ============================================================ */
+
+:root{
+  color-scheme: light;
+
+  --papel:        #FFF8FA;
+  --superficie:   #FFFFFF;
+  --profundo:     #4A1030;
+
+  --tinta:        #3A1B2A;
+  --tinta-suave:  #7A5866;
+
+  --rosa:         #E02472;   /* o mesmo rosa corrigido do index */
+  --rosa-escuro:  #A81355;
+  --rosa-medio:   #F587B4;
+  --rosa-claro:   #FBD9E6;
+
+  --linha:        #F0D5DF;
+  --linha-forte:  #E3B7C8;
+
+  --display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --corpo: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
+
+  --larg: 880px;
+  --gutter: clamp(1.25rem, 4vw, 3rem);
+}
+
+*{ box-sizing:border-box; margin:0; }
+
+body{
+  background: var(--papel); color: var(--tinta);
+  font-family: var(--corpo); font-size:1rem; line-height:1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+.env{ width:min(var(--larg), 100% - var(--gutter)*2); margin-inline:auto; }
+
+:focus-visible{ outline:3px solid var(--rosa); outline-offset:3px; }
+
+.pular{
+  position:absolute; left:.75rem; top:-4rem; z-index:100;
+  background: var(--rosa); color:#fff; text-decoration:none;
+  font-family: var(--display); font-weight:700; font-size:.85rem;
+  letter-spacing:.04em; text-transform:uppercase;
+  padding:.8rem 1.3rem; border-radius:0 0 12px 12px;
+  transition: top .18s ease;
+}
+.pular:focus{ top:0; }
+main:focus{ outline:none; }
+
+/* ---------- topo ---------- */
+.topo{
+  background: var(--superficie); border-bottom:1px solid var(--linha);
+  position:sticky; top:0; z-index:40;
+}
+.topo__grade{
+  display:flex; align-items:center; justify-content:space-between;
+  gap:1.5rem; padding-block:1rem;
+}
+.logo-topo{ display:block; width:auto; height:38px; }
+.topo__voltar{
+  font-family: var(--display); font-weight:700; font-size:.78rem;
+  letter-spacing:.1em; text-transform:uppercase;
+  color: var(--rosa-escuro); text-decoration:none;
+  border-bottom:2px solid transparent; padding-bottom:2px;
+}
+.topo__voltar:hover{ border-bottom-color: var(--rosa); }
+
+/* ---------- cabecalho do documento ---------- */
+.capa{ padding-block: clamp(2.5rem,6vw,4rem) clamp(1.5rem,3vw,2rem); }
+.rotulo{
+  font-family: var(--display); font-size:.72rem; font-weight:700;
+  letter-spacing:.16em; text-transform:uppercase; color: var(--rosa-escuro);
+}
+.capa h1{
+  font-family: var(--display); font-weight:800; font-stretch:108%;
+  font-size: clamp(1.9rem, 5vw, 2.9rem); line-height:1.05;
+  text-transform:uppercase; letter-spacing:-.01em; margin-top:.6rem;
+}
+.capa__data{ color: var(--tinta-suave); font-size:.9rem; margin-top:1rem; }
+
+/* ---------- texto ---------- */
+.doc{ padding-bottom: clamp(3rem,7vw,5rem); }
+.doc h2{
+  font-family: var(--display); font-weight:800; font-stretch:104%;
+  font-size: clamp(1.15rem,2.6vw,1.45rem); line-height:1.2;
+  text-transform:uppercase; letter-spacing:.01em;
+  margin-top: clamp(2.25rem,5vw,3rem); padding-top:1.5rem;
+  border-top:1px solid var(--linha);
+}
+.doc h3{
+  font-family: var(--display); font-weight:700; font-size:1rem;
+  letter-spacing:.04em; text-transform:uppercase; margin-top:1.75rem;
+}
+.doc p, .doc li{ margin-top:.9rem; max-width:72ch; }
+.doc ul, .doc ol{ padding-left:1.35rem; }
+.doc li{ margin-top:.55rem; }
+.doc a{ color: var(--rosa-escuro); text-underline-offset:.2em; }
+.doc a:hover{ color: var(--tinta); }
+.doc strong{ font-weight:600; }
+
+/* Caixa de destaque: o que o visitante precisa ler mesmo se nao ler o resto. */
+.nota{
+  background: var(--rosa-claro); border-left:4px solid var(--rosa);
+  border-radius:0 12px 12px 0; padding: clamp(1.1rem,2.5vw,1.5rem);
+  margin-top:1.75rem;
+}
+.nota p{ margin-top:0; }
+.nota p + p{ margin-top:.8rem; }
+
+/* Tabela do inventario. Vira lista de cartoes no celular porque tabela de
+   cinco colunas em 375px nao se le — ela rola para o lado e o titular
+   desiste. */
+.tabela{ margin-top:1.5rem; border:1px solid var(--linha); border-radius:14px; overflow:hidden; }
+.tabela table{ width:100%; border-collapse:collapse; font-size:.9rem; }
+.tabela th, .tabela td{ padding:.85rem 1rem; text-align:left; vertical-align:top; border-bottom:1px solid var(--linha); }
+.tabela th{
+  background: var(--rosa-claro); font-family: var(--display);
+  font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; font-weight:700;
+}
+.tabela tr:last-child td{ border-bottom:0; }
+@media (max-width: 760px){
+  .tabela table, .tabela tbody, .tabela tr, .tabela td{ display:block; width:100%; }
+  .tabela thead{ display:none; }
+  .tabela tr{ border-bottom:1px solid var(--linha-forte); padding:.5rem 0; }
+  .tabela tr:last-child{ border-bottom:0; }
+  .tabela td{ border-bottom:0; padding:.35rem 1rem; }
+  .tabela td::before{
+    content: attr(data-col); display:block;
+    font-family: var(--display); font-size:.68rem; letter-spacing:.1em;
+    text-transform:uppercase; font-weight:700; color: var(--rosa-escuro);
+    margin-bottom:.15rem;
+  }
+}
+
+/* ---------- rodape ---------- */
+.rodape{ background: var(--profundo); color: rgba(255,240,246,.78); }
+.rodape__grade{ display:flex; flex-wrap:wrap; gap:2rem 3rem; padding-block: clamp(2.5rem,5vw,3.5rem); }
+.logo-rodape{ display:block; width:auto; height:42px; }
+.rodape h2{
+  font-size:.75rem; letter-spacing:.16em; text-transform:uppercase;
+  color: var(--rosa-medio); margin-bottom:.9rem; font-weight:700;
+  font-family: var(--display);
+}
+.rodape ul{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:.5rem; font-size:.9rem; }
+.rodape a{ color: rgba(255,240,246,.78); }
+.rodape a:hover{ color:#fff; }
+.rodape__id{ font-size:.82rem; line-height:1.65; color: rgba(255,240,246,.66); max-width:38ch; margin-top:1.25rem; }
+.rodape__base{
+  border-top:1px solid rgba(255,255,255,.14); padding-block:1.5rem;
+  font-size:.78rem; color: rgba(255,240,246,.55);
+}
+
+@media (prefers-reduced-motion: reduce){
+  *{ transition-duration:.01ms !important; animation-duration:.01ms !important; }
+}

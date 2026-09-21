@@ -1,0 +1,37 @@
+/* ============================================================
+   FONTES — servidas pelo proprio dominio, nao pelo Google.
+   Antes a pagina puxava o CSS de fonts.googleapis.com, o que mandava o IP
+   de cada visitante para um servidor nos EUA sem nenhuma contrapartida:
+   transferencia internacional de dado pessoal a declarar na politica, por
+   causa de fonte. Com os arquivos aqui, a pagina nao fala com ninguem de
+   fora e some tambem o CSS bloqueante em outra origem.
+
+   As tres sao variaveis (um arquivo cobre todos os pesos) e estao sob a
+   SIL Open Font License 1.1, que permite hospedar. Ver fontes/LEIA-ME.md.
+   ============================================================ */
+
+@font-face{
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 400 900;      /* usados: 700 e 800 */
+  font-stretch: 75% 125%;    /* usados: 104%, 108% e 110% */
+  font-display: swap;
+  src: url('../fontes/archivo.woff2') format('woff2-variations');
+}
+
+@font-face{
+  font-family: 'Instrument Sans';
+  font-style: normal;
+  font-weight: 400 700;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url('../fontes/instrument-sans.woff2') format('woff2-variations');
+}
+
+@font-face{
+  font-family: 'Caveat';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('../fontes/caveat.woff2') format('woff2-variations');
+}

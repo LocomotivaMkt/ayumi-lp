@@ -2,9 +2,13 @@
 
 Landing page da campanha de Outubro Rosa da Ayumi, construída a partir do
 protótipo interno. Sem build e sem dependência instalada: `index.html` carrega
-HTML, CSS e JS inline, e as imagens saem de `img/`.
+HTML e CSS inline (não há JavaScript), as imagens saem de `img/` e as fontes de
+`fontes/`. As duas páginas legais — `privacidade/` e `termos/` — dividem a
+folha `css/legal.css`, e todas as três carregam `css/fontes.css`.
 
-Para ver localmente, abra o `index.html` no navegador.
+Para ver localmente, sirva a pasta (`python3 -m http.server`) em vez de abrir o
+`index.html` direto: com `file://`, os caminhos relativos das páginas legais e
+das fontes não resolvem.
 
 **No ar (provisório):** https://ayumi.locomotiva.art.br — sem senha, mas com
 `X-Robots-Tag: noindex`. Servido como estático pelo Caddy no Droplet, a partir
@@ -50,9 +54,14 @@ propósito: são a rede de segurança se a zona do Registro.br for mexida.
 **O `noindex` continua de pé também no domínio novo.** Ligar o domínio e abrir
 a página para o Google são duas decisões diferentes — a segunda depende das
 pendências lá embaixo, principalmente a autorização de uso das marcas dos
-parceiros. Quando for a hora, o `noindex` sai de três lugares no mesmo passo: o
-header do vhost, a `<meta name="robots">` do `index.html`, e as
-`og:url`/`og:image`, que ainda apontam para o endereço provisório.
+parceiros. Quando for a hora, o `noindex` sai de **cinco** lugares no mesmo
+passo: os dois `header X-Robots-Tag` do vhost e as três
+`<meta name="robots">` — `index.html`, `privacidade/index.html` e
+`termos/index.html`. Página legal precisa ser encontrável; se o `noindex` cair
+só na home, os documentos ficam invisíveis para quem procurar.
+
+As `og:url` e `og:image` já apontam para `https://ayumirosa.com.br/` desde
+21/09/2026.
 
 ## Imagens
 
@@ -324,14 +333,23 @@ Os prompts de todas estão em [`docs/prompts-imagens.md`](docs/prompts-imagens.m
 
 ## Pendências antes de publicar
 
-- [ ] Inserir os logos dos parceiros
-- [ ] Confirmar o domínio oficial para onde a logo aponta
+- [x] Inserir os logos dos parceiros
+- [x] Confirmar o domínio oficial para onde a logo aponta
 - [ ] Trocar a logo por SVG, se houver
-- [ ] **Reconferir os números do INCA** na faixa de dados (73.610 / +95% / 1 em 12)
+- [x] **Reconferir os números do INCA** — feito em 21/09/2026: 73.610 era do
+      triênio 2023-2025 e virou **78.610** (Estimativa 2026-2028, publicada em
+      04/02/2026); `+95%` virou `até 95%`, que é o que a fonte diz; e o
+      `1 em 12` saiu por não ter fonte — o INCA publica taxa por 100 mil, não
+      "1 em X". Detalhe em `docs/compliance-2026-09-21.md`
 - [ ] Confirmar autorização de uso das marcas dos parceiros
 - [ ] Definir o destino real dos CTAs (hoje são âncoras internas)
-- [ ] Apontar `og:url` e `og:image` para `https://ayumirosa.com.br/`
-- [ ] Só então remover o `noindex` — do vhost **e** da `<meta name="robots">`
+- [x] Apontar `og:url` e `og:image` para `https://ayumirosa.com.br/`
+- [ ] **Indicar o encarregado (DPO)** e confirmar que `online@ayumi.com.br` é o
+      canal certo para pedidos de titular desta campanha
+- [ ] **Repor SPF, MX nulo e DMARC** na zona do domínio (pedido para a agência
+      que administra o DNS — os três sumiram quando a zona foi recriada)
+- [ ] Aplicar `infra/ayumi.caddy` no Droplet (passo root, receita no relatório)
+- [ ] Só então remover o `noindex` — dos **cinco** lugares
 
 ## Tema
 
@@ -368,6 +386,13 @@ eles quando as ilustrações entraram.
 `og:image` aponta para `og-ayumi-rosa.jpg` — JPEG de propósito: WhatsApp e
 Facebook não geram prévia com WebP.
 
+As fontes **não** vêm mais do Google. Em 21/09/2026 as três famílias passaram
+para `fontes/`, servidas por este mesmo domínio: o CSS de
+`fonts.googleapis.com` mandava o IP de cada visitante para os Estados Unidos, o
+que é tratamento de dado pessoal e transferência internacional por causa de
+tipografia. Procedência e licença em `fontes/LEIA-ME.md`. Hoje a página não faz
+nenhuma requisição a terceiro — conferido no navegador.
+
 ## Conteúdo de saúde
 
 A campanha é **exclusivamente de conscientização**. Em 11/09/2026 saiu a seção
@@ -390,3 +415,41 @@ mamografia** (na seção do autoexame), a orientação de procurar avaliação
 profissional diante de qualquer sinal (na abertura da seção de sinais) e o
 disclaimer de conteúdo informativo no rodapé. Esses três trechos não devem ser
 removidos em ajustes de copy.
+
+## Páginas legais e privacidade
+
+`privacidade/` e `termos/` entraram em 21/09/2026. A revisão inteira, com o que
+foi corrigido e o que ficou pendente, está em `docs/compliance-2026-09-21.md`.
+
+O ponto que manda em qualquer edição futura: **esta página não coleta nada**.
+Sem formulário, sem JavaScript, sem cookie, sem `localStorage`, sem analytics,
+sem pixel, sem mapa, sem chat, sem fonte de terceiro. O único tratamento de
+dado pessoal é o registro de acesso do Caddy, que guarda IP e user-agent por 6
+meses — e é isso, e só isso, que a política descreve.
+
+Por isso **não há aviso de cookies**, e não deve haver: a regra da ANPD pede
+banner quando existe cookie não-necessário. Aqui não existe cookie nenhum, e um
+banner seria enfeite.
+
+Se um dia entrar qualquer coisa que colete algo — um formulário, uma medição de
+audiência, um botão de WhatsApp, um vídeo incorporado —, a política deixa de
+ser verdadeira no mesmo instante. Nesse caso, atualize as duas páginas e a data
+no topo delas **antes** de publicar, não depois.
+
+O controlador identificado no rodapé é a **matriz**, CNPJ 67.616.128/0001-55.
+Existem dois outros CNPJs da mesma empresa circulando (a filial 0003-17 no
+rodapé de `ayumi.com.br` e a 0013-99 que registrou o domínio); a escolha está
+justificada no relatório.
+
+## Cabeçalhos e vhost
+
+`infra/ayumi.caddy` é o vhost novo, com cabeçalhos de segurança e prazo de
+guarda no log. Ele **não** importa o snippet `(seguranca)` da auditoria de
+02/09/2026, porque esse snippet ainda não está no `Caddyfile` do servidor —
+importar snippet inexistente faz o Caddy recusar a configuração inteira e
+derruba os nove sites do Droplet. Quando a Fase 1 da auditoria for aplicada,
+o bloco local vira `import seguranca` mais a CSP, que é específica desta página.
+
+A CSP aqui é `default-src 'none'`, mais fechada que o padrão da casa, e pode
+ser: a página não tem uma linha de JavaScript. Se um script entrar um dia, ele
+quebra na CSP primeiro — e é esse o objetivo.

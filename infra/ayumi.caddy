@@ -1,0 +1,105 @@
+# Ayumi Rosa — landing de Outubro Rosa. Repo: LocomotivaMkt/ayumi-lp
+# ESTATICO puro: um index.html, sem Node e sem porta. Nao usa (spa) porque nao
+# ha roteador de cliente — file_server resolve, e 404 de arquivo faltando fica
+# sendo 404 de verdade.
+#
+# ayumi.locomotiva.art.br entrou em 09/09/2026, depois do registro A criado na
+# Wix (o dominio esta la, nao no Registro.br). O endereco sslip.io fica ao lado
+# como rede de seguranca: ele resolve pelo proprio nome, entao continua de pe
+# se a zona da Wix for mexida.
+#
+# NAO usa (staging): a senha foi retirada a pedido do dono em 09/09/2026, para
+# o cliente abrir sem atrito. O noindex do snippet foi reescrito abaixo a mao,
+# DE PROPOSITO — sem senha, ele e a unica coisa impedindo o Google de indexar
+# uma pagina com logo de parceiro ainda sem autorizacao de uso. So tirar quando
+# a pagina for final.
+
+# ------------------------------------------------------------------------------
+# (ayumi-seguranca) — cabecalhos de seguranca, escritos aqui e nao importados.
+#
+# O snippet (seguranca) da auditoria de 02/09/2026 ainda NAO esta no Caddyfile
+# do servidor; importar um snippet que nao existe faz o Caddy recusar a config
+# inteira e derruba os 9 sites. Quando a Fase 1 da auditoria for aplicada, este
+# bloco vira `import seguranca` mais a CSP, que e especifica desta pagina.
+#
+# A CSP aqui e muito mais fechada que a do snippet da casa, e pode ser: esta
+# pagina nao tem UMA linha de JavaScript. `default-src 'none'` bloqueia tudo que
+# nao esta listado — script, fetch, iframe, objeto, midia. Se um dia entrar um
+# script, ele vai quebrar aqui primeiro, e e esse o objetivo.
+#
+# 'unsafe-inline' em style-src e inevitavel: o CSS da landing mora dentro de um
+# <style> no index.html. Em script-src isso seria teatro; em style-src o risco e
+# de outra ordem, e o script esta em 'none'.
+#
+# HSTS sem includeSubDomains, seguindo a casa: ayumirosa.com.br e do cliente e
+# nao se sabe o que ele vai querer pendurar em subdominio.
+# ------------------------------------------------------------------------------
+(ayumi-seguranca) {
+	header {
+		Strict-Transport-Security "max-age=31536000"
+		X-Content-Type-Options "nosniff"
+		X-Frame-Options "DENY"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		Permissions-Policy "accelerometer=(), camera=(), display-capture=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()"
+		Content-Security-Policy "default-src 'none'; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'"
+		-Server
+		-X-Powered-By
+		defer
+	}
+}
+
+# ------------------------------------------------------------------------------
+# (ayumi-log) — registro de acesso com prazo, nao "para sempre".
+#
+# O log guarda IP e user-agent: e tratamento de dado pessoal, e a politica de
+# privacidade da pagina promete 6 meses. Sem `roll_keep_for` o arquivo ficava
+# crescendo no default do Caddy e a promessa seria falsa.
+#   4320h = 180 dias = os 6 meses do art. 15 do Marco Civil da Internet.
+#   roll_size/roll_keep dao folga: ~12 MB/mes de trafego cabem com sobra.
+# ------------------------------------------------------------------------------
+(ayumi-log) {
+	log {
+		output file /srv/logs/ayumi.log {
+			roll_size 20MiB
+			roll_keep 20
+			roll_keep_for 4320h
+		}
+	}
+}
+
+ayumi.159-65-47-58.sslip.io, ayumi.locomotiva.art.br {
+	header X-Robots-Tag "noindex, nofollow, noarchive"
+	import ayumi-seguranca
+	encode gzip zstd
+
+	root * /srv/sites/ayumi
+	file_server
+
+	import ayumi-log
+}
+
+# Dominio definitivo, ligado em 18/09/2026. Registrado no Registro.br em nome de
+# Ayumi Supermercados, servido pelo DNS do proprio Registro.br com DNSSEC LIGADO.
+# Por isso a ligacao foi feita so com registro A dentro da zona de la: trocar de
+# nameserver sem desligar o DNSSEC antes derruba o dominio inteiro, nao so o site.
+#
+# O noindex segue aqui DE PROPOSITO, pelo mesmo motivo do bloco de cima. Quando
+# a pagina for liberada, tirar dos TRES lugares no mesmo passo:
+#   1. este header
+#   2. o <meta name="robots"> do index.html, do privacidade/ e do termos/
+#   3. og:url e og:image — ja apontam para ayumirosa.com.br desde 21/09/2026
+ayumirosa.com.br {
+	header X-Robots-Tag "noindex, nofollow, noarchive"
+	import ayumi-seguranca
+	encode gzip zstd
+
+	root * /srv/sites/ayumi
+	file_server
+
+	import ayumi-log
+}
+
+www.ayumirosa.com.br {
+	import ayumi-seguranca
+	redir https://ayumirosa.com.br{uri} permanent
+}
