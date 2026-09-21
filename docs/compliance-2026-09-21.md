@@ -243,11 +243,17 @@ Continua aberta, como já estava: Benassi | SP e Dois Cunhados Hortifruti
 aparecem na seção de parceiros e a autorização de uso de marca não foi
 verificada. É uma das duas razões pelas quais o `noindex` existe.
 
-### 4.5 O passo root no Droplet
+### 4.5 ~~O passo root no Droplet~~ — **aplicado em 21/09/2026**
 
-`/etc/caddy/sites/ayumi.caddy` é `root:root 644` e o usuário `deploy` não pode
-escrevê-lo. O arquivo novo já está no servidor, em
-`/home/deploy/ayumi.caddy.novo`, validado. O passo root está na seção 6.
+Feito pelo console web da DigitalOcean. Vale registrar o que se aprendeu:
+a chave deste Mac (`~/.ssh/deploy_locomotiva`) abre **só o usuário `deploy`** —
+`root@159.65.47.58` responde `Permission denied (publickey)` —, e o `sudo` do
+`deploy` permite apenas `systemctl restart site-*`, `systemctl reload caddy` e
+`systemctl is-active site-*`. Nenhum deles escreve arquivo, então vhost novo
+neste Droplet **sempre** vai precisar de console web, até que alguém decida
+autorizar a chave no root ou criar uma regra `sudo` para instalar vhost.
+
+O backup do vhost antigo ficou em `/etc/caddy/sites/ayumi.caddy.bak-*`.
 
 ### 4.6 Imagens geradas por computador
 
@@ -310,6 +316,50 @@ curl -sS https://ayumirosa.com.br/ | grep -c "78.610"      # tem de ser 1
 
 Deploy não se confirma pelo merge: só está no ar quando a URL pública devolve o
 conteúdo novo.
+
+---
+
+## 8. Verificação final — 21/09/2026, tudo no ar
+
+**Conteúdo** (`rsync` para `/srv/sites/ayumi`, merge e push na `main`):
+
+- `/`, `/privacidade/` e `/termos/` em 200, inclusive seguindo o 301 do `www`;
+- faixa de números com `78.610`, `até 95%` e `71,57`; os antigos e a nota
+  interna não estão mais no HTML servido;
+- rodapé com `Ayumi Supermercados Ltda.` e o CNPJ da matriz.
+
+**Vhost** (console web, `caddy validate` aprovou antes do reload):
+
+Os sete cabeçalhos respondem em **todas** as rotas testadas — home, as duas
+páginas legais, uma imagem e um arquivo de fonte — e também no endereço
+provisório. Conferido com `GET` e dump de cabeçalhos, nunca com `HEAD`.
+
+A configuração em execução confirma o prazo do log:
+
+```json
+{ "filename": "/srv/logs/ayumi.log", "roll_size_mb": 20,
+  "roll_keep": 20, "roll_keep_days": 180 }
+```
+
+São os 6 meses que a política promete, agora escritos na máquina.
+
+**Navegador** (Chromium, as três páginas, rolando a página inteira):
+
+| | home | privacidade | termos |
+|---|---|---|---|
+| Erros de console | 0 | 0 | 0 |
+| Violações de CSP | 0 | 0 | 0 |
+| Requisições que falharam | 0 | 0 | 0 |
+| Requisições a terceiros | 0 | 0 | 0 |
+| Imagens quebradas | 0 de 16 | 0 de 2 | 0 de 2 |
+| Cookies | nenhum | nenhum | nenhum |
+
+A CSP `default-src 'none'` não quebrou nada — era o risco real desta entrega, e
+foi por isso que a validação veio antes do reload.
+
+Detalhe que confirma o desenho: nas páginas legais o navegador carrega Archivo
+e Instrument Sans e **não** baixa a Caveat (73 KB), porque elas não usam a
+fonte manuscrita. Na home, as três.
 
 ---
 
